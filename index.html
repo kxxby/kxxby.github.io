@@ -1,25 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Curses & Blessings — Ability Index</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
 <style>
-.ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 8px 0; }
-.ab-section { border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 12px 14px; }
-.ab-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--color-text-primary); }
-.ab-title span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); margin-left: 6px; }
-.ab-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); cursor: pointer; border-radius: 4px; }
-.ab-row:last-child { border-bottom: none; }
-.ab-row:hover { background: var(--color-background-secondary); }
-.ab-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); min-width: 140px; }
-.ab-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
-.ab-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; white-space: nowrap; align-self: flex-start; margin-top: 1px; }
-.tag-self   { background: #E6F1FB; color: #185FA5; }
-.tag-aoe    { background: #FCEBEB; color: #A32D2D; }
-.tag-target { background: #FAEEDA; color: #854F0B; }
-.tag-beam   { background: #EEEDFE; color: #534AB7; }
-.tag-pass   { background: #EAF3DE; color: #3B6D11; }
-.stat-chips { display: flex; gap: 4px; margin-top: 2px; }
-.chip { font-size: 10px; padding: 0px 5px; border-radius: 8px; background: var(--color-background-secondary); color: var(--color-text-secondary); }
+  /* ── Root tokens ─────────────────────────────────────────── */
+  :root {
+    --bg-base:        #0d0f14;
+    --bg-card:        #13161e;
+    --bg-row-hover:   #1a1e2a;
+    --border-subtle:  rgba(255,255,255,0.07);
+    --border-card:    rgba(255,255,255,0.10);
+
+    --text-primary:   #e8eaf0;
+    --text-secondary: #8892aa;
+    --text-muted:     #505870;
+
+    --gold:           #e8b84b;
+    --gold-dim:       #9a7830;
+    --gold-glow:      rgba(232,184,75,0.18);
+
+    --crimson:        #e05050;
+    --crimson-dim:    #8a3030;
+    --crimson-glow:   rgba(224,80,80,0.18);
+
+    /* Tag palette – dark-mode recoloured */
+    --tag-self-bg:    rgba(59,130,246,0.18);
+    --tag-self-fg:    #93c5fd;
+    --tag-aoe-bg:     rgba(239,68,68,0.18);
+    --tag-aoe-fg:     #fca5a5;
+    --tag-target-bg:  rgba(245,158,11,0.18);
+    --tag-target-fg:  #fcd34d;
+    --tag-beam-bg:    rgba(139,92,246,0.18);
+    --tag-beam-fg:    #c4b5fd;
+    --tag-pass-bg:    rgba(34,197,94,0.18);
+    --tag-pass-fg:    #86efac;
+
+    /* Chip */
+    --chip-bg:        rgba(255,255,255,0.06);
+    --chip-fg:        #6b7a99;
+
+    --radius-card:    14px;
+    --radius-row:     8px;
+    --radius-tag:     20px;
+    --radius-chip:    6px;
+
+    /* Expose as legacy vars so the inner widget still resolves them */
+    --color-text-primary:      var(--text-primary);
+    --color-text-secondary:    var(--text-secondary);
+    --color-background-secondary: var(--bg-row-hover);
+    --color-border-tertiary:   var(--border-subtle);
+    --border-radius-lg:        var(--radius-card);
+  }
+
+  /* ── Reset & base ────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg-base);
+    color: var(--text-primary);
+    font-family: 'Nunito', sans-serif;
+    min-height: 100vh;
+    padding: 28px 20px 48px;
+  }
+
+  /* ── Page header ─────────────────────────────────────────── */
+  .page-header {
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  .page-header h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(22px, 4vw, 34px);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    background: linear-gradient(135deg, var(--gold) 0%, #fff5d0 50%, var(--gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .page-header p {
+    margin-top: 6px;
+    font-size: 13px;
+    color: var(--text-muted);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .header-divider {
+    margin: 14px auto 0;
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+  }
+
+  /* ── Grid ────────────────────────────────────────────────── */
+  .ab-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  @media (max-width: 700px) {
+    .ab-grid { grid-template-columns: 1fr; }
+  }
+
+  /* ── Section card ────────────────────────────────────────── */
+  .ab-section {
+    background: var(--bg-card);
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-card);
+    padding: 18px 16px;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Subtle top-edge accent line */
+  .ab-section.blessings::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+  }
+  .ab-section.curses::before {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent 0%, var(--crimson) 40%, var(--crimson) 60%, transparent 100%);
+    border-radius: var(--radius-card) var(--radius-card) 0 0;
+  }
+
+  /* ── Section title ───────────────────────────────────────── */
+  .ab-title {
+    font-family: 'Cinzel', serif;
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+  }
+  .ab-section.blessings .ab-title { color: var(--gold); }
+  .ab-section.curses    .ab-title { color: var(--crimson); }
+  .ab-title span {
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 400;
+    color: var(--text-muted);
+    letter-spacing: 0.04em;
+  }
+
+  /* ── Ability row ─────────────────────────────────────────── */
+  .ab-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 9px 8px;
+    border-radius: var(--radius-row);
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    position: relative;
+  }
+  .ab-section.blessings .ab-row:hover {
+    background: var(--bg-row-hover);
+    box-shadow: 0 0 0 1px rgba(232,184,75,0.12), 0 2px 12px var(--gold-glow);
+    transform: translateX(2px);
+  }
+  .ab-section.curses .ab-row:hover {
+    background: var(--bg-row-hover);
+    box-shadow: 0 0 0 1px rgba(224,80,80,0.12), 0 2px 12px var(--crimson-glow);
+    transform: translateX(2px);
+  }
+  .ab-row + .ab-row {
+    border-top: 1px solid var(--border-subtle);
+  }
+
+  /* ── Row content ─────────────────────────────────────────── */
+  .ab-row > div { flex: 1; min-width: 0; }
+  .ab-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+  .ab-desc {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    margin-bottom: 5px;
+  }
+
+  /* ── Stat chips ──────────────────────────────────────────── */
+  .stat-chips { display: flex; flex-wrap: wrap; gap: 4px; }
+  .chip {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 7px;
+    border-radius: var(--radius-chip);
+    background: var(--chip-bg);
+    color: var(--chip-fg);
+    border: 1px solid rgba(255,255,255,0.06);
+    letter-spacing: 0.03em;
+  }
+
+  /* ── Tags ────────────────────────────────────────────────── */
+  .ab-tag {
+    font-size: 9.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    padding: 3px 8px;
+    border-radius: var(--radius-tag);
+    white-space: nowrap;
+    align-self: flex-start;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+  .tag-self   { background: var(--tag-self-bg);   color: var(--tag-self-fg);   }
+  .tag-aoe    { background: var(--tag-aoe-bg);    color: var(--tag-aoe-fg);    }
+  .tag-target { background: var(--tag-target-bg); color: var(--tag-target-fg); }
+  .tag-beam   { background: var(--tag-beam-bg);   color: var(--tag-beam-fg);   }
+  .tag-pass   { background: var(--tag-pass-bg);   color: var(--tag-pass-fg);   }
 </style>
+</head>
+<body>
+
+<header class="page-header">
+  <h1>Curses &amp; Blessings</h1>
+  <p>Ability Reference Index</p>
+  <div class="header-divider"></div>
+</header>
+
 <div class="ab-grid">
-<div class="ab-section">
-  <div class="ab-title" style="color:#185FA5">Blessings <span>24 abilities</span></div>
+
+<!-- ══════════════ BLESSINGS ══════════════ -->
+<div class="ab-section blessings">
+  <div class="ab-title">Blessings <span>24 abilities</span></div>
 
   <div class="ab-row" onclick="sendPrompt('How does the Radiant Burst ability work in detail?')">
     <div><div class="ab-name">Radiant Burst</div><div class="ab-desc">Heals 3 hearts + Speed II for 5s on use.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
@@ -116,7 +337,7 @@
     <span class="ab-tag tag-self">self</span>
   </div>
 
-  <div class="ab-row" onclick="sendPrompt("How does Angel's Fall work — when does the bonus damage trigger?")">
+  <div class="ab-row" onclick="sendPrompt(&quot;How does Angel's Fall work — when does the bonus damage trigger?&quot;)">
     <div><div class="ab-name">Angel's Fall</div><div class="ab-desc">Launches you upward (2-block velocity). If you hit an enemy before landing, bonus 14 hearts deal. The window expires on ground contact.</div><div class="stat-chips"><span class="chip">260 mana</span><span class="chip">30s CD</span></div></div>
     <span class="ab-tag tag-self">self</span>
   </div>
@@ -142,8 +363,9 @@
   </div>
 </div>
 
-<div class="ab-section">
-  <div class="ab-title" style="color:#993C1D">Curses <span>21 abilities</span></div>
+<!-- ══════════════ CURSES ══════════════ -->
+<div class="ab-section curses">
+  <div class="ab-title">Curses <span>21 abilities</span></div>
 
   <div class="ab-row" onclick="sendPrompt('How does Soul Drain work — radius, damage, and self-heal scaling?')">
     <div><div class="ab-name">Soul Drain</div><div class="ab-desc">Drains HP from every enemy in a 5-block radius (10 HP each). Heals you for 50% of total damage dealt.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
@@ -250,4 +472,7 @@
     <span class="ab-tag tag-self">self</span>
   </div>
 </div>
-</div>
+
+</div><!-- /.ab-grid -->
+</body>
+</html>
