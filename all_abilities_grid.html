@@ -1,0 +1,253 @@
+<style>
+.ab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 8px 0; }
+.ab-section { border-radius: var(--border-radius-lg); border: 0.5px solid var(--color-border-tertiary); padding: 12px 14px; }
+.ab-title { font-size: 15px; font-weight: 500; margin-bottom: 10px; color: var(--color-text-primary); }
+.ab-title span { font-size: 11px; font-weight: 400; color: var(--color-text-secondary); margin-left: 6px; }
+.ab-row { display: flex; align-items: flex-start; gap: 8px; padding: 6px 0; border-bottom: 0.5px solid var(--color-border-tertiary); cursor: pointer; border-radius: 4px; }
+.ab-row:last-child { border-bottom: none; }
+.ab-row:hover { background: var(--color-background-secondary); }
+.ab-name { font-size: 13px; font-weight: 500; color: var(--color-text-primary); min-width: 140px; }
+.ab-desc { font-size: 12px; color: var(--color-text-secondary); line-height: 1.5; }
+.ab-tag { font-size: 10px; padding: 1px 6px; border-radius: 10px; white-space: nowrap; align-self: flex-start; margin-top: 1px; }
+.tag-self   { background: #E6F1FB; color: #185FA5; }
+.tag-aoe    { background: #FCEBEB; color: #A32D2D; }
+.tag-target { background: #FAEEDA; color: #854F0B; }
+.tag-beam   { background: #EEEDFE; color: #534AB7; }
+.tag-pass   { background: #EAF3DE; color: #3B6D11; }
+.stat-chips { display: flex; gap: 4px; margin-top: 2px; }
+.chip { font-size: 10px; padding: 0px 5px; border-radius: 8px; background: var(--color-background-secondary); color: var(--color-text-secondary); }
+</style>
+<div class="ab-grid">
+<div class="ab-section">
+  <div class="ab-title" style="color:#185FA5">Blessings <span>24 abilities</span></div>
+
+  <div class="ab-row" onclick="sendPrompt('How does the Radiant Burst ability work in detail?')">
+    <div><div class="ab-name">Radiant Burst</div><div class="ab-desc">Heals 3 hearts + Speed II for 5s on use.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Divine Grapple work including its passive fall damage immunity?')">
+    <div><div class="ab-name">Divine Grapple</div><div class="ab-desc">Hooks target, pulls them toward you, deals 11 HP, slows them. You get Speed II. Passive: no fall damage.</div><div class="stat-chips"><span class="chip">75 mana</span><span class="chip">25s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Recall work — first use vs second use?')">
+    <div><div class="ab-name">Recall</div><div class="ab-desc">First use: marks your location. Second use (within 20s): teleports you back to the mark.</div><div class="stat-chips"><span class="chip">45 mana</span><span class="chip">1s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Boogie Woogie work and what is its range limit?')">
+    <div><div class="ab-name">Boogie Woogie</div><div class="ab-desc">Swaps your position with the last player you hit (max 35 blocks).</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">15s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does LightKing work — how many lightning strikes and how much damage?')">
+    <div><div class="ab-name">LightKing</div><div class="ab-desc">Levitates you, then strikes 3 random nearby enemies with lightning (9–10 HP each) over 3 seconds.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('Explain all three outcomes of Idle Death Gamble')">
+    <div><div class="ab-name">Idle Death Gamble</div><div class="ab-desc">25% BLACK → mana reset to 0. 50% GREEN → +30 mana/s for 10s. 25% WHITE → mana instantly full.</div><div class="stat-chips"><span class="chip">95 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('Explain all three outcomes of Limitless and the invulnerability proc')">
+    <div><div class="ab-name">Limitless</div><div class="ab-desc">Random on target: 40% BLUE (2 hearts), 40% RED (3 hearts), 20% PURPLE (4 hearts + invulnerable 6s).</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">65s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Swift Strike work — how many dashes and do they each deal damage?')">
+    <div><div class="ab-name">Swift Strike</div><div class="ab-desc">Three rapid forward dashes in quick succession. Each dash deals 5.5 hearts to any enemy you pass through.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">10s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Skyward Dash work and how much damage does the slam deal?')">
+    <div><div class="ab-name">Skyward Dash</div><div class="ab-desc">Launches you high into the air. When you land, a shockwave deals ~4 hearts to enemies within 4 blocks.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Phase Step work — does it go through walls?')">
+    <div><div class="ab-name">Phase Step</div><div class="ab-desc">Teleports 15 blocks in your look direction. Automatically stops before solid blocks.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">50s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Sanctify work and who exactly cannot deal damage in the zone?')">
+    <div><div class="ab-name">Sanctify</div><div class="ab-desc">Creates a 5-block protective zone lasting 15s. Any non-owner who deals damage from inside the zone is blocked.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">50s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Blessing Copy work and how much total mana does it cost?')">
+    <div><div class="ab-name">Blessing Copy</div><div class="ab-desc">Copies the last ability cast by a nearby enemy (within 20 blocks) and fires it immediately. Costs 10 + 90 mana total.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">35s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('What does Second Wind do exactly in CursesAndBlessings?')">
+    <div><div class="ab-name">Second Wind</div><div class="ab-desc">Passive ability with no active component. (Effect TBD / placeholder slot.)</div><div class="stat-chips"><span class="chip">0 mana</span><span class="chip">passive</span></div></div>
+    <span class="ab-tag tag-pass">passive</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Holy Ground work — damage, regen, and zone size?')">
+    <div><div class="ab-name">Holy Ground</div><div class="ab-desc">Marks a 6-block radius zone for 12s: deals 20 HP/s to enemies inside, applies Regen I to allies.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">50s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Angelic Rush work — speed, distance, and hit detection?')">
+    <div><div class="ab-name">Angelic Rush</div><div class="ab-desc">Propels you forward over 18 blocks. Every enemy within 1.5 blocks during the rush takes 10 HP and gets knocked back.</div><div class="stat-chips"><span class="chip">85 mana</span><span class="chip">18s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Sacred Veil work — how many hits can it absorb and does it heal?')">
+    <div><div class="ab-name">Sacred Veil</div><div class="ab-desc">Grants Resistance I + Regen I for 6s. Also absorbs up to 3 incoming hits, healing 2.5 hearts each time.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Withering work — both the active AoE and passive proc chance?')">
+    <div><div class="ab-name">Withering</div><div class="ab-desc">Active: applies Wither X for 10s to all enemies in 10 blocks. Passive: 3% chance to proc Wither X on every hit.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Life Manipulation scale with nearby enemies and what is the passive?')">
+    <div><div class="ab-name">Life Manipulation</div><div class="ab-desc">Grants Health Boost (scales with nearby enemy count, up to +4 hearts) for 10s. Passive: Saturation II briefly when you eat.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">45s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Zeal work and why is the Haste level 99?')">
+    <div><div class="ab-name">Zeal</div><div class="ab-desc">Grants Haste 99 (near-instant mining) for 7s. Extreme attack speed burst.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt("How does Angel's Fall work — when does the bonus damage trigger?")">
+    <div><div class="ab-name">Angel's Fall</div><div class="ab-desc">Launches you upward (2-block velocity). If you hit an enemy before landing, bonus 14 hearts deal. The window expires on ground contact.</div><div class="stat-chips"><span class="chip">260 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Frost Calm work — what does it freeze and how does the mist wave deal damage?')">
+    <div><div class="ab-name">Frost Calm</div><div class="ab-desc">Converts ground in 15-block radius to packed ice. Simultaneously fires a mist wave that deals ~10 HP and applies heavy Slowness to enemies it passes through.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">35s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Radiant Blast work — knockback vs self-boost behavior?')">
+    <div><div class="ab-name">Radiant Blast</div><div class="ab-desc">Fires a beam up to 10 blocks. Hits a player → launches them away. Fires into a wall at close range → boosts you forward instead.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">45s CD</span></div></div>
+    <span class="ab-tag tag-beam">beam</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Straw Doll Technique work — projectile speed and freeze duration?')">
+    <div><div class="ab-name">Straw Doll Technique</div><div class="ab-desc">Fires a slow projectile nail (range 15 blocks). On hit: deals damage and hard-freezes the target in place for 1.5s.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">45s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('What does Projection Sorcery do to the server tick rate and why?')">
+    <div><div class="ab-name">Projection Sorcery</div><div class="ab-desc">Grants Haste V + Speed V for 10s. Also halves the server tick rate to 10 TPS (from 20) for the duration, slowing the world around you.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+</div>
+
+<div class="ab-section">
+  <div class="ab-title" style="color:#993C1D">Curses <span>21 abilities</span></div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Soul Drain work — radius, damage, and self-heal scaling?')">
+    <div><div class="ab-name">Soul Drain</div><div class="ab-desc">Drains HP from every enemy in a 5-block radius (10 HP each). Heals you for 50% of total damage dealt.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Blood Debt work — what is the 5.5x multiplier applied to?')">
+    <div><div class="ab-name">Blood Debt</div><div class="ab-desc">Arms for 10s. Your next hit stores final damage × 5.5, then deals that stored amount 1 second later as a delayed blast.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How do the Torrential Shuriken projectiles fire — are they simultaneous or sequential?')">
+    <div><div class="ab-name">Torrential Shuriken</div><div class="ab-desc">Fires 4 water shurikens sequentially (one every ~0.65s). Each travels 30 blocks and deals ~9 HP on hit. In the Nether, also applies Slowness.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">25s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Vampiric Touch work — active use vs passive lifesteal?')">
+    <div><div class="ab-name">Vampiric Touch</div><div class="ab-desc">Active: deals 4 hearts to targeted enemy, heals you 5 hearts. Passive: every hit you land steals 15% of dealt damage as health.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Sniper work — range, damage, and can it hit multiple players?')">
+    <div><div class="ab-name">Sniper</div><div class="ab-desc">Fires a hitscan beam up to 150 blocks. Deals 15 hearts to every player in its path (can hit multiple).</div><div class="stat-chips"><span class="chip">150 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-beam">beam</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Shadow Strike work — does the teleport place you exactly behind the target?')">
+    <div><div class="ab-name">Shadow Strike</div><div class="ab-desc">Teleports you directly behind your targeted enemy (up to 20 blocks) and immediately deals 6 hearts from behind.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">20s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Silence work and what exactly does it prevent?')">
+    <div><div class="ab-name">Silence</div><div class="ab-desc">Silences the targeted enemy for 15s. While silenced, they cannot use any abilities via /activate.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">90s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Flame Wave work — how are the three wave damage values split?')">
+    <div><div class="ab-name">Flame Wave</div><div class="ab-desc">Fires 3 expanding fire rings (45% / 35% / 20% of 19 HP total). First wave also sets enemies ablaze for 5s.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Gravity Well work — pull duration and final impact damage?')">
+    <div><div class="ab-name">Gravity Well</div><div class="ab-desc">Pulls all enemies in 8-block radius toward you continuously for 2s, then deals 25 HP impact damage to all of them.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Hex Aura work — Strength level and absorption hearts?')">
+    <div><div class="ab-name">Hex Aura</div><div class="ab-desc">Grants Strength II and 2 absorption hearts for 5s. A burst self-buff for high-damage windows.</div><div class="stat-chips"><span class="chip">130 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Disaster Flames work — the meteor travel and unextinguishable fire?')">
+    <div><div class="ab-name">Disaster Flames</div><div class="ab-desc">Launches a visual meteor in your aim direction. Enemies in 5-block radius on impact get unextinguishable fire for 10s. Passive: fire resistance + 15% bonus damage vs already-burning targets.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Disaster Plants work — the root, mana drain direction, and visual tree?')">
+    <div><div class="ab-name">Disaster Plants</div><div class="ab-desc">Spawns a particle tree at your aim point. Roots nearby enemies (heavy Slowness) for 10s, draining 8 mana/s from them to you.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Blood Manipulation work as a channeled beam ability?')">
+    <div><div class="ab-name">Blood Manipulation</div><div class="ab-desc">Channels a 25-block crimson beam for 8s. Every 15 ticks it deals 15 HP to the first enemy in the beam path. You must keep aiming at them.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-beam">beam</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Black Flash work — the 4-hit combo tracking and proc chance?')">
+    <div><div class="ab-name">Black Flash</div><div class="ab-desc">Active: Resistance I for 10s. Passive: track a 4-hit combo; on 4th hit a 50% roll triggers 1.5× damage + Regen II + Speed II. Taking damage breaks the combo.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">15s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Tide work — radius and knockback power?')">
+    <div><div class="ab-name">Tide</div><div class="ab-desc">Pushes every enemy within 12 blocks away from you with strong knockback. Good for creating distance or pushing enemies off ledges.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">25s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Hunter work — passive glow range vs active extended range?')">
+    <div><div class="ab-name">Hunter</div><div class="ab-desc">Active: marks all enemies in 100-block radius with glowing + Speed II for 20s. Passive: enemies within 15 blocks permanently glow for you.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">45s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Cleave work — what is the exact damage pattern?')">
+    <div><div class="ab-name">Cleave</div><div class="ab-desc">Targets player in your crosshair. Deals ~2 hearts instantly, then 1 heart × 3 additional hits spaced 1 second apart — 5 hearts total.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">60s CD</span></div></div>
+    <span class="ab-tag tag-target">targeted</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Mythical Beast Amber work and does the lightning deal damage?')">
+    <div><div class="ab-name">Mythical Beast Amber</div><div class="ab-desc">Grants Speed V for 5s and instantly strikes all nearby enemies with real (damaging) lightning bolts.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">30s CD</span></div></div>
+    <span class="ab-tag tag-aoe">aoe</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Extinguishment work — damage and silence applied together?')">
+    <div><div class="ab-name">Extinguishment</div><div class="ab-desc">Fires a 60-block beam. Enemies in a small AoE at the endpoint take 2 hearts AND get silenced for 10s simultaneously.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">25s CD</span></div></div>
+    <span class="ab-tag tag-beam">beam</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Idle Transfiguration work — what does enlarged mean mechanically?')">
+    <div><div class="ab-name">Idle Transfiguration</div><div class="ab-desc">Arms for 30s. Your next hit enlarges the target (SCALE +2 attribute), applies Slowness V + Weakness I for 10s.</div><div class="stat-chips"><span class="chip">50 mana</span><span class="chip">40s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+
+  <div class="ab-row" onclick="sendPrompt('How does Soul Stealer work step by step — arm, capture, then summon?')">
+    <div><div class="ab-name">Soul Stealer</div><div class="ab-desc">3-stage: (1) Arm. (2) Kill any mob → captures its type. (3) Activate again → summons it as your ally targeting enemies for 15s. Does not attack you.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">120s CD</span></div></div>
+    <span class="ab-tag tag-self">self</span>
+  </div>
+</div>
+</div>
