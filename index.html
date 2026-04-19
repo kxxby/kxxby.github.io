@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Historia – Pojęcia na Sprawdzian</title>
+<title>Notatki Szkolne</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -59,7 +59,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -88,6 +87,12 @@
     -webkit-backdrop-filter: blur(12px);
   }
 
+  .topbar-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
   .brand {
     font-family: 'Syne', sans-serif;
     font-weight: 800;
@@ -97,14 +102,59 @@
     display: flex;
     align-items: center;
     gap: 10px;
+    cursor: pointer;
+    transition: opacity 0.15s;
+    text-decoration: none;
   }
+  .brand:hover { opacity: 0.7; }
 
   .brand-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background: var(--text);
+    flex-shrink: 0;
   }
+
+  .breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: var(--text3);
+  }
+
+  .breadcrumb-sep { color: var(--border2); }
+
+  .breadcrumb-item {
+    color: var(--text3);
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .breadcrumb-item:hover { color: var(--text2); }
+  .breadcrumb-item.current { color: var(--text2); cursor: default; }
+  .breadcrumb-item.current:hover { color: var(--text2); }
+
+  .back-btn {
+    display: none;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.82rem;
+    color: var(--text3);
+    cursor: pointer;
+    padding: 6px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border);
+    background: transparent;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.18s;
+  }
+  .back-btn:hover {
+    color: var(--text);
+    border-color: var(--border2);
+    background: var(--bg3);
+  }
+  .back-btn.visible { display: flex; }
 
   .topbar-right {
     display: flex;
@@ -131,7 +181,6 @@
     transition: background 0.25s, border-color 0.25s;
     flex-shrink: 0;
   }
-
   .theme-toggle::after {
     content: '';
     position: absolute;
@@ -143,10 +192,7 @@
     left: 4px;
     transition: transform 0.25s cubic-bezier(.4,0,.2,1), background 0.25s;
   }
-
-  [data-theme="light"] .theme-toggle::after {
-    transform: translateX(22px);
-  }
+  [data-theme="light"] .theme-toggle::after { transform: translateX(22px); }
 
   .toggle-icon {
     position: absolute;
@@ -159,12 +205,18 @@
   .icon-moon { left: 5px; }
   .icon-sun  { right: 4px; }
 
+  /* ── VIEWS ── */
+  .view {
+    display: none;
+    animation: fadeUp 0.4s ease both;
+  }
+  .view.active { display: block; }
+
   /* ── HERO ── */
   .hero {
     padding: 64px 24px 48px;
     max-width: 900px;
     margin: 0 auto;
-    animation: fadeUp 0.6s ease both;
   }
 
   .hero-label {
@@ -178,7 +230,6 @@
     color: var(--text3);
     margin-bottom: 20px;
   }
-
   .hero-label::before {
     content: '';
     display: block;
@@ -205,7 +256,179 @@
     line-height: 1.6;
   }
 
-  /* ── CONTROLS ── */
+  /* ── SUBJECT GRID (Home) ── */
+  .subject-grid-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 12px;
+  }
+
+  .subject-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 24px 20px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.25s;
+    animation: fadeUp 0.5s ease both;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .subject-card::after {
+    content: '→';
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) translateX(4px);
+    color: var(--text3);
+    font-size: 1.1rem;
+    opacity: 0;
+    transition: opacity 0.2s, transform 0.2s;
+  }
+
+  .subject-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px var(--shadow);
+  }
+
+  .subject-card:hover::after {
+    opacity: 1;
+    transform: translateY(-50%) translateX(0);
+  }
+
+  .subject-icon {
+    font-size: 1.8rem;
+    margin-bottom: 14px;
+    display: block;
+    width: 48px;
+    height: 48px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .subject-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+
+  .subject-meta {
+    font-size: 0.78rem;
+    color: var(--text3);
+    font-weight: 400;
+  }
+
+  /* ── TYPE GRID (Subject view) ── */
+  .type-grid-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .type-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+
+  .type-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 20px 24px;
+    cursor: pointer;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    animation: fadeUp 0.5s ease both;
+    position: relative;
+  }
+
+  .type-card:hover {
+    border-color: var(--border2);
+    transform: translateX(4px);
+    box-shadow: 0 8px 32px var(--shadow);
+  }
+
+  .type-card.placeholder {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  .type-card.placeholder:hover {
+    transform: none;
+    box-shadow: none;
+    border-color: var(--border);
+  }
+
+  .type-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+
+  .type-info { flex: 1; }
+
+  .type-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .type-desc {
+    font-size: 0.78rem;
+    color: var(--text3);
+  }
+
+  .type-arrow {
+    font-size: 1rem;
+    color: var(--text3);
+    flex-shrink: 0;
+    transition: transform 0.2s, color 0.2s;
+  }
+  .type-card:not(.placeholder):hover .type-arrow {
+    transform: translateX(3px);
+    color: var(--text2);
+  }
+
+  .coming-soon-tag {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 100px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    color: var(--text3);
+  }
+
+  /* ── CONTROLS (Cards view) ── */
   .controls {
     max-width: 900px;
     margin: 0 auto;
@@ -216,9 +439,7 @@
     animation: fadeUp 0.6s 0.1s ease both;
   }
 
-  .search-wrap {
-    position: relative;
-  }
+  .search-wrap { position: relative; }
 
   .search-icon {
     position: absolute;
@@ -242,7 +463,6 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
   }
-
   #search::placeholder { color: var(--text3); }
   #search:focus {
     border-color: var(--border2);
@@ -268,20 +488,18 @@
     transition: all 0.18s;
     letter-spacing: 0.02em;
   }
-
   .cat-btn:hover {
     border-color: var(--border2);
     color: var(--text);
     background: var(--bg3);
   }
-
   .cat-btn.active {
     background: var(--cat-active-bg);
     color: var(--cat-active-text);
     border-color: var(--cat-active-bg);
   }
 
-  /* ── GRID ── */
+  /* ── CARDS GRID ── */
   .grid-wrap {
     max-width: 900px;
     margin: 0 auto;
@@ -294,7 +512,6 @@
     gap: 12px;
   }
 
-  /* ── CARD ── */
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -304,13 +521,11 @@
     animation: fadeUp 0.5s ease both;
     cursor: default;
   }
-
   .card:hover {
     border-color: var(--border2);
     transform: translateY(-2px);
     box-shadow: 0 8px 32px var(--shadow);
   }
-
   .card.hidden { display: none; }
 
   .card-head {
@@ -334,10 +549,7 @@
     border: 1px solid var(--border);
   }
 
-  .card-title-area {
-    flex: 1;
-    min-width: 0;
-  }
+  .card-title-area { flex: 1; min-width: 0; }
 
   .card-title {
     font-family: 'Syne', sans-serif;
@@ -369,17 +581,8 @@
     color: var(--text2);
     font-weight: 300;
   }
-
-  .card-body strong {
-    color: var(--strong-color);
-    font-weight: 600;
-  }
-
-  .card-body em {
-    color: var(--em-color);
-    font-style: italic;
-  }
-
+  .card-body strong { color: var(--strong-color); font-weight: 600; }
+  .card-body em { color: var(--em-color); font-style: italic; }
   .card-body .date {
     display: inline-flex;
     align-items: center;
@@ -395,31 +598,50 @@
     letter-spacing: -0.01em;
   }
 
-  /* ── FOOTER BAR ── */
-  .section-label {
-    font-size: 0.72rem;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--text3);
-    margin-bottom: 16px;
-    padding-bottom: 12px;
-    border-bottom: 1px solid var(--border);
-  }
-
   /* ── NO RESULTS ── */
   .no-results {
     grid-column: 1/-1;
     text-align: center;
-    color: var(--text3);
     padding: 64px 24px;
+    color: var(--text3);
     font-size: 0.95rem;
   }
+  .no-results span { display: block; font-size: 2rem; margin-bottom: 12px; }
 
-  .no-results span {
+  /* ── PLACEHOLDER VIEW ── */
+  .placeholder-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .placeholder-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 48px 32px;
+    text-align: center;
+  }
+
+  .placeholder-emoji {
+    font-size: 2.5rem;
     display: block;
-    font-size: 2rem;
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+  }
+
+  .placeholder-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: var(--text);
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+
+  .placeholder-desc {
+    font-size: 0.88rem;
+    color: var(--text3);
+    line-height: 1.6;
   }
 
   /* ── ANIMATIONS ── */
@@ -427,6 +649,18 @@
     from { opacity: 0; transform: translateY(12px); }
     to   { opacity: 1; transform: none; }
   }
+
+  .subject-card:nth-child(1) { animation-delay: .03s }
+  .subject-card:nth-child(2) { animation-delay: .06s }
+  .subject-card:nth-child(3) { animation-delay: .09s }
+  .subject-card:nth-child(4) { animation-delay: .12s }
+  .subject-card:nth-child(5) { animation-delay: .15s }
+  .subject-card:nth-child(6) { animation-delay: .18s }
+  .subject-card:nth-child(7) { animation-delay: .21s }
+
+  .type-card:nth-child(1) { animation-delay: .04s }
+  .type-card:nth-child(2) { animation-delay: .09s }
+  .type-card:nth-child(3) { animation-delay: .14s }
 
   .card:nth-child(1)  { animation-delay: .03s }
   .card:nth-child(2)  { animation-delay: .06s }
@@ -441,9 +675,10 @@
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .hero { padding: 40px 20px 32px; }
-    .controls, .grid-wrap { padding-left: 16px; padding-right: 16px; }
-    .grid { grid-template-columns: 1fr; }
+    .controls, .grid-wrap, .subject-grid-wrap, .type-grid-wrap, .placeholder-wrap { padding-left: 16px; padding-right: 16px; }
+    .grid, .subject-grid { grid-template-columns: 1fr; }
     h1 { font-size: 2rem; }
+    .breadcrumb { display: none; }
   }
 </style>
 </head>
@@ -451,9 +686,12 @@
 
 <!-- TOP BAR -->
 <div class="topbar">
-  <div class="brand">
-    <div class="brand-dot"></div>
-    Historia
+  <div class="topbar-left">
+    <div class="brand" onclick="goHome()" title="Strona główna">
+      <div class="brand-dot"></div>
+      <span id="brand-text">Notatki</span>
+    </div>
+    <div class="breadcrumb" id="breadcrumb"></div>
   </div>
   <div class="topbar-right">
     <span class="count-badge" id="count-label"></span>
@@ -464,36 +702,102 @@
   </div>
 </div>
 
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-label">Przygotowanie do sprawdzianu</div>
-  <h1>Pojęcia<br>Historyczne</h1>
-  <p class="hero-sub">Średniowiecze &amp; Polska Piastów — wszystkie kluczowe pojęcia w jednym miejscu.</p>
-</div>
-
-<!-- CONTROLS -->
-<div class="controls">
-  <div class="search-wrap">
-    <span class="search-icon">⌕</span>
-    <input type="text" id="search" placeholder="Szukaj pojęcia lub kategorii…" autocomplete="off">
+<!-- ═══════════════ VIEW: HOME ═══════════════ -->
+<div class="view active" id="view-home">
+  <div class="hero">
+    <div class="hero-label">Wszystkie przedmioty</div>
+    <h1>Notatki<br>Szkolne</h1>
+    <p class="hero-sub">Wybierz przedmiot, aby przeglądać sprawdziany, zadania domowe i kartkówki.</p>
   </div>
-  <div class="categories" id="cats"></div>
+
+  <div class="subject-grid-wrap">
+    <div class="subject-grid" id="subject-grid"></div>
+  </div>
 </div>
 
-<!-- GRID -->
-<div class="grid-wrap">
-  <div class="grid" id="grid"></div>
+<!-- ═══════════════ VIEW: SUBJECT ═══════════════ -->
+<div class="view" id="view-subject">
+  <div class="hero">
+    <div class="hero-label" id="subject-label">Przedmiot</div>
+    <h1 id="subject-title">Historia</h1>
+    <p class="hero-sub" id="subject-sub">Wybierz rodzaj materiału.</p>
+  </div>
+
+  <div class="type-grid-wrap">
+    <div class="type-grid" id="type-grid"></div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW: PLACEHOLDER ═══════════════ -->
+<div class="view" id="view-placeholder">
+  <div class="hero">
+    <div class="hero-label" id="ph-label">Materiały</div>
+    <h1 id="ph-title">Wkrótce</h1>
+    <p class="hero-sub" id="ph-sub">Ten dział jest jeszcze pusty.</p>
+  </div>
+
+  <div class="placeholder-wrap">
+    <div class="placeholder-box">
+      <span class="placeholder-emoji">🚧</span>
+      <div class="placeholder-title">Brak materiałów</div>
+      <div class="placeholder-desc">Ten dział nie ma jeszcze żadnych pojęć.<br>Wróć tu wkrótce!</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ VIEW: CARDS ═══════════════ -->
+<div class="view" id="view-cards">
+  <div class="hero">
+    <div class="hero-label" id="cards-label">Pojęcia</div>
+    <h1 id="cards-title">Pojęcia Historyczne</h1>
+    <p class="hero-sub" id="cards-sub">Wszystkie kluczowe pojęcia w jednym miejscu.</p>
+  </div>
+
+  <div class="controls">
+    <div class="search-wrap">
+      <span class="search-icon">⌕</span>
+      <input type="text" id="search" placeholder="Szukaj pojęcia lub kategorii…" autocomplete="off">
+    </div>
+    <div class="categories" id="cats"></div>
+  </div>
+
+  <div class="grid-wrap">
+    <div class="grid" id="grid"></div>
+  </div>
 </div>
 
 <script>
-// ─── DATA ───────────────────────────────────────────────────────────────────
+// ─── SUBJECTS ──────────────────────────────────────────────────────────────
+const subjects = [
+  { id: 'historia',   name: 'Historia',    icon: '🏰', desc: 'Sprawdziany, kartkówki i pojęcia' },
+  { id: 'polski',     name: 'Polski',      icon: '📖', desc: 'Lektury, gramatyka, wypracowania' },
+  { id: 'matematyka', name: 'Matematyka',  icon: '📐', desc: 'Zadania, wzory i przykłady' },
+  { id: 'angielski',  name: 'Angielski',   icon: '🇬🇧', desc: 'Słówka, gramatyka, testy' },
+  { id: 'biologia',   name: 'Biologia',    icon: '🧬', desc: 'Pojęcia, układy, procesy' },
+  { id: 'geografia',  name: 'Geografia',   icon: '🌍', desc: 'Mapy, klimaty, regiony' },
+  { id: 'niemiecki',  name: 'Niemiecki',   icon: '🇩🇪', desc: 'Słówka, gramatyka, testy' },
+];
+
+// ─── ASSIGNMENT TYPES ────────────────────────────────────────────────────
+const types = [
+  { id: 'sprawdzian',   name: 'Sprawdzian',       icon: '📝', desc: 'Materiał na duży sprawdzian' },
+  { id: 'zd',          name: 'Zadanie domowe',    icon: '🏠', desc: 'Pojęcia do zadania domowego' },
+  { id: 'kartkowka',   name: 'Kartkówka',         icon: '📄', desc: 'Szybkie powtórzenie' },
+];
+
+// Which combinations have real content
+const hasContent = {
+  'historia-sprawdzian': true,
+};
+
+// ─── CARD DATA ───────────────────────────────────────────────────────────
 const data = [
   // === KAROLINGOWIE ===
   {
     title: "Renesans Karoliński",
     cat: "Karolingowie",
     icon: "📜",
-    body: `<strong>Odrodzenie kulturalne</strong> na dworze Karola Wielkiego (przełom VIII/IX w.). Karol Wielki zgromadził uczonych z całej Europy (m.in. Alkuin z Yorku) i założył <em>Akademię Pałacową</em>. Reforma pisma (minuskuła karolińska), szkolnictwa i liturgii. Cel: <strong>podźwignięcie poziomu wykształcenia duchowieństwa</strong> i ujednolicenie Kościoła. Nazwa od dynastii Karolingów, nie od słowa „odrodzenie" w sensie renesansu XV-wiecznego.`
+    body: `<strong>Odrodzenie kulturalne</strong> na dworze Karola Wielkiego (przełom VIII/IX w.). Karol Wielki zgromadził uczonych z całej Europy (m.in. Alkuin z Yorku) i założył <em>Akademię Pałacową</em>. Reforma pisma (minuskuła karolińska), szkolnictwa i liturgii. Cel: <strong>podźwignięcie poziomu wykształcenia duchowieństwa</strong> i ujednolicenie Kościoła.`
   },
 
   // === SŁOWIANIE ===
@@ -501,19 +805,19 @@ const data = [
     title: "Gospodarka i religia Słowian",
     cat: "Słowianie",
     icon: "⚔️",
-    body: `<strong>Gospodarka:</strong> rolnictwo żarowe i odłogowe, hodowla, zbieractwo, myślistwo. Handel wymienny. Organizacja w ople (wspólnoty rodowe). <br><br><strong>Religia:</strong> <em>politeizm</em> (Perun – bóg gromu, Weles – bóg podziemia, Swaróg – ognia). Kult przyrody, duchów przodków (dziadów), ofiary. Kapłanów zwano <strong>żercami</strong>. Słowianie nie mieli rozbudowanych świątyń – oddawali cześć w gajach i przy wodach.`
+    body: `<strong>Gospodarka:</strong> rolnictwo żarowe i odłogowe, hodowla, zbieractwo, myślistwo. Handel wymienny. Organizacja w ople (wspólnoty rodowe). <br><br><strong>Religia:</strong> <em>politeizm</em> (Perun – bóg gromu, Weles – bóg podziemia, Swaróg – ognia). Kult przyrody, duchów przodków (dziadów), ofiary. Kapłanów zwano <strong>żercami</strong>.`
   },
   {
     title: "Cyryl i Metody",
     cat: "Słowianie",
     icon: "✝️",
-    body: `Bracia z Salonik, <strong>apostołowie Słowian</strong>. Ok. <span class='date'>863</span> r. przybyli na Morawy z misją chrystianizacyjną. Cyryl (<em>właściwie Konstantyn</em>) stworzył <strong>głagolicę</strong> – pierwsze pismo słowiańskie – by Słowianie mogli słuchać Mszy w ojczystym języku (<em>język staro-cerkiewno-słowiański</em>). Od imienia Cyryla pochodzi późniejsza cyrylica. Papież zatwierdził liturgię słowiańską.`
+    body: `Bracia z Salonik, <strong>apostołowie Słowian</strong>. Ok. <span class='date'>863</span> r. przybyli na Morawy z misją chrystianizacyjną. Cyryl (<em>właściwie Konstantyn</em>) stworzył <strong>głagolicę</strong> – pierwsze pismo słowiańskie. Od imienia Cyryla pochodzi późniejsza cyrylica.`
   },
   {
     title: "Państwo Wielkomorawskie",
     cat: "Słowianie",
     icon: "🏰",
-    body: `Pierwsze znaczące państwo Słowian zachodnich (IX w., ok. <span class='date'>830</span>–<span class='date'>907</span>). Ośrodek: dzisiejsze Morawy i Słowacja. Władcy: Mojmir I, Rościsław, Świętopełk I. Przyjęło chrześcijaństwo od Cyryla i Metodego. Rywalizowało z <em>Frankami</em>. Zniszczone przez najazdy <strong>Madziarów (Węgrów)</strong> na początku X w. Dla Polski ważne jako wzorzec organizacji państwowej i kościelnej.`
+    body: `Pierwsze znaczące państwo Słowian zachodnich (IX w., ok. <span class='date'>830</span>–<span class='date'>907</span>). Ośrodek: dzisiejsze Morawy i Słowacja. Władcy: Mojmir I, Rościsław, Świętopełk I. Przyjęło chrześcijaństwo od Cyryla i Metodego. Zniszczone przez najazdy <strong>Madziarów (Węgrów)</strong> na początku X w.`
   },
 
   // === FEUDALIZM ===
@@ -521,19 +825,19 @@ const data = [
     title: "Feudalizm",
     cat: "Feudalizm",
     icon: "🏯",
-    body: `System społeczno-gospodarczy i polityczny dominujący w <strong>średniowiecznej Europie</strong>. Oparty na <em>ziemi</em> jako głównym bogactwie. Senior (pan) nadawał wasalowi <strong>lenno (feud)</strong> – ziemię w zamian za służbę wojskową i wierność. Chłopi (serfs/poddani) uprawiali ziemię w zamian za ochronę. Trzy stany: duchowieństwo, szlachta, lud. Motto struktury: <em>„ci, co modlą się – ci, co walczą – ci, co pracują"</em>.`
+    body: `System społeczno-gospodarczy i polityczny dominujący w <strong>średniowiecznej Europie</strong>. Oparty na <em>ziemi</em> jako głównym bogactwie. Senior (pan) nadawał wasalowi <strong>lenno (feud)</strong> – ziemię w zamian za służbę wojskową i wierność. Chłopi (serfs/poddani) uprawiali ziemię w zamian za ochronę.`
   },
   {
     title: "Suzeren",
     cat: "Feudalizm",
     icon: "👑",
-    body: `<strong>Zwierzchni pan feudalny</strong> (senior), któremu wasale składają hołd lenny. Suzeren stoi wyżej w hierarchii: może być nim król wobec książąt, lub papież wobec monarchów. Relacja suzeren–wasal opiera się na <em>przysięgach wierności i obowiązku pomocy zbrojnej</em>. Suzeren był zobowiązany do ochrony wasala; wasal do służby wojskowej i doradztwa.`
+    body: `<strong>Zwierzchni pan feudalny</strong> (senior), któremu wasale składają hołd lenny. Suzeren stoi wyżej w hierarchii: może być nim król wobec książąt, lub papież wobec monarchów. Relacja suzeren–wasal opiera się na <em>przysięgach wierności i obowiązku pomocy zbrojnej</em>.`
   },
   {
     title: "Drabina Feudalna",
     cat: "Feudalizm",
     icon: "🪜",
-    body: `Hierarchiczna struktura społeczeństwa feudalnego od góry: <strong>Papież / Cesarz → Królowie → Książęta → Hrabiowie i baronowie → Rycerze → Chłopi</strong>. Każdy szczebel nadaje lenno szczeblowi niższemu. Zasada: <em>„wasal mojego wasala nie jest moim wasalem"</em> – co powodowało chaos polityczny. Im niżej, tym więcej obowiązków, a mniej przywilejów.`
+    body: `Hierarchiczna struktura społeczeństwa feudalnego od góry: <strong>Papież / Cesarz → Królowie → Książęta → Hrabiowie i baronowie → Rycerze → Chłopi</strong>. Zasada: <em>„wasal mojego wasala nie jest moim wasalem"</em>.`
   },
 
   // === SCHIZMA / REFORMA KOŚCIOŁA ===
@@ -541,73 +845,73 @@ const data = [
     title: "Rok 1054",
     cat: "Schizma i Reforma",
     icon: "✂️",
-    body: `Data <strong>Wielkiej Schizmy Wschodniej</strong> – podziału chrześcijaństwa na <em>Kościół Zachodni (katolicki)</em> z centrum w Rzymie i <em>Kościół Wschodni (prawosławny)</em> z centrum w Konstantynopolu. Wzajemna ekskomunika papieża Leona IX (przez legata Humberta) i patriarchy Michała Cerulariusza. Przyczyny: spory o <em>filioque</em>, prymat papieża, celibat i język liturgii.`
+    body: `Data <strong>Wielkiej Schizmy Wschodniej</strong> – podziału chrześcijaństwa na <em>Kościół Zachodni (katolicki)</em> z centrum w Rzymie i <em>Kościół Wschodni (prawosławny)</em> z centrum w Konstantynopolu. Wzajemna ekskomunika papieża Leona IX i patriarchy Michała Cerulariusza.`
   },
   {
     title: "Rok 1075",
     cat: "Schizma i Reforma",
     icon: "📄",
-    body: `Papież <strong>Grzegorz VII</strong> ogłasza <em>Dictatus Papae</em> – 27 tez głoszących supremację papieża nad całym Kościołem i monarchami. Papież ma prawo m.in. <strong>mianować i odwoływać biskupów, zwalniać poddanych z przysięgi wierności wobec niegodnych królów</strong>. Dokument zapoczątkował otwarty konflikt ze świeckimi władcami o inwestyturę.`
+    body: `Papież <strong>Grzegorz VII</strong> ogłasza <em>Dictatus Papae</em> – 27 tez głoszących supremację papieża nad całym Kościołem i monarchami. Papież ma prawo m.in. <strong>mianować i odwoływać biskupów, zwalniać poddanych z przysięgi wierności</strong>. Dokument zapoczątkował konflikt o inwestyturę.`
   },
   {
     title: "Spór o inwestyturę",
     cat: "Schizma i Reforma",
     icon: "⚖️",
-    body: `Konflikt między papiestwem a cesarstwem (XI–XII w.) o prawo do <strong>mianowania biskupów i opatów</strong>. <em>Inwestytura</em> = uroczyste przekazanie urzędu kościelnego (pierścień i pastorał). Cesarze chcieli kontrolować Kościół na swoich ziemiach; papieże sprzeciwiali się. Zakończony <strong>Konkordatem Wormackim (1122)</strong>: inwestytura duchowna dla Kościoła, świecka dla cesarza.`
+    body: `Konflikt między papiestwem a cesarstwem (XI–XII w.) o prawo do <strong>mianowania biskupów i opatów</strong>. <em>Inwestytura</em> = uroczyste przekazanie urzędu kościelnego. Zakończony <strong>Konkordatem Wormackim (1122)</strong>: inwestytura duchowna dla Kościoła, świecka dla cesarza.`
   },
   {
     title: "Symonia",
     cat: "Schizma i Reforma",
     icon: "💰",
-    body: `<strong>Kupowanie i sprzedawanie urzędów i godności kościelnych</strong> za pieniądze lub inne dobra. Nazwa od Szymona Maga z Dziejów Apostolskich, który chciał kupić dar Ducha Świętego. Była nagminną praktyką, którą zwalczała <em>reforma gregoriańska</em>. Traktowana jako grzech ciężki i naruszenie sacrum Kościoła.`
+    body: `<strong>Kupowanie i sprzedawanie urzędów i godności kościelnych</strong> za pieniądze lub inne dobra. Nazwa od Szymona Maga. Była nagminną praktyką, którą zwalczała <em>reforma gregoriańska</em>.`
   },
   {
     title: "Nepotyzm",
     cat: "Schizma i Reforma",
     icon: "👨‍👦",
-    body: `Obsadzanie stanowisk kościelnych lub państwowych przez <strong>krewnych i bliskich</strong> – bez względu na kwalifikacje. Słowo pochodzi od łac. <em>nepos</em> (wnuk/bratanek). Papieże i biskupi mianowali swoich siostrzeńców kardynałami lub opatami. Zjawisko zwalczane przez reformatorów jako wynaturzenie Kościoła.`
+    body: `Obsadzanie stanowisk kościelnych lub państwowych przez <strong>krewnych i bliskich</strong> – bez względu na kwalifikacje. Słowo pochodzi od łac. <em>nepos</em> (wnuk/bratanek). Papieże i biskupi mianowali swoich siostrzeńców kardynałami lub opatami.`
   },
   {
     title: "Nikolaizm",
     cat: "Schizma i Reforma",
     icon: "💍",
-    body: `Praktyka <strong>zawierania małżeństw przez duchownych</strong> lub utrzymywania konkubin. Reforma gregoriańska (XI w.) zaostrzyła nakaz <em>celibatu</em> (bezżeństwa) dla kleru. Nikolaizm uważano za demoralizację Kościoła. Nazwa pochodzi od gnostyckiej sekty Nikolaitów wspomnianych w Apokalipsie.`
+    body: `Praktyka <strong>zawierania małżeństw przez duchownych</strong> lub utrzymywania konkubin. Reforma gregoriańska (XI w.) zaostrzyła nakaz <em>celibatu</em> (bezżeństwa) dla kleru.`
   },
   {
     title: "Wielka Schizma Wschodnia",
     cat: "Schizma i Reforma",
     icon: "🌍",
-    body: `Podział chrześcijaństwa w <span class='date'>1054</span> r. na <strong>katolicyzm</strong> (Rzym, język łaciński, papież) i <strong>prawosławie</strong> (Konstantynopol, język grecki, patriarcha). Przyczyny: spór o <em>filioque</em> w Credo (czy Duch Święty pochodzi też od Syna), prymat papieża, różnice liturgiczne i kulturowe. Schizma trwa do dziś – dopiero w 1964 r. papież Paweł VI i patriarcha Athenagoras odwołali wzajemne ekskomuniki.`
+    body: `Podział chrześcijaństwa w <span class='date'>1054</span> r. na <strong>katolicyzm</strong> (Rzym, język łaciński, papież) i <strong>prawosławie</strong> (Konstantynopol, język grecki, patriarcha). Przyczyny: spór o <em>filioque</em> w Credo, prymat papieża, różnice liturgiczne i kulturowe.`
   },
   {
     title: "Grzegorz VII",
     cat: "Schizma i Reforma",
     icon: "⛪",
-    body: `Papież w latach <span class='date'>1073–1085</span>, twórca <strong>reformy gregoriańskiej</strong>. Wydał <em>Dictatus Papae (1075)</em> proklamując prymat papieża. Ekskomunikował cesarza Henryka IV. Henryk upokorzył się w <strong>Canossie (1077)</strong> – papież zdjął ekskomunikę. Grzegorz VII walczył z symonią, nikolaizmem i inwestyturą świecką. Canonizowany w 1606 r.`
+    body: `Papież w latach <span class='date'>1073–1085</span>, twórca <strong>reformy gregoriańskiej</strong>. Wydał <em>Dictatus Papae (1075)</em>. Ekskomunikował cesarza Henryka IV. Henryk upokorzył się w <strong>Canossie (1077)</strong>. Walczył z symonią, nikolaizmem i inwestyturą świecką.`
   },
   {
     title: "Ekskomunika",
     cat: "Schizma i Reforma",
     icon: "🚫",
-    body: `Najwyższa kara kościelna – <strong>wykluczenie z Kościoła i społeczności wiernych</strong>. Ekskomunikowany nie mógł przystępować do sakramentów, a po śmierci mógł zostać pozbawiony chrześcijańskiego pochówku. Monarcha objęty ekskomuniką <em>zwalniał poddanych z przysięgi wierności</em> – co miało ogromne skutki polityczne. Mogła zostać zdjęta po pokucie.`
+    body: `Najwyższa kara kościelna – <strong>wykluczenie z Kościoła i społeczności wiernych</strong>. Ekskomunikowany nie mógł przystępować do sakramentów. Monarcha objęty ekskomuniką <em>zwalniał poddanych z przysięgi wierności</em> – co miało ogromne skutki polityczne.`
   },
   {
     title: "Antypapież",
     cat: "Schizma i Reforma",
     icon: "⚡",
-    body: `Osoba <strong>nieuprawniona, a mimo to pretendująca do tronu papieskiego</strong>, zwykle popierana przez cesarza lub frakcję polityczną przeciw legalnie wybranemu papieżowi. W sporze o inwestyturę Henryk IV popierał antypapieży (np. Klemens III). Było ich w historii kilkudziesięciu. Antypapieże bywali obierani przez skorumpowane synody lub cesarskie intrygi.`
+    body: `Osoba <strong>nieuprawniona, a mimo to pretendująca do tronu papieskiego</strong>, zwykle popierana przez cesarza lub frakcję polityczną. W sporze o inwestyturę Henryk IV popierał antypapieży (np. Klemens III).`
   },
   {
     title: "Spór Henryka IV z Grzegorzem VII",
     cat: "Schizma i Reforma",
     icon: "🗡️",
-    body: `Kulminacja sporu o inwestyturę. <span class='date'>1076</span>: Henryk IV zwołuje synod i żąda rezygnacji Grzegorza VII. Grzegorz ekskomunikuje Henryka i zwalnia poddanych z przysięgi. <span class='date'>1077</span>: <strong>Pokuta w Canossie</strong> – cesarz stoi boso w śniegu 3 dni, papież zdejmuje ekskomunikę. Był to największy triumf papiestwa nad cesarstwem. Spór trwał dalej aż do Konkordatu Wormackiego (1122).`
+    body: `<span class='date'>1076</span>: Henryk IV żąda rezygnacji Grzegorza VII. Grzegorz ekskomunikuje Henryka. <span class='date'>1077</span>: <strong>Pokuta w Canossie</strong> – cesarz stoi boso w śniegu 3 dni, papież zdejmuje ekskomunikę. Był to największy triumf papiestwa nad cesarstwem.`
   },
   {
     title: "Henryk IV",
     cat: "Schizma i Reforma",
     icon: "🪖",
-    body: `Cesarz Świętego Cesarstwa Rzymskiego (<span class='date'>1056–1105</span>). Główny antagonista Grzegorza VII. Chciał zachować prawo do inwestytury kościelnej w Niemczech. Dwukrotnie ekskomunikowany. <strong>Canossa (1077)</strong> – symbol upokorzenia władzy świeckiej przed kościelną. W końcu zdetronizowany przez własnego syna Henryka V, który zawarł Konkordat Wormacki.`
+    body: `Cesarz Świętego Cesarstwa Rzymskiego (<span class='date'>1056–1105</span>). Główny antagonista Grzegorza VII. <strong>Canossa (1077)</strong> – symbol upokorzenia władzy świeckiej przed kościelną. Zdetronizowany przez własnego syna Henryka V, który zawarł Konkordat Wormacki.`
   },
 
   // === ZAKONY ===
@@ -615,25 +919,25 @@ const data = [
     title: "Zakony – Benedyktyni",
     cat: "Zakony",
     icon: "🕊️",
-    body: `Założeni przez <strong>Benedykta z Nursji</strong> (ok. <span class='date'>529</span> r., Monte Cassino). Motto: <em>„Ora et Labora"</em> (Módl się i pracuj). Reguła benedyktyńska: modlitwa, praca fizyczna, lectio divina (czytanie Pisma). Klasztory były <strong>centrami kultury, oświaty i rolnictwa</strong>. Skryptoria benedyktyńskie zachowały antyczny dorobek piśmiennictwa. Pierwsi misjonarze w Polsce.`
+    body: `Założeni przez <strong>Benedykta z Nursji</strong> (ok. <span class='date'>529</span> r., Monte Cassino). Motto: <em>„Ora et Labora"</em> (Módl się i pracuj). Klasztory były <strong>centrami kultury, oświaty i rolnictwa</strong>. Skryptoria benedyktyńskie zachowały antyczny dorobek piśmiennictwa.`
   },
   {
     title: "Zakony – Cystersi",
     cat: "Zakony",
     icon: "⛰️",
-    body: `Reformatorska gałąź benedyktynów, założona w <span class='date'>1098</span> w Cîteaux (Francja). Ideolog: <strong>Bernard z Clairvaux</strong>. Zasada surowości i prostoty – sprzeciwiali się bogaceniu klasztorów. Osiedlali się w <em>odludnych miejscach</em>, karczując lasy i zakładając wzorowe gospodarstwa. W Polsce od XII w. Odegrali wielką rolę w <strong>kolonizacji i gospodarce</strong>.`
+    body: `Reformatorska gałąź benedyktynów, założona w <span class='date'>1098</span> w Cîteaux (Francja). Ideolog: <strong>Bernard z Clairvaux</strong>. Zasada surowości i prostoty. Osiedlali się w <em>odludnych miejscach</em>, karczując lasy. W Polsce od XII w. Odegrali wielką rolę w <strong>kolonizacji i gospodarce</strong>.`
   },
   {
     title: "Zakony – Franciszkanie",
     cat: "Zakony",
     icon: "☮️",
-    body: `Zakon Braci Mniejszych, założony przez <strong>Franciszka z Asyżu</strong> ok. <span class='date'>1209</span> r. Ideał ubóstwa ewangelicznego – franciszkanie żebrzą (stąd: <em>żebracy</em> / mendykanci), nie posiadają własności. Działają w miastach wśród ludu. Znani z głoszenia kazań, pomocy ubogim. Do Polski przybyli w <span class='date'>1237</span> r. Papież Grzegorz IX zatwierdził zakon.`
+    body: `Zakon Braci Mniejszych, założony przez <strong>Franciszka z Asyżu</strong> ok. <span class='date'>1209</span> r. Ideał ubóstwa ewangelicznego – franciszkanie żebrzą (mendykanci), nie posiadają własności. Działają w miastach wśród ludu. Do Polski przybyli w <span class='date'>1237</span> r.`
   },
   {
     title: "Zakony – Dominikanie",
     cat: "Zakony",
     icon: "📖",
-    body: `Zakon Kaznodziejski, założony przez <strong>Dominika de Guzmán</strong> ok. <span class='date'>1216</span> r. Cel: walka z herezjami (katarami) przez <em>głoszenie Słowa</em> i studia teologiczne. Mendykanci (żebracy), jak franciszkanie. Dominikanie kierowali <strong>inkwizycją</strong>. Wielcy teolodzy: Tomasz z Akwinu (dominikanin). Do Polski przybyli z Jackiem Odrowążem w <span class='date'>1222</span> r.`
+    body: `Zakon Kaznodziejski, założony przez <strong>Dominika de Guzmán</strong> ok. <span class='date'>1216</span> r. Cel: walka z herezjami przez <em>głoszenie Słowa</em> i studia teologiczne. Dominikanie kierowali <strong>inkwizycją</strong>. Do Polski przybyli z Jackiem Odrowążem w <span class='date'>1222</span> r.`
   },
 
   // === WYPRAWY KRZYŻOWE ===
@@ -641,19 +945,19 @@ const data = [
     title: "Papież Urban II",
     cat: "Wyprawy Krzyżowe",
     icon: "✝️",
-    body: `Papież w latach <span class='date'>1088–1099</span>. Na synodzie w <strong>Clermont (1095)</strong> wezwał chrześcijan do <em>krucjaty</em> w obronie Ziemi Świętej i uwolnienia Jerozolimy z rąk Turków Seldżuckich. Hasło: <em>„Dieu le veut!"</em> (Bóg tak chce!). Zainicjował w ten sposób <strong>I wyprawę krzyżową</strong>. Nie doczekał zdobycia Jerozolimy (1099) – zmarł 2 tygodnie później.`
+    body: `Papież w latach <span class='date'>1088–1099</span>. Na synodzie w <strong>Clermont (1095)</strong> wezwał chrześcijan do <em>krucjaty</em> w obronie Ziemi Świętej. Hasło: <em>„Dieu le veut!"</em> (Bóg tak chce!). Zainicjował <strong>I wyprawę krzyżową</strong>.`
   },
   {
     title: "Wyprawy Krzyżowe",
     cat: "Wyprawy Krzyżowe",
     icon: "⚔️",
-    body: `Zbrojne pielgrzymki chrześcijan do Ziemi Świętej (<span class='date'>1096–1291</span>). <strong>I wyprawa (1096–1099)</strong>: zdobycie Jerozolimy, założenie Królestwa Jerozolimskiego. Łącznie 8–9 wypraw. Skutki: <em>przejęcie wiedzy arabskiej</em> (astronomia, matematyka, medycyna), ożywienie handlu, poznanie nowych produktów (jedwab, przyprawy), ale też masowe mordy (Żydzi, muzułmanie). Ostatecznie zakończyły się klęską – Saladyn odbił Jerozolimę (1187).`
+    body: `Zbrojne pielgrzymki chrześcijan do Ziemi Świętej (<span class='date'>1096–1291</span>). <strong>I wyprawa (1096–1099)</strong>: zdobycie Jerozolimy. Skutki: <em>przejęcie wiedzy arabskiej</em>, ożywienie handlu. Ostatecznie – klęska, Saladyn odbił Jerozolimę (1187).`
   },
   {
     title: "Zakony Rycerskie",
     cat: "Wyprawy Krzyżowe",
     icon: "🛡️",
-    body: `Zakony łączące reguły zakonne z obowiązkiem walki zbrojnej. Główne: <strong>Templariusze</strong> (1119, obrona pielgrzymów, banking), <strong>Joannici / Szpitalnicy</strong> (1099, opieka nad chorymi), <strong>Krzyżacy</strong> (Zakon Szpitala Najświętszej Marii Panny, 1190 – dla Polski najważniejszy, ściągnięci przez Konrada Mazowieckiego w 1226). Zakony rycerskie miały ogromną potęgę militarną i ekonomiczną.`
+    body: `Zakony łączące reguły zakonne z obowiązkiem walki zbrojnej. Główne: <strong>Templariusze</strong> (1119), <strong>Joannici / Szpitalnicy</strong> (1099), <strong>Krzyżacy</strong> (1190 – dla Polski najważniejszy, ściągnięci przez Konrada Mazowieckiego w 1226).`
   },
 
   // === POLSKA PIASTÓW ===
@@ -661,77 +965,244 @@ const data = [
     title: "Mieszko I",
     cat: "Polska Piastów",
     icon: "👑",
-    body: `Pierwszy historyczny władca Polski (<span class='date'>ok. 960–992</span>). Zjednoczył plemiona Polan. <span class='date'>966</span> r. – <strong>Chrzest Polski</strong>: przyjął chrzest z Czech (za pośrednictwem żony Dobrawy), co włączyło Polskę w krąg cywilizacji zachodniej i chroniło przed przymusową chrystianizacją przez Niemców. Dokument <em>Dagome iudex</em> (ok. 991) – oddał Polskę pod opiekę papieża.`
+    body: `Pierwszy historyczny władca Polski (<span class='date'>ok. 960–992</span>). <span class='date'>966</span> r. – <strong>Chrzest Polski</strong>: przyjął chrzest z Czech (za pośrednictwem żony Dobrawy), co włączyło Polskę w krąg cywilizacji zachodniej.`
   },
   {
     title: "Dobrawa (Dąbrówka)",
     cat: "Polska Piastów",
     icon: "👸",
-    body: `Czeska księżniczka, córka Bolesława I Srogiego. Poślubiona Mieszkowi I ok. <span class='date'>965</span> r. z warunkiem <strong>przyjęcia chrześcijaństwa</strong>. Jej małżeństwo z Mieszkiem było czynnikiem decydującym o chrystianizacji Polski. Kronikarz Thietmar z Merseburga wspomina ją jako kobietę pobożną i wpływową. Matka Bolesława Chrobrego. Zmarła ok. 977 r.`
+    body: `Czeska księżniczka, córka Bolesława I Srogiego. Poślubiona Mieszkowi I ok. <span class='date'>965</span> r. z warunkiem <strong>przyjęcia chrześcijaństwa</strong>. Jej małżeństwo było czynnikiem decydującym o chrystianizacji Polski. Matka Bolesława Chrobrego.`
   },
   {
     title: "Biskup Jordan",
     cat: "Polska Piastów",
     icon: "⛪",
-    body: `Pierwszy <strong>biskup Polski</strong>, przybyły do kraju ok. <span class='date'>968</span> r. Misjonarz z misją w Polsce. Podlegał bezpośrednio Rzymowi (nie arcybiskupstwu w Magdeburgu), co miało znaczenie polityczne – zapewniało kościelną niezależność od Niemiec. Organizował struktury kościelne w państwie Mieszka I. Rezydował prawdopodobnie w Poznaniu.`
+    body: `Pierwszy <strong>biskup Polski</strong>, przybyły do kraju ok. <span class='date'>968</span> r. Podlegał bezpośrednio Rzymowi (nie arcybiskupstwu w Magdeburgu) – zapewniało to kościelną niezależność od Niemiec. Rezydował prawdopodobnie w Poznaniu.`
   },
   {
     title: "Bolesław I Chrobry",
     cat: "Polska Piastów",
     icon: "⚔️",
-    body: `Pierwszy król Polski (<span class='date'>992–1025</span>, korona w 1025). Syn Mieszka I i Dobrawy. Rozbudował terytorium Polski (Łużyce, Milsko, Morawy, Grody Czerwieńskie). Zjazd Gnieźnieński <span class='date'>1000</span> – wizyta Ottona III, erygowanie arcybiskupstwa gnieźnieńskiego. Kanonizacja Wojciecha. Koronacja królewska na rok przed śmiercią – pierwsza w historii Polski.`
+    body: `Pierwszy król Polski (<span class='date'>992–1025</span>, korona w 1025). Syn Mieszka I i Dobrawy. Zjazd Gnieźnieński <span class='date'>1000</span> – wizyta Ottona III, erygowanie arcybiskupstwa gnieźnieńskiego. Pierwsza koronacja królewska w historii Polski.`
   },
   {
     title: "Święty Wojciech",
     cat: "Polska Piastów",
     icon: "✝️",
-    body: `Czeski biskup Pragi (<em>Vojtěch</em>), przyjął imię Adalbert. Misjonarz, dwukrotnie musiał opuszczać Pragę z powodu konfliktów. Przybył do Bolesława Chrobrego i wyruszył z misją do <strong>Prusów</strong>. Zamordowany w <span class='date'>997</span> r. Chrobry wykupił ciało za złoto. W <span class='date'>999</span> r. kanonizowany. Zjazd Gnieźnieński 1000 r. – cesarz Otto III złożył hołd przy grobie Wojciecha, co legitymizowało Polskę.`
+    body: `Czeski biskup Pragi, misjonarz. Zamordowany przez <strong>Prusów</strong> w <span class='date'>997</span> r. Chrobry wykupił ciało za złoto. W <span class='date'>999</span> r. kanonizowany. Zjazd Gnieźnieński 1000 r. – cesarz Otto III złożył hołd przy grobie Wojciecha.`
   },
   {
     title: "Przyczyny i skutki koronacji Bolesława Chrobrego",
     cat: "Polska Piastów",
     icon: "📋",
-    body: `<strong>Przyczyny:</strong> ambicja Bolesława, poparcie papieża Benedykta VIII, sukces militarny, Zjazd Gnieźnieński i polityczne znaczenie grobu Wojciecha.<br><br><strong>Skutki:</strong> Polska stała się <em>królestwem</em>, co podnosiło jej prestiż w Europie; władca był równy innym monarchom (nie wasal cesarza); legitymizacja dynastii Piastów; wzmocnienie Kościoła w Polsce. Jednocześnie koronacja wzbudziła wrogość Niemiec i kolejne konflikty.`
+    body: `<strong>Przyczyny:</strong> ambicja Bolesława, poparcie papieża, sukces militarny, Zjazd Gnieźnieński.<br><br><strong>Skutki:</strong> Polska stała się <em>królestwem</em>, władca równy innym monarchom; legitymizacja dynastii Piastów; wzmocnienie Kościoła.`
   },
   {
     title: "Kazimierz I Odnowiciel",
     cat: "Polska Piastów",
     icon: "🏗️",
-    body: `Panował <span class='date'>1039–1058</span>. „Odnowiciel" – bo dosłownie odbudował Polskę po <strong>reakcji pogańskiej i najeździe Brzetysława Czeskiego (1038)</strong>. Kraj był zniszczony, Gniezno splądrowane. Kazimierz przeniósł stolicę do <strong>Krakowa</strong>. Przeniósł arcybiskupstwo do Gniezna po jego odbudowie. Sprowadził z powrotem benedyktynów. Nie uzyskał korony królewskiej.`
+    body: `Panował <span class='date'>1039–1058</span>. „Odnowiciel" – odbudował Polskę po <strong>reakcji pogańskiej i najeździe Brzetysława Czeskiego (1038)</strong>. Przeniósł stolicę do <strong>Krakowa</strong>. Sprowadził z powrotem benedyktynów.`
   },
   {
     title: "Bolesław II Śmiały",
     cat: "Polska Piastów",
     icon: "🗡️",
-    body: `Panował <span class='date'>1058–1079</span> (król od 1076). Przywrócił koronę królewską. Popierał papieża Grzegorza VII w sporze z cesarstwem. <span class='date'>1079</span>: nakazał <strong>zabić biskupa Krakowa Stanisława ze Szczepanowa</strong> (późniejszego patrona Polski). Skutek: bunt możnych, wygnanie Bolesława z kraju. Zginął na emigracji na Węgrzech. Stanisław został kanonizowany w 1253 r. – co uwydatniło hańbę króla.`
+    body: `Panował <span class='date'>1058–1079</span> (król od 1076). Przywrócił koronę królewską. <span class='date'>1079</span>: nakazał <strong>zabić biskupa Krakowa Stanisława ze Szczepanowa</strong>. Skutek: bunt możnych, wygnanie z kraju.`
   },
   {
     title: "Bolesław III Krzywousty",
     cat: "Polska Piastów",
     icon: "🗺️",
-    body: `Panował <span class='date'>1102–1138</span>. <strong>Przyłączył Pomorze</strong> do Polski. Zwyciężył brata Zbigniewa i oślepił go. Walczył z cesarzem Henrykiem V (obrona pod Nakłem/Głogowem 1109). Wydał <strong>Testament (statut) w 1138 r.</strong> – podzielił Polskę między synów, wprowadzając <em>zasadę senioratu</em> (najstarszy z braci – princeps = senior). Testament zapoczątkował <strong>rozbicie dzielnicowe</strong> (1138–1320).`
+    body: `Panował <span class='date'>1102–1138</span>. <strong>Przyłączył Pomorze</strong> do Polski. Wydał <strong>Testament (statut) w 1138 r.</strong> – podzielił Polskę między synów, wprowadzając <em>zasadę senioratu</em>. Testament zapoczątkował <strong>rozbicie dzielnicowe</strong> (1138–1320).`
   },
   {
     title: "Władysław Herman",
     cat: "Polska Piastów",
     icon: "👤",
-    body: `Panował <span class='date'>1079–1102</span>, syn Kazimierza Odnowiciela. Objął władzę po wygnaniu Bolesława Śmiałego. <strong>Słaby władca</strong> – faktycznie rządził palatyn (wielki dostojnik) <em>Sieciech</em>. Płacił trybut cesarzowi, rezygnując z korony królewskiej. Pod koniec panowania buntowali się synowie: Zbigniew i Bolesław (późniejszy Krzywousty), domagając się udziału we władzy.`
+    body: `Panował <span class='date'>1079–1102</span>. <strong>Słaby władca</strong> – faktycznie rządził palatyn <em>Sieciech</em>. Płacił trybut cesarzowi, rezygnując z korony królewskiej.`
   },
 ];
 
-// ─── APP LOGIC ──────────────────────────────────────────────────────────────
-const categories = ['Wszystkie', ...new Set(data.map(d => d.cat))];
+// ─── STATE ───────────────────────────────────────────────────────────────
+let state = { view: 'home', subject: null, type: null };
+
+// ─── NAVIGATION ──────────────────────────────────────────────────────────
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+  updateBreadcrumb();
+}
+
+function goHome() {
+  state = { view: 'home', subject: null, type: null };
+  document.getElementById('count-label').textContent = '';
+  showView('home');
+}
+
+function goSubject(subjectId) {
+  state.subject = subjects.find(s => s.id === subjectId);
+  state.type = null;
+  state.view = 'subject';
+
+  const sub = state.subject;
+  document.getElementById('subject-label').textContent = sub.name;
+  document.getElementById('subject-title').textContent = sub.name;
+  document.getElementById('subject-sub').textContent = sub.desc;
+
+  buildTypeGrid(subjectId);
+  showView('subject');
+}
+
+function goType(typeId) {
+  state.type = types.find(t => t.id === typeId);
+  const key = state.subject.id + '-' + typeId;
+
+  if (hasContent[key]) {
+    buildCards();
+    showView('cards');
+  } else {
+    document.getElementById('ph-label').textContent = state.subject.name + ' — ' + state.type.name;
+    document.getElementById('ph-title').textContent = state.type.name;
+    document.getElementById('ph-sub').textContent = 'Ten dział nie ma jeszcze żadnych materiałów.';
+    showView('placeholder');
+  }
+}
+
+// ─── BREADCRUMB ──────────────────────────────────────────────────────────
+function updateBreadcrumb() {
+  const bc = document.getElementById('breadcrumb');
+  bc.innerHTML = '';
+
+  if (!state.subject) return;
+
+  const sep = () => {
+    const s = document.createElement('span');
+    s.className = 'breadcrumb-sep';
+    s.textContent = '/';
+    return s;
+  };
+
+  bc.appendChild(sep());
+
+  const subItem = document.createElement('span');
+  subItem.className = 'breadcrumb-item' + (!state.type ? ' current' : '');
+  subItem.textContent = state.subject.name;
+  if (state.type) subItem.onclick = () => goSubject(state.subject.id);
+  bc.appendChild(subItem);
+
+  if (state.type) {
+    bc.appendChild(sep());
+    const typeItem = document.createElement('span');
+    typeItem.className = 'breadcrumb-item current';
+    typeItem.textContent = state.type.name;
+    bc.appendChild(typeItem);
+  }
+}
+
+// ─── BUILD SUBJECTS ───────────────────────────────────────────────────────
+const subjectGrid = document.getElementById('subject-grid');
+subjects.forEach((sub, i) => {
+  const card = document.createElement('div');
+  card.className = 'subject-card';
+  card.style.animationDelay = (i * 0.05) + 's';
+  card.innerHTML = `
+    <div class="subject-icon">${sub.icon}</div>
+    <div class="subject-name">${sub.name}</div>
+    <div class="subject-meta">${sub.desc}</div>
+  `;
+  card.onclick = () => goSubject(sub.id);
+  subjectGrid.appendChild(card);
+});
+
+// ─── BUILD TYPE GRID ─────────────────────────────────────────────────────
+function buildTypeGrid(subjectId) {
+  const grid = document.getElementById('type-grid');
+  grid.innerHTML = '';
+  types.forEach((type, i) => {
+    const key = subjectId + '-' + type.id;
+    const available = hasContent[key];
+    const card = document.createElement('div');
+    card.className = 'type-card' + (!available ? ' placeholder' : '');
+    card.style.animationDelay = (i * 0.06) + 's';
+    card.innerHTML = `
+      <div class="type-icon">${type.icon}</div>
+      <div class="type-info">
+        <div class="type-name">${type.name}</div>
+        <div class="type-desc">${available ? type.desc : 'Brak materiałów'}</div>
+      </div>
+      ${available
+        ? '<span class="type-arrow">→</span>'
+        : '<span class="coming-soon-tag">Wkrótce</span>'}
+    `;
+    if (available) card.onclick = () => goType(type.id);
+    grid.appendChild(card);
+  });
+}
+
+// ─── BUILD CARDS ─────────────────────────────────────────────────────────
 let activeCategory = 'Wszystkie';
 
-const gridEl    = document.getElementById('grid');
-const catsEl    = document.getElementById('cats');
-const searchEl  = document.getElementById('search');
+function buildCards() {
+  const subName = state.subject.name;
+  const typeName = state.type.name;
+
+  document.getElementById('cards-label').textContent = subName + ' — ' + typeName;
+  document.getElementById('cards-title').textContent = 'Pojęcia ' + subName + 'czne';
+  document.getElementById('cards-sub').textContent = 'Średniowiecze & Polska Piastów — wszystkie kluczowe pojęcia.';
+
+  // Reset search
+  document.getElementById('search').value = '';
+  activeCategory = 'Wszystkie';
+
+  // Build category buttons
+  const categories = ['Wszystkie', ...new Set(data.map(d => d.cat))];
+  const catsEl = document.getElementById('cats');
+  catsEl.innerHTML = '';
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
+    btn.textContent = cat;
+    btn.onclick = () => {
+      activeCategory = cat;
+      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+    };
+    catsEl.appendChild(btn);
+  });
+
+  // Build cards
+  const gridEl = document.getElementById('grid');
+  gridEl.innerHTML = '';
+  data.forEach(item => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.title = item.title;
+    card.dataset.body  = item.body.replace(/<[^>]+>/g, '');
+    card.dataset.cat   = item.cat;
+    card.innerHTML = `
+      <div class="card-head">
+        <div class="card-icon-wrap">${item.icon}</div>
+        <div class="card-title-area">
+          <div class="card-title">${item.title}</div>
+          <span class="card-cat-tag">${item.cat}</span>
+        </div>
+      </div>
+      <div class="card-body">${item.body}</div>
+    `;
+    gridEl.appendChild(card);
+  });
+
+  updateCount(data.length, data.length);
+}
+
+// ─── RENDER / FILTER ─────────────────────────────────────────────────────
 const countEl   = document.getElementById('count-label');
+const searchEl  = document.getElementById('search');
 
 function updateCount(visible, total) {
-  countEl.textContent = visible === total
-    ? `${total} pojęć`
-    : `${visible} / ${total}`;
+  countEl.textContent = visible === total ? `${total} pojęć` : `${visible} / ${total}`;
 }
 
 function render() {
@@ -747,7 +1218,6 @@ function render() {
     card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
-
   updateCount(visible, data.length);
 
   let noRes = document.getElementById('no-results');
@@ -757,61 +1227,23 @@ function render() {
       noRes.id = 'no-results';
       noRes.className = 'no-results';
       noRes.innerHTML = `<span>∅</span>Nie znaleziono pojęcia dla „${searchEl.value}"`;
-      gridEl.appendChild(noRes);
+      document.getElementById('grid').appendChild(noRes);
     }
   } else {
     noRes && noRes.remove();
   }
 }
 
-// Build category buttons
-categories.forEach(cat => {
-  const btn = document.createElement('button');
-  btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
-  btn.textContent = cat;
-  btn.onclick = () => {
-    activeCategory = cat;
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    render();
-  };
-  catsEl.appendChild(btn);
-});
-
-// Build cards
-data.forEach(item => {
-  const card = document.createElement('div');
-  card.className = 'card';
-  card.dataset.title = item.title;
-  card.dataset.body  = item.body.replace(/<[^>]+>/g, '');
-  card.dataset.cat   = item.cat;
-  card.innerHTML = `
-    <div class="card-head">
-      <div class="card-icon-wrap">${item.icon}</div>
-      <div class="card-title-area">
-        <div class="card-title">${item.title}</div>
-        <span class="card-cat-tag">${item.cat}</span>
-      </div>
-    </div>
-    <div class="card-body">${item.body}</div>
-  `;
-  gridEl.appendChild(card);
-});
-
-updateCount(data.length, data.length);
 searchEl.addEventListener('input', render);
 
-// ─── THEME TOGGLE ───────────────────────────────────────────────────────────
+// ─── THEME TOGGLE ─────────────────────────────────────────────────────────
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
-
-// Load saved preference
 const saved = localStorage.getItem('theme') || 'dark';
 html.setAttribute('data-theme', saved);
 
 toggleBtn.addEventListener('click', () => {
-  const current = html.getAttribute('data-theme');
-  const next = current === 'dark' ? 'light' : 'dark';
+  const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
 });
