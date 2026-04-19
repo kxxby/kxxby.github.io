@@ -1709,42 +1709,55 @@ searchEl.addEventListener('input', render);
 const MASTER_KEY   = '$2a$10$/VAQDOgfLwmS4sQUL9wj6enqCYdmRr0O8nqQCqYE0iP334tfSR8hG';
 const ACCESS_KEY   = '$2a$10$XzVAMOGcK2UfJ5QuIB5mhOZ4NVs7wYaenkMBKeJ4bQEU3O1OHLYnu';
 const JSONBIN_BASE = 'https://api.jsonbin.io/v3';
+const LS_KEY = 'school-bin-id';
 let BIN_ID = null;
+let _initPromise = null;
 
 async function initBin() {
   if (BIN_ID) return;
+  if (_initPromise) return _initPromise;
 
-  // 1. URL param: ?bin=XXXX  (link z kodem)
-  const urlBin = new URLSearchParams(window.location.search).get('bin');
-  if (urlBin) {
-    BIN_ID = urlBin;
-    localStorage.setItem('school-bin-id', BIN_ID);
-    return;
-  }
+  _initPromise = (async () => {
+    // 1. URL param ?bin=XXXX
+    const urlBin = new URLSearchParams(window.location.search).get('bin');
+    if (urlBin) {
+      BIN_ID = urlBin;
+      localStorage.setItem(LS_KEY, BIN_ID);
+      return;
+    }
+    // 2. localStorage
+    const saved = localStorage.getItem(LS_KEY);
+    if (saved) {
+      BIN_ID = saved;
+      return;
+    }
+    // 3. Auto-create new bin
+    try {
+      const res = await fetch(`${JSONBIN_BASE}/b`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Master-Key': MASTER_KEY,
+          'X-Bin-Name': 'notatki-szkolne',
+          'X-Bin-Private': 'false'
+        },
+        body: JSON.stringify([])
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const json = await res.json();
+      BIN_ID = json.metadata.id;
+      localStorage.setItem(LS_KEY, BIN_ID);
+      // Show share prompt after creation
+      setTimeout(() => {
+        showToast('Bin utworzony! Kliknij 🔗 aby udostępnić klasie.');
+      }, 600);
+    } catch (e) {
+      console.error('Nie udało się utworzyć bina:', e);
+      showToast('Błąd połączenia z JSONBin!');
+    }
+  })();
 
-  // 2. localStorage (był już użyty wcześniej)
-  const saved = localStorage.getItem('school-bin-id');
-  if (saved) { BIN_ID = saved; return; }
-
-  // 3. Utwórz nowy bin (pierwszy użytkownik)
-  try {
-    const res = await fetch(`${JSONBIN_BASE}/b`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': MASTER_KEY,
-        'X-Bin-Name': 'school-events',
-        'X-Bin-Private': 'false'
-      },
-      body: JSON.stringify([])
-    });
-    const json = await res.json();
-    BIN_ID = json.metadata.id;
-    localStorage.setItem('school-bin-id', BIN_ID);
-    showShareBanner();
-  } catch (e) {
-    console.error('JSONBin create error:', e);
-  }
+  return _initPromise;
 }
 
 // ─── EVENT STORAGE ────────────────────────────────────────────────────────
@@ -1758,75 +1771,44 @@ async function loadEvents() {
         'X-Access-Key': ACCESS_KEY
       }
     });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
     const json = await res.json();
     return Array.isArray(json.record) ? json.record : [];
-  } catch { return []; }
+  } catch (e) {
+    console.error('loadEvents error:', e);
+    return [];
+  }
 }
 
 async function saveEvents(events) {
   await initBin();
-  if (!BIN_ID) return;
-  await fetch(`${JSONBIN_BASE}/b/${BIN_ID}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'X-Master-Key': MASTER_KEY
-    },
-    body: JSON.stringify(events)
-  });
+  if (!BIN_ID) { showToast('Brak połączenia z JSONBin!'); return; }
+  try {
+    const res = await fetch(`${JSONBIN_BASE}/b/${BIN_ID}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': MASTER_KEY
+      },
+      body: JSON.stringify(events)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+  } catch (e) {
+    console.error('saveEvents error:', e);
+    showToast('Błąd zapisu do JSONBin!');
+    throw e;
+  }
 }
 
-// ─── SHARE BANNER ────────────────────────────────────────────────────────
-function showShareBanner() {
-  if (document.getElementById('share-banner')) return;
-  const banner = document.createElement('div');
-  banner.id = 'share-banner';
-  banner.style.cssText = `
-    position:fixed; top:68px; left:50%; transform:translateX(-50%);
-    background:var(--surface); border:1px solid var(--border2);
-    border-radius:12px; padding:16px 20px; z-index:400;
-    max-width:480px; width:calc(100% - 32px);
-    box-shadow:0 8px 32px var(--shadow);
-    animation: fadeUp 0.3s ease both;
-  `;
-  banner.innerHTML = `
-    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.9rem;margin-bottom:8px;color:var(--text)">
-      🎉 Bin utworzony! Udostępnij innym:
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <input readonly id="share-url" value="${location.href.split('?')[0]}?bin=${BIN_ID}"
-        style="flex:1;padding:8px 12px;background:var(--input-bg);border:1px solid var(--border);
-        border-radius:8px;color:var(--text2);font-size:.8rem;font-family:monospace;outline:none;">
-      <button onclick="copyShareUrl()" style="padding:8px 14px;background:var(--accent);color:var(--accent-inv);
-        border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:.82rem;
-        font-weight:600;cursor:pointer;white-space:nowrap;">Kopiuj</button>
-      <button onclick="document.getElementById('share-banner').remove()"
-        style="padding:8px;background:transparent;color:var(--text3);border:1px solid var(--border);
-        border-radius:8px;cursor:pointer;font-size:.9rem;line-height:1;">✕</button>
-    </div>
-    <div style="margin-top:8px;font-size:.72rem;color:var(--text3);">
-      Kod bina: <code style="background:var(--bg3);padding:1px 6px;border-radius:4px;">${BIN_ID}</code>
-    </div>
-  `;
-  document.body.appendChild(banner);
-}
-
-function copyShareUrl() {
-  const input = document.getElementById('share-url');
-  navigator.clipboard.writeText(input.value).then(() => showToast('Link skopiowany! ✓'));
-}
-
-// Pokaż przycisk "Udostępnij" w topbarze
+// ─── SHARE ────────────────────────────────────────────────────────────────
 function addShareBtn() {
   if (!BIN_ID || document.getElementById('share-topbar-btn')) return;
   const btn = document.createElement('button');
   btn.id = 'share-topbar-btn';
-  btn.title = 'Udostępnij klasie';
-  btn.style.cssText = `
-    background:transparent; border:1px solid var(--border); border-radius:8px;
-    padding:5px 12px; color:var(--text2); font-family:'DM Sans',sans-serif;
-    font-size:.78rem; cursor:pointer; transition:all .18s;
-  `;
+  btn.title = 'Skopiuj link dla klasy';
+  btn.style.cssText = `background:transparent;border:1px solid var(--border);border-radius:8px;
+    padding:5px 12px;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.78rem;
+    cursor:pointer;transition:all .18s;`;
   btn.textContent = '🔗 Udostępnij';
   btn.onmouseenter = () => { btn.style.borderColor='var(--border2)'; btn.style.color='var(--text)'; };
   btn.onmouseleave = () => { btn.style.borderColor='var(--border)'; btn.style.color='var(--text2)'; };
@@ -1915,27 +1897,31 @@ async function saveEvent() {
   btn.disabled = true;
   btn.textContent = 'Zapisuję…';
 
-  const events = await loadEvents();
-  const newEvent = {
-    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-    type: selectedType,
-    subject,
-    date,
-    topic,
-    createdAt: Date.now()
-  };
-  events.push(newEvent);
-  await saveEvents(events);
+  try {
+    const events = await loadEvents();
+    const newEvent = {
+      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+      type: selectedType,
+      subject,
+      date,
+      topic,
+      createdAt: Date.now()
+    };
+    events.push(newEvent);
+    await saveEvents(events);
 
-  btn.disabled = false;
-  btn.textContent = 'Zapisz';
-  closeAddModal();
-  showToast('Wpis dodany! ✓');
-  renderUpcoming();
+    closeAddModal();
+    showToast('Dodano! ✓');
+    renderUpcoming();
 
-  // Refresh cards if currently viewing this subject+type
-  if (state.view === 'cards' && state.subject?.id === subject && state.type?.id === selectedType) {
-    buildCards();
+    if (state.view === 'cards' && state.subject?.id === subject && state.type?.id === selectedType) {
+      buildCards();
+    }
+  } catch (e) {
+    showToast('Błąd zapisu — spróbuj ponownie');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Zapisz';
   }
 }
 
