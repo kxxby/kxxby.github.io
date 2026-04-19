@@ -672,6 +672,375 @@
   .card:nth-child(8)  { animation-delay: .24s }
   .card:nth-child(n+9){ animation-delay: .27s }
 
+  /* ── FAB ── */
+  .fab {
+    position: fixed;
+    bottom: 28px;
+    right: 28px;
+    z-index: 200;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--accent);
+    color: var(--accent-inv);
+    border: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 24px var(--shadow);
+    transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s, background 0.25s;
+    font-family: 'DM Sans', sans-serif;
+    line-height: 1;
+  }
+  .fab:hover {
+    transform: scale(1.08) translateY(-2px);
+    box-shadow: 0 8px 36px var(--shadow);
+  }
+  .fab.open { transform: rotate(45deg) scale(1.05); }
+
+  /* ── MODAL OVERLAY ── */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 300;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .modal-overlay.visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  [data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.4); }
+
+  .modal {
+    width: 100%;
+    max-width: 520px;
+    background: var(--bg2);
+    border: 1px solid var(--border2);
+    border-radius: 20px 20px 0 0;
+    padding: 28px 28px 40px;
+    transform: translateY(40px);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+    max-height: 92vh;
+    overflow-y: auto;
+  }
+  .modal-overlay.visible .modal { transform: translateY(0); }
+
+  .modal-handle {
+    width: 36px; height: 4px;
+    background: var(--border2);
+    border-radius: 2px;
+    margin: 0 auto 24px;
+  }
+
+  .modal-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: -0.03em;
+    color: var(--text);
+    margin-bottom: 24px;
+  }
+
+  .form-field {
+    margin-bottom: 18px;
+  }
+
+  .form-label {
+    display: block;
+    font-size: 0.73rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+    margin-bottom: 8px;
+  }
+
+  .form-input, .form-select {
+    width: 100%;
+    padding: 12px 14px;
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  .form-input:focus, .form-select:focus {
+    border-color: var(--border2);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--text) 8%, transparent);
+  }
+  .form-input::placeholder { color: var(--text3); }
+
+  .type-pills {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .type-pill {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    padding: 8px 16px;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    background: transparent;
+    color: var(--text2);
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .type-pill:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+  .type-pill.selected {
+    background: var(--cat-active-bg);
+    color: var(--cat-active-text);
+    border-color: var(--cat-active-bg);
+  }
+
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 24px;
+  }
+
+  .btn-primary {
+    flex: 1;
+    padding: 13px;
+    background: var(--accent);
+    color: var(--accent-inv);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.18s;
+  }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+  .btn-secondary {
+    padding: 13px 20px;
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .btn-secondary:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+
+  /* ── UPCOMING EVENTS (Home) ── */
+  .upcoming-wrap {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 24px 48px;
+  }
+
+  .upcoming-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+  }
+
+  .upcoming-heading {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text3);
+  }
+
+  .upcoming-count {
+    font-size: 0.72rem;
+    color: var(--text3);
+    font-weight: 500;
+  }
+
+  .upcoming-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .event-row {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    animation: fadeUp 0.4s ease both;
+    transition: border-color 0.2s, background 0.25s;
+    cursor: pointer;
+  }
+  .event-row:hover { border-color: var(--border2); }
+
+  .event-type-badge {
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    background: var(--bg3);
+    color: var(--text3);
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+  .event-type-badge.sprawdzian { border-color: #e8745a44; background: #e8745a18; color: #e8745a; }
+  .event-type-badge.kartkowka  { border-color: #7a8ce844; background: #7a8ce818; color: #7a9ae8; }
+  .event-type-badge.zd         { border-color: #5ac88e44; background: #5ac88e18; color: #5ac88e; }
+
+  .event-info { flex: 1; min-width: 0; }
+
+  .event-title {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text);
+    letter-spacing: -0.01em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .event-meta {
+    font-size: 0.75rem;
+    color: var(--text3);
+    margin-top: 3px;
+  }
+
+  .event-date-chip {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--date-text);
+    background: var(--date-bg);
+    padding: 3px 10px;
+    border-radius: 7px;
+    border: 1px solid var(--border2);
+    flex-shrink: 0;
+    letter-spacing: -0.01em;
+  }
+  .event-date-chip.past { opacity: 0.45; }
+
+  .event-delete-btn {
+    background: none;
+    border: none;
+    color: var(--text3);
+    cursor: pointer;
+    font-size: 0.9rem;
+    padding: 4px;
+    border-radius: 6px;
+    flex-shrink: 0;
+    line-height: 1;
+    transition: color 0.15s, background 0.15s;
+  }
+  .event-delete-btn:hover { color: #e87070; background: #e8707018; }
+
+  .upcoming-empty {
+    text-align: center;
+    padding: 32px 24px;
+    color: var(--text3);
+    font-size: 0.88rem;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 12px;
+  }
+  .upcoming-empty span { display: block; font-size: 1.6rem; margin-bottom: 8px; }
+
+  /* ── DYNAMIC EVENT CARDS ── */
+  .event-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+    animation: fadeUp 0.5s ease both;
+  }
+  .event-card:hover {
+    border-color: var(--border2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px var(--shadow);
+  }
+  .event-card-head {
+    padding: 14px 16px 12px;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .event-card-icon {
+    width: 36px; height: 36px;
+    border-radius: 8px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1rem; flex-shrink: 0;
+  }
+  .event-card-title-area { flex: 1; }
+  .event-card-title {
+    font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem;
+    color: var(--text); letter-spacing: -0.01em; line-height: 1.3;
+  }
+  .event-card-tag {
+    display: inline-block; margin-top: 5px;
+    font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--tag-text); background: var(--tag-bg);
+    padding: 2px 8px; border-radius: 100px; border: 1px solid var(--border);
+  }
+  .event-card-body {
+    padding: 14px 16px;
+    font-size: 0.88rem; line-height: 1.6; color: var(--text2); font-weight: 300;
+    display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  }
+  .event-card-date-big {
+    font-family: 'Syne', sans-serif; font-weight: 700;
+    font-size: 0.82rem; color: var(--date-text);
+    background: var(--date-bg); padding: 3px 10px;
+    border-radius: 6px; border: 1px solid var(--border2);
+    white-space: nowrap; flex-shrink: 0;
+  }
+  .event-card-delete {
+    background: none; border: none; color: var(--text3); cursor: pointer;
+    font-size: 0.85rem; padding: 4px 6px; border-radius: 6px;
+    flex-shrink: 0; transition: color 0.15s, background 0.15s;
+  }
+  .event-card-delete:hover { color: #e87070; background: #e8707018; }
+
+  /* ── TOAST ── */
+  .toast {
+    position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(12px);
+    background: var(--text); color: var(--accent-inv);
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    padding: 10px 20px; border-radius: 100px;
+    opacity: 0; pointer-events: none; z-index: 500;
+    transition: opacity 0.2s, transform 0.2s;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .hero { padding: 40px 20px 32px; }
@@ -712,6 +1081,16 @@
 
   <div class="subject-grid-wrap">
     <div class="subject-grid" id="subject-grid"></div>
+  </div>
+
+  <div class="upcoming-wrap" id="upcoming-section" style="margin-top:40px;">
+    <div class="upcoming-header">
+      <span class="upcoming-heading">Nadchodzące</span>
+      <span class="upcoming-count" id="upcoming-count"></span>
+    </div>
+    <div class="upcoming-list" id="upcoming-list">
+      <div class="upcoming-empty"><span>📅</span>Brak wpisów. Dodaj pierwszy klikając +</div>
+    </div>
   </div>
 </div>
 
@@ -766,6 +1145,51 @@
   </div>
 </div>
 
+<!-- FAB -->
+<button class="fab" id="fab" onclick="openAddModal()" title="Dodaj wpis">+</button>
+
+<!-- ADD EVENT MODAL -->
+<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div class="modal-title">Dodaj wpis</div>
+
+    <div class="form-field">
+      <label class="form-label">Rodzaj</label>
+      <div class="type-pills" id="type-pills">
+        <button class="type-pill selected" data-type="sprawdzian" onclick="selectType('sprawdzian', this)">📝 Sprawdzian</button>
+        <button class="type-pill" data-type="kartkowka" onclick="selectType('kartkowka', this)">📄 Kartkówka</button>
+        <button class="type-pill" data-type="zd" onclick="selectType('zd', this)">🏠 Zadanie domowe</button>
+      </div>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Przedmiot</label>
+      <select class="form-select" id="modal-subject">
+        <option value="">— Wybierz przedmiot —</option>
+      </select>
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Data</label>
+      <input type="date" class="form-input" id="modal-date">
+    </div>
+
+    <div class="form-field">
+      <label class="form-label">Z czego będzie / Temat</label>
+      <input type="text" class="form-input" id="modal-topic" placeholder="np. Polska Piastów, rozdziały 1–3…" autocomplete="off">
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn-secondary" onclick="closeAddModal()">Anuluj</button>
+      <button class="btn-primary" id="save-btn" onclick="saveEvent()">Zapisz</button>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
 <script>
 // ─── SUBJECTS ──────────────────────────────────────────────────────────────
 const subjects = [
@@ -785,10 +1209,12 @@ const types = [
   { id: 'kartkowka',   name: 'Kartkówka',         icon: '📄', desc: 'Szybkie powtórzenie' },
 ];
 
-// Which combinations have real content
-const hasContent = {
+// Which combinations have real (hardcoded) content
+const hasHardcodedContent = {
   'historia-sprawdzian': true,
 };
+
+// All combinations are now available (dynamic events can be added to any)
 
 // ─── CARD DATA ───────────────────────────────────────────────────────────
 const data = [
@@ -1056,17 +1482,8 @@ function goSubject(subjectId) {
 
 function goType(typeId) {
   state.type = types.find(t => t.id === typeId);
-  const key = state.subject.id + '-' + typeId;
-
-  if (hasContent[key]) {
-    buildCards();
-    showView('cards');
-  } else {
-    document.getElementById('ph-label').textContent = state.subject.name + ' — ' + state.type.name;
-    document.getElementById('ph-title').textContent = state.type.name;
-    document.getElementById('ph-sub').textContent = 'Ten dział nie ma jeszcze żadnych materiałów.';
-    showView('placeholder');
-  }
+  buildCards();
+  showView('cards');
 }
 
 // ─── BREADCRUMB ──────────────────────────────────────────────────────────
@@ -1120,22 +1537,18 @@ function buildTypeGrid(subjectId) {
   const grid = document.getElementById('type-grid');
   grid.innerHTML = '';
   types.forEach((type, i) => {
-    const key = subjectId + '-' + type.id;
-    const available = hasContent[key];
     const card = document.createElement('div');
-    card.className = 'type-card' + (!available ? ' placeholder' : '');
+    card.className = 'type-card';
     card.style.animationDelay = (i * 0.06) + 's';
     card.innerHTML = `
       <div class="type-icon">${type.icon}</div>
       <div class="type-info">
         <div class="type-name">${type.name}</div>
-        <div class="type-desc">${available ? type.desc : 'Brak materiałów'}</div>
+        <div class="type-desc">${type.desc}</div>
       </div>
-      ${available
-        ? '<span class="type-arrow">→</span>'
-        : '<span class="coming-soon-tag">Wkrótce</span>'}
+      <span class="type-arrow">→</span>
     `;
-    if (available) card.onclick = () => goType(type.id);
+    card.onclick = () => goType(type.id);
     grid.appendChild(card);
   });
 }
@@ -1148,34 +1561,42 @@ function buildCards() {
   const typeName = state.type.name;
 
   document.getElementById('cards-label').textContent = subName + ' — ' + typeName;
-  document.getElementById('cards-title').textContent = 'Pojęcia ' + subName + 'czne';
-  document.getElementById('cards-sub').textContent = 'Średniowiecze & Polska Piastów — wszystkie kluczowe pojęcia.';
+  document.getElementById('cards-title').textContent = typeName + ' — ' + subName;
+  document.getElementById('cards-sub').textContent = 'Notatki i materiały do nauki.';
 
   // Reset search
   document.getElementById('search').value = '';
   activeCategory = 'Wszystkie';
 
+  const key = state.subject.id + '-' + state.type.id;
+  const isHardcoded = hasHardcodedContent[key];
+
+  // Filter hardcoded data only for historia-sprawdzian
+  const staticItems = isHardcoded ? data : [];
+
   // Build category buttons
-  const categories = ['Wszystkie', ...new Set(data.map(d => d.cat))];
+  const categories = ['Wszystkie', ...new Set(staticItems.map(d => d.cat))];
   const catsEl = document.getElementById('cats');
   catsEl.innerHTML = '';
-  categories.forEach(cat => {
-    const btn = document.createElement('button');
-    btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
-    btn.textContent = cat;
-    btn.onclick = () => {
-      activeCategory = cat;
-      document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      render();
-    };
-    catsEl.appendChild(btn);
-  });
+  if (staticItems.length > 0) {
+    categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
+      btn.textContent = cat;
+      btn.onclick = () => {
+        activeCategory = cat;
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        render();
+      };
+      catsEl.appendChild(btn);
+    });
+  }
 
-  // Build cards
+  // Build static cards
   const gridEl = document.getElementById('grid');
   gridEl.innerHTML = '';
-  data.forEach(item => {
+  staticItems.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.title = item.title;
@@ -1194,7 +1615,55 @@ function buildCards() {
     gridEl.appendChild(card);
   });
 
-  updateCount(data.length, data.length);
+  updateCount(staticItems.length, staticItems.length);
+
+  // Load and render dynamic events for this subject+type
+  renderDynamicEvents(state.subject.id, state.type.id, gridEl, staticItems.length);
+}
+
+async function renderDynamicEvents(subjectId, typeId, gridEl, staticCount) {
+  const allEvents = await loadEvents();
+  const matching = allEvents.filter(e => e.subject === subjectId && e.type === typeId);
+
+  if (matching.length === 0 && staticCount === 0) {
+    if (!document.getElementById('no-results')) {
+      const empty = document.createElement('div');
+      empty.id = 'no-results';
+      empty.className = 'no-results';
+      empty.innerHTML = `<span>📋</span>Brak wpisów w tym dziale.<br><small style="font-size:0.78rem;opacity:0.7">Dodaj pierwszy klikając przycisk +</small>`;
+      gridEl.appendChild(empty);
+    }
+    return;
+  }
+
+  const typeNames = { sprawdzian: 'Sprawdzian', kartkowka: 'Kartkówka', zd: 'Zadanie domowe' };
+  const typeIcons = { sprawdzian: '📝', kartkowka: '📄', zd: '🏠' };
+
+  // Sort by date
+  matching.sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  matching.forEach(ev => {
+    const card = document.createElement('div');
+    card.className = 'event-card';
+    const dateStr = formatDate(ev.date);
+    card.innerHTML = `
+      <div class="event-card-head">
+        <div class="event-card-icon">${typeIcons[ev.type] || '📋'}</div>
+        <div class="event-card-title-area">
+          <div class="event-card-title">${escHtml(ev.topic)}</div>
+          <span class="event-card-tag">${typeNames[ev.type] || ev.type}</span>
+        </div>
+      </div>
+      <div class="event-card-body">
+        <span>Data: <strong style="color:var(--text)">${dateStr}</strong></span>
+        <span class="event-card-date-big">${dateStr}</span>
+        <button class="event-card-delete" onclick="deleteEventFromCards('${ev.id}')" title="Usuń">✕</button>
+      </div>
+    `;
+    gridEl.appendChild(card);
+  });
+
+  updateCount(staticCount + matching.length, staticCount + matching.length);
 }
 
 // ─── RENDER / FILTER ─────────────────────────────────────────────────────
@@ -1236,6 +1705,198 @@ function render() {
 
 searchEl.addEventListener('input', render);
 
+// ─── EVENT STORAGE ────────────────────────────────────────────────────────
+const STORAGE_KEY = 'school-events';
+
+async function loadEvents() {
+  try {
+    const result = await window.storage.get(STORAGE_KEY, true);
+    return result ? JSON.parse(result.value) : [];
+  } catch {
+    return [];
+  }
+}
+
+async function saveEvents(events) {
+  try {
+    await window.storage.set(STORAGE_KEY, JSON.stringify(events), true);
+  } catch (e) {
+    console.error('Storage error:', e);
+  }
+}
+
+function escHtml(str) {
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('pl-PL', { day: 'numeric', month: 'short', year: 'numeric' });
+}
+
+function isPast(dateStr) {
+  return new Date(dateStr + 'T00:00:00') < new Date(new Date().toDateString());
+}
+
+// ─── MODAL ────────────────────────────────────────────────────────────────
+let selectedType = 'sprawdzian';
+
+function openAddModal() {
+  // Populate subject select
+  const sel = document.getElementById('modal-subject');
+  sel.innerHTML = '<option value="">— Wybierz przedmiot —</option>';
+  subjects.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.id;
+    opt.textContent = s.icon + ' ' + s.name;
+    // Pre-select current subject if in subject/cards view
+    if (state.subject && state.subject.id === s.id) opt.selected = true;
+    sel.appendChild(opt);
+  });
+
+  // Pre-select current type if in cards view
+  if (state.type) {
+    selectedType = state.type.id;
+    document.querySelectorAll('.type-pill').forEach(p => {
+      p.classList.toggle('selected', p.dataset.type === selectedType);
+    });
+  }
+
+  // Set default date to tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  document.getElementById('modal-date').value = tomorrow.toISOString().split('T')[0];
+  document.getElementById('modal-topic').value = '';
+
+  document.getElementById('modal-overlay').classList.add('visible');
+  document.getElementById('fab').classList.add('open');
+  setTimeout(() => document.getElementById('modal-topic').focus(), 350);
+}
+
+function closeAddModal() {
+  document.getElementById('modal-overlay').classList.remove('visible');
+  document.getElementById('fab').classList.remove('open');
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('modal-overlay')) closeAddModal();
+}
+
+function selectType(typeId, btn) {
+  selectedType = typeId;
+  document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('selected'));
+  btn.classList.add('selected');
+}
+
+async function saveEvent() {
+  const subject = document.getElementById('modal-subject').value;
+  const date = document.getElementById('modal-date').value;
+  const topic = document.getElementById('modal-topic').value.trim();
+
+  if (!subject || !date || !topic) {
+    showToast('Uzupełnij wszystkie pola!');
+    return;
+  }
+
+  const btn = document.getElementById('save-btn');
+  btn.disabled = true;
+  btn.textContent = 'Zapisuję…';
+
+  const events = await loadEvents();
+  const newEvent = {
+    id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
+    type: selectedType,
+    subject,
+    date,
+    topic,
+    createdAt: Date.now()
+  };
+  events.push(newEvent);
+  await saveEvents(events);
+
+  btn.disabled = false;
+  btn.textContent = 'Zapisz';
+  closeAddModal();
+  showToast('Wpis dodany! ✓');
+  renderUpcoming();
+
+  // Refresh cards if currently viewing this subject+type
+  if (state.view === 'cards' && state.subject?.id === subject && state.type?.id === selectedType) {
+    buildCards();
+  }
+}
+
+async function deleteEvent(id) {
+  const events = await loadEvents();
+  await saveEvents(events.filter(e => e.id !== id));
+  renderUpcoming();
+  showToast('Usunięto');
+}
+
+async function deleteEventFromCards(id) {
+  await deleteEvent(id);
+  if (state.view === 'cards') buildCards();
+}
+
+// ─── UPCOMING LIST ────────────────────────────────────────────────────────
+const typeNames = { sprawdzian: 'Sprawdzian', kartkowka: 'Kartkówka', zd: 'Zad. domowe' };
+const typeIcons  = { sprawdzian: '📝', kartkowka: '📄', zd: '🏠' };
+
+async function renderUpcoming() {
+  const events = await loadEvents();
+  const listEl = document.getElementById('upcoming-list');
+  const countEl = document.getElementById('upcoming-count');
+
+  listEl.innerHTML = '';
+
+  if (events.length === 0) {
+    listEl.innerHTML = '<div class="upcoming-empty"><span>📅</span>Brak wpisów. Dodaj pierwszy klikając +</div>';
+    countEl.textContent = '';
+    return;
+  }
+
+  countEl.textContent = events.length + ' wpisów';
+
+  // Sort: upcoming first, then past
+  const sorted = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
+
+  sorted.forEach((ev, i) => {
+    const subj = subjects.find(s => s.id === ev.subject);
+    const past = isPast(ev.date);
+    const row = document.createElement('div');
+    row.className = 'event-row';
+    row.style.animationDelay = (i * 0.04) + 's';
+    row.innerHTML = `
+      <span class="event-type-badge ${ev.type}">${typeNames[ev.type] || ev.type}</span>
+      <div class="event-info">
+        <div class="event-title">${escHtml(ev.topic)}</div>
+        <div class="event-meta">${subj ? subj.icon + ' ' + subj.name : ev.subject}</div>
+      </div>
+      <span class="event-date-chip${past ? ' past' : ''}">${formatDate(ev.date)}</span>
+      <button class="event-delete-btn" onclick="deleteEvent('${ev.id}')" title="Usuń">✕</button>
+    `;
+    row.onclick = (e) => {
+      if (e.target.classList.contains('event-delete-btn')) return;
+      if (subj) { goSubject(subj.id); }
+    };
+    listEl.appendChild(row);
+  });
+}
+
+// ─── TOAST ────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// Init upcoming on load
+renderUpcoming();
+
 // ─── THEME TOGGLE ─────────────────────────────────────────────────────────
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
@@ -1246,6 +1907,11 @@ toggleBtn.addEventListener('click', () => {
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
   html.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
+});
+
+// Close modal on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeAddModal();
 });
 </script>
 </body>
