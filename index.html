@@ -1,478 +1,531 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Curses & Blessings — Ability Index</title>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Nunito:wght@400;500;600&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Historia – Pojęcia na Sprawdzian</title>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
 <style>
-  /* ── Root tokens ─────────────────────────────────────────── */
   :root {
-    --bg-base:        #0d0f14;
-    --bg-card:        #13161e;
-    --bg-row-hover:   #1a1e2a;
-    --border-subtle:  rgba(255,255,255,0.07);
-    --border-card:    rgba(255,255,255,0.10);
-
-    --text-primary:   #e8eaf0;
-    --text-secondary: #8892aa;
-    --text-muted:     #505870;
-
-    --gold:           #e8b84b;
-    --gold-dim:       #9a7830;
-    --gold-glow:      rgba(232,184,75,0.18);
-
-    --crimson:        #e05050;
-    --crimson-dim:    #8a3030;
-    --crimson-glow:   rgba(224,80,80,0.18);
-
-    /* Tag palette – dark-mode recoloured */
-    --tag-self-bg:    rgba(59,130,246,0.18);
-    --tag-self-fg:    #93c5fd;
-    --tag-aoe-bg:     rgba(239,68,68,0.18);
-    --tag-aoe-fg:     #fca5a5;
-    --tag-target-bg:  rgba(245,158,11,0.18);
-    --tag-target-fg:  #fcd34d;
-    --tag-beam-bg:    rgba(139,92,246,0.18);
-    --tag-beam-fg:    #c4b5fd;
-    --tag-pass-bg:    rgba(34,197,94,0.18);
-    --tag-pass-fg:    #86efac;
-
-    /* Chip */
-    --chip-bg:        rgba(255,255,255,0.06);
-    --chip-fg:        #6b7a99;
-
-    --radius-card:    14px;
-    --radius-row:     8px;
-    --radius-tag:     20px;
-    --radius-chip:    6px;
-
-    /* Expose as legacy vars so the inner widget still resolves them */
-    --color-text-primary:      var(--text-primary);
-    --color-text-secondary:    var(--text-secondary);
-    --color-background-secondary: var(--bg-row-hover);
-    --color-border-tertiary:   var(--border-subtle);
-    --border-radius-lg:        var(--radius-card);
+    --parchment: #f4e9d0;
+    --parchment-dark: #e8d5a8;
+    --ink: #2c1a0e;
+    --ink-light: #5c3d1e;
+    --red: #8b1a1a;
+    --gold: #b8860b;
+    --gold-light: #d4a843;
+    --border: #9c7a3c;
+    --shadow: rgba(44,26,14,0.25);
+    --category-bg: #3a1f0d;
   }
 
-  /* ── Reset & base ────────────────────────────────────────── */
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--bg-base);
-    color: var(--text-primary);
-    font-family: 'Nunito', sans-serif;
+    background-color: #1a0f06;
+    background-image:
+      radial-gradient(ellipse at 20% 20%, #2d1505 0%, transparent 60%),
+      radial-gradient(ellipse at 80% 80%, #1f0d03 0%, transparent 60%);
+    font-family: 'EB Garamond', Georgia, serif;
+    color: var(--ink);
     min-height: 100vh;
-    padding: 28px 20px 48px;
+    padding: 30px 16px 60px;
   }
 
-  /* ── Page header ─────────────────────────────────────────── */
-  .page-header {
+  header {
     text-align: center;
-    margin-bottom: 28px;
-  }
-  .page-header h1 {
-    font-family: 'Cinzel', serif;
-    font-size: clamp(22px, 4vw, 34px);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    background: linear-gradient(135deg, var(--gold) 0%, #fff5d0 50%, var(--gold) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  .page-header p {
-    margin-top: 6px;
-    font-size: 13px;
-    color: var(--text-muted);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .header-divider {
-    margin: 14px auto 0;
-    width: 120px;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--gold-dim), transparent);
+    margin-bottom: 36px;
+    animation: fadeDown 0.8s ease both;
   }
 
-  /* ── Grid ────────────────────────────────────────────────── */
-  .ab-grid {
+  .header-inner {
+    display: inline-block;
+    background: var(--category-bg);
+    border: 2px solid var(--gold);
+    border-radius: 4px;
+    padding: 20px 40px;
+    position: relative;
+  }
+
+  .header-inner::before, .header-inner::after {
+    content: '✦';
+    color: var(--gold-light);
+    font-size: 1.1rem;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  .header-inner::before { left: 14px; }
+  .header-inner::after { right: 14px; }
+
+  h1 {
+    font-family: 'Cinzel', serif;
+    font-size: clamp(1.3rem, 4vw, 2rem);
+    color: var(--gold-light);
+    letter-spacing: 0.06em;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+  }
+
+  .subtitle {
+    font-family: 'EB Garamond', serif;
+    font-style: italic;
+    color: #c9a96e;
+    font-size: 1rem;
+    margin-top: 4px;
+  }
+
+  /* Search */
+  .search-wrap {
+    max-width: 560px;
+    margin: 0 auto 32px;
+    animation: fadeDown 0.9s ease both;
+  }
+
+  #search {
+    width: 100%;
+    padding: 11px 18px;
+    border: 1.5px solid var(--gold);
+    border-radius: 3px;
+    background: #2a160a;
+    color: var(--parchment);
+    font-family: 'EB Garamond', serif;
+    font-size: 1.05rem;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  #search::placeholder { color: #8a6a40; font-style: italic; }
+  #search:focus { border-color: var(--gold-light); box-shadow: 0 0 12px rgba(180,134,11,0.3); }
+
+  /* Categories */
+  .categories { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 28px; animation: fadeDown 1s ease both; }
+
+  .cat-btn {
+    font-family: 'Cinzel', serif;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    padding: 6px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 2px;
+    background: #2a160a;
+    color: #c9a96e;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .cat-btn:hover, .cat-btn.active {
+    background: var(--gold);
+    color: var(--category-bg);
+    border-color: var(--gold);
+  }
+
+  /* Grid */
+  .grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 18px;
     max-width: 1100px;
     margin: 0 auto;
   }
-  @media (max-width: 700px) {
-    .ab-grid { grid-template-columns: 1fr; }
-  }
 
-  /* ── Section card ────────────────────────────────────────── */
-  .ab-section {
-    background: var(--bg-card);
-    border-radius: var(--radius-card);
-    border: 1px solid var(--border-card);
-    padding: 18px 16px;
-    position: relative;
+  /* Card */
+  .card {
+    background: var(--parchment);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    border: 1px solid var(--border);
+    border-radius: 3px;
     overflow: hidden;
+    box-shadow: 0 4px 20px var(--shadow), inset 0 0 40px rgba(180,134,11,0.04);
+    animation: fadeUp 0.6s ease both;
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: default;
   }
-  /* Subtle top-edge accent line */
-  .ab-section.blessings::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--gold) 40%, var(--gold) 60%, transparent 100%);
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(44,26,14,0.4);
   }
-  .ab-section.curses::before {
-    content: '';
-    position: absolute;
-    inset: 0 0 auto 0;
-    height: 2px;
-    background: linear-gradient(90deg, transparent 0%, var(--crimson) 40%, var(--crimson) 60%, transparent 100%);
-    border-radius: var(--radius-card) var(--radius-card) 0 0;
-  }
+  .card.hidden { display: none; }
 
-  /* ── Section title ───────────────────────────────────────── */
-  .ab-title {
-    font-family: 'Cinzel', serif;
-    font-size: 15px;
-    font-weight: 600;
-    letter-spacing: 0.08em;
-    margin-bottom: 14px;
+  .card-head {
+    background: var(--category-bg);
+    padding: 10px 16px;
     display: flex;
-    align-items: baseline;
-    gap: 8px;
-  }
-  .ab-section.blessings .ab-title { color: var(--gold); }
-  .ab-section.curses    .ab-title { color: var(--crimson); }
-  .ab-title span {
-    font-family: 'Nunito', sans-serif;
-    font-size: 11px;
-    font-weight: 400;
-    color: var(--text-muted);
-    letter-spacing: 0.04em;
-  }
-
-  /* ── Ability row ─────────────────────────────────────────── */
-  .ab-row {
-    display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 10px;
-    padding: 9px 8px;
-    border-radius: var(--radius-row);
-    cursor: pointer;
-    transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
-    position: relative;
-  }
-  .ab-section.blessings .ab-row:hover {
-    background: var(--bg-row-hover);
-    box-shadow: 0 0 0 1px rgba(232,184,75,0.12), 0 2px 12px var(--gold-glow);
-    transform: translateX(2px);
-  }
-  .ab-section.curses .ab-row:hover {
-    background: var(--bg-row-hover);
-    box-shadow: 0 0 0 1px rgba(224,80,80,0.12), 0 2px 12px var(--crimson-glow);
-    transform: translateX(2px);
-  }
-  .ab-row + .ab-row {
-    border-top: 1px solid var(--border-subtle);
+    border-bottom: 1.5px solid var(--gold);
   }
 
-  /* ── Row content ─────────────────────────────────────────── */
-  .ab-row > div { flex: 1; min-width: 0; }
-  .ab-name {
-    font-size: 13px;
+  .card-icon { font-size: 1.2rem; flex-shrink: 0; }
+
+  .card-title {
+    font-family: 'Cinzel', serif;
+    font-size: 0.88rem;
     font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-  }
-  .ab-desc {
-    font-size: 12px;
-    color: var(--text-secondary);
-    line-height: 1.55;
-    margin-bottom: 5px;
+    color: var(--gold-light);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
   }
 
-  /* ── Stat chips ──────────────────────────────────────────── */
-  .stat-chips { display: flex; flex-wrap: wrap; gap: 4px; }
-  .chip {
-    font-size: 10px;
-    font-weight: 600;
-    padding: 2px 7px;
-    border-radius: var(--radius-chip);
-    background: var(--chip-bg);
-    color: var(--chip-fg);
-    border: 1px solid rgba(255,255,255,0.06);
-    letter-spacing: 0.03em;
-  }
-
-  /* ── Tags ────────────────────────────────────────────────── */
-  .ab-tag {
-    font-size: 9.5px;
-    font-weight: 700;
-    text-transform: uppercase;
+  .card-cat {
+    margin-left: auto;
+    font-family: 'Cinzel', serif;
+    font-size: 0.62rem;
+    color: #7a5c2e;
     letter-spacing: 0.07em;
-    padding: 3px 8px;
-    border-radius: var(--radius-tag);
     white-space: nowrap;
-    align-self: flex-start;
-    margin-top: 2px;
-    flex-shrink: 0;
+    text-transform: uppercase;
   }
-  .tag-self   { background: var(--tag-self-bg);   color: var(--tag-self-fg);   }
-  .tag-aoe    { background: var(--tag-aoe-bg);    color: var(--tag-aoe-fg);    }
-  .tag-target { background: var(--tag-target-bg); color: var(--tag-target-fg); }
-  .tag-beam   { background: var(--tag-beam-bg);   color: var(--tag-beam-fg);   }
-  .tag-pass   { background: var(--tag-pass-bg);   color: var(--tag-pass-fg);   }
+
+  .card-body {
+    padding: 14px 16px;
+    font-size: 0.97rem;
+    line-height: 1.65;
+    color: var(--ink);
+  }
+
+  .card-body strong { color: var(--red); font-weight: 600; }
+  .card-body em { color: var(--ink-light); }
+  .card-body .date { display: inline-block; background: var(--parchment-dark); border: 1px solid var(--border); border-radius: 2px; padding: 0 5px; font-family: 'Cinzel', serif; font-size: 0.8rem; color: var(--red); margin: 0 2px; }
+
+  .divider {
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--gold), transparent);
+    margin: 10px auto 0;
+  }
+
+  /* Animations */
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-16px); } to { opacity:1; transform:none; } }
+  @keyframes fadeUp   { from { opacity:0; transform:translateY(14px);  } to { opacity:1; transform:none; } }
+
+  .card:nth-child(1)  { animation-delay:.05s }
+  .card:nth-child(2)  { animation-delay:.10s }
+  .card:nth-child(3)  { animation-delay:.15s }
+  .card:nth-child(4)  { animation-delay:.20s }
+  .card:nth-child(5)  { animation-delay:.25s }
+  .card:nth-child(6)  { animation-delay:.30s }
+  .card:nth-child(7)  { animation-delay:.35s }
+  .card:nth-child(8)  { animation-delay:.40s }
+  .card:nth-child(9)  { animation-delay:.45s }
+  .card:nth-child(10) { animation-delay:.50s }
+  .card:nth-child(n+11) { animation-delay:.55s }
+
+  .no-results { text-align:center; color:#c9a96e; font-style:italic; padding: 40px; grid-column: 1/-1; font-size:1.1rem; }
 </style>
 </head>
 <body>
 
-<header class="page-header">
-  <h1>Curses &amp; Blessings</h1>
-  <p>Ability Reference Index</p>
-  <div class="header-divider"></div>
+<header>
+  <div class="header-inner">
+    <h1>Pojęcia Historyczne</h1>
+    <div class="subtitle">Średniowiecze &amp; Polska Piastów — Przygotowanie do sprawdzianu</div>
+  </div>
 </header>
 
-<div class="ab-grid">
-
-<!-- ══════════════ BLESSINGS ══════════════ -->
-<div class="ab-section blessings">
-  <div class="ab-title">Blessings <span>24 abilities</span></div>
-
-  <div class="ab-row" onclick="sendPrompt('How does the Radiant Burst ability work in detail?')">
-    <div><div class="ab-name">Radiant Burst</div><div class="ab-desc">Heals 3 hearts + Speed II for 5s on use.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Divine Grapple work including its passive fall damage immunity?')">
-    <div><div class="ab-name">Divine Grapple</div><div class="ab-desc">Hooks target, pulls them toward you, deals 11 HP, slows them. You get Speed II. Passive: no fall damage.</div><div class="stat-chips"><span class="chip">75 mana</span><span class="chip">25s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Recall work — first use vs second use?')">
-    <div><div class="ab-name">Recall</div><div class="ab-desc">First use: marks your location. Second use (within 20s): teleports you back to the mark.</div><div class="stat-chips"><span class="chip">45 mana</span><span class="chip">1s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Boogie Woogie work and what is its range limit?')">
-    <div><div class="ab-name">Boogie Woogie</div><div class="ab-desc">Swaps your position with the last player you hit (max 35 blocks).</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">15s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does LightKing work — how many lightning strikes and how much damage?')">
-    <div><div class="ab-name">LightKing</div><div class="ab-desc">Levitates you, then strikes 3 random nearby enemies with lightning (9–10 HP each) over 3 seconds.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('Explain all three outcomes of Idle Death Gamble')">
-    <div><div class="ab-name">Idle Death Gamble</div><div class="ab-desc">25% BLACK → mana reset to 0. 50% GREEN → +30 mana/s for 10s. 25% WHITE → mana instantly full.</div><div class="stat-chips"><span class="chip">95 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('Explain all three outcomes of Limitless and the invulnerability proc')">
-    <div><div class="ab-name">Limitless</div><div class="ab-desc">Random on target: 40% BLUE (2 hearts), 40% RED (3 hearts), 20% PURPLE (4 hearts + invulnerable 6s).</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">65s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Swift Strike work — how many dashes and do they each deal damage?')">
-    <div><div class="ab-name">Swift Strike</div><div class="ab-desc">Three rapid forward dashes in quick succession. Each dash deals 5.5 hearts to any enemy you pass through.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">10s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Skyward Dash work and how much damage does the slam deal?')">
-    <div><div class="ab-name">Skyward Dash</div><div class="ab-desc">Launches you high into the air. When you land, a shockwave deals ~4 hearts to enemies within 4 blocks.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Phase Step work — does it go through walls?')">
-    <div><div class="ab-name">Phase Step</div><div class="ab-desc">Teleports 15 blocks in your look direction. Automatically stops before solid blocks.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">50s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Sanctify work and who exactly cannot deal damage in the zone?')">
-    <div><div class="ab-name">Sanctify</div><div class="ab-desc">Creates a 5-block protective zone lasting 15s. Any non-owner who deals damage from inside the zone is blocked.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">50s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Blessing Copy work and how much total mana does it cost?')">
-    <div><div class="ab-name">Blessing Copy</div><div class="ab-desc">Copies the last ability cast by a nearby enemy (within 20 blocks) and fires it immediately. Costs 10 + 90 mana total.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">35s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('What does Second Wind do exactly in CursesAndBlessings?')">
-    <div><div class="ab-name">Second Wind</div><div class="ab-desc">Passive ability with no active component. (Effect TBD / placeholder slot.)</div><div class="stat-chips"><span class="chip">0 mana</span><span class="chip">passive</span></div></div>
-    <span class="ab-tag tag-pass">passive</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Holy Ground work — damage, regen, and zone size?')">
-    <div><div class="ab-name">Holy Ground</div><div class="ab-desc">Marks a 6-block radius zone for 12s: deals 20 HP/s to enemies inside, applies Regen I to allies.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">50s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Angelic Rush work — speed, distance, and hit detection?')">
-    <div><div class="ab-name">Angelic Rush</div><div class="ab-desc">Propels you forward over 18 blocks. Every enemy within 1.5 blocks during the rush takes 10 HP and gets knocked back.</div><div class="stat-chips"><span class="chip">85 mana</span><span class="chip">18s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Sacred Veil work — how many hits can it absorb and does it heal?')">
-    <div><div class="ab-name">Sacred Veil</div><div class="ab-desc">Grants Resistance I + Regen I for 6s. Also absorbs up to 3 incoming hits, healing 2.5 hearts each time.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Withering work — both the active AoE and passive proc chance?')">
-    <div><div class="ab-name">Withering</div><div class="ab-desc">Active: applies Wither X for 10s to all enemies in 10 blocks. Passive: 3% chance to proc Wither X on every hit.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Life Manipulation scale with nearby enemies and what is the passive?')">
-    <div><div class="ab-name">Life Manipulation</div><div class="ab-desc">Grants Health Boost (scales with nearby enemy count, up to +4 hearts) for 10s. Passive: Saturation II briefly when you eat.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">45s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Zeal work and why is the Haste level 99?')">
-    <div><div class="ab-name">Zeal</div><div class="ab-desc">Grants Haste 99 (near-instant mining) for 7s. Extreme attack speed burst.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt(&quot;How does Angel's Fall work — when does the bonus damage trigger?&quot;)">
-    <div><div class="ab-name">Angel's Fall</div><div class="ab-desc">Launches you upward (2-block velocity). If you hit an enemy before landing, bonus 14 hearts deal. The window expires on ground contact.</div><div class="stat-chips"><span class="chip">260 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Frost Calm work — what does it freeze and how does the mist wave deal damage?')">
-    <div><div class="ab-name">Frost Calm</div><div class="ab-desc">Converts ground in 15-block radius to packed ice. Simultaneously fires a mist wave that deals ~10 HP and applies heavy Slowness to enemies it passes through.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">35s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Radiant Blast work — knockback vs self-boost behavior?')">
-    <div><div class="ab-name">Radiant Blast</div><div class="ab-desc">Fires a beam up to 10 blocks. Hits a player → launches them away. Fires into a wall at close range → boosts you forward instead.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">45s CD</span></div></div>
-    <span class="ab-tag tag-beam">beam</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Straw Doll Technique work — projectile speed and freeze duration?')">
-    <div><div class="ab-name">Straw Doll Technique</div><div class="ab-desc">Fires a slow projectile nail (range 15 blocks). On hit: deals damage and hard-freezes the target in place for 1.5s.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">45s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('What does Projection Sorcery do to the server tick rate and why?')">
-    <div><div class="ab-name">Projection Sorcery</div><div class="ab-desc">Grants Haste V + Speed V for 10s. Also halves the server tick rate to 10 TPS (from 20) for the duration, slowing the world around you.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
+<div class="search-wrap">
+  <input type="text" id="search" placeholder="🔍  Szukaj pojęcia..." autocomplete="off">
 </div>
 
-<!-- ══════════════ CURSES ══════════════ -->
-<div class="ab-section curses">
-  <div class="ab-title">Curses <span>21 abilities</span></div>
+<div class="categories" id="cats"></div>
+<div class="grid" id="grid"></div>
 
-  <div class="ab-row" onclick="sendPrompt('How does Soul Drain work — radius, damage, and self-heal scaling?')">
-    <div><div class="ab-name">Soul Drain</div><div class="ab-desc">Drains HP from every enemy in a 5-block radius (10 HP each). Heals you for 50% of total damage dealt.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
+<script>
+const data = [
+  // === KAROLINGOWIE ===
+  {
+    title: "Renesans Karoliński",
+    cat: "Karolingowie",
+    icon: "📜",
+    body: `<strong>Odrodzenie kulturalne</strong> na dworze Karola Wielkiego (przełom VIII/IX w.). Karol Wielki zgromadził uczonych z całej Europy (m.in. Alkuin z Yorku) i założył <em>Akademię Pałacową</em>. Reforma pisma (minuskuła karolińska), szkolnictwa i liturgii. Cel: <strong>podźwignięcie poziomu wykształcenia duchowieństwa</strong> i ujednolicenie Kościoła. Nazwa od dynastii Karolingów, nie od słowa „odrodzenie" w sensie renesansu XV-wiecznego.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How does Blood Debt work — what is the 5.5x multiplier applied to?')">
-    <div><div class="ab-name">Blood Debt</div><div class="ab-desc">Arms for 10s. Your next hit stores final damage × 5.5, then deals that stored amount 1 second later as a delayed blast.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
+  // === SŁOWIANIE ===
+  {
+    title: "Gospodarka i religia Słowian (średniowiecze)",
+    cat: "Słowianie",
+    icon: "⚔️",
+    body: `<strong>Gospodarka:</strong> rolnictwo żarowe i odłogowe, hodowla, zbieractwo, myślistwo. Handel wymienny. Organizacja w ople (wspólnoty rodowe). <br><br><strong>Religia:</strong> <em>politeizm</em> (Perun – bóg gromu, Weles – bóg podziemia, Swaróg – ognia). Kult przyrody, duchów przodków (dziadów), ofiary. Kapłanów zwano <strong>żercami</strong>. Słowianie nie mieli rozbudowanych świątyń – oddawali cześć w gajach i przy wodach.`
+  },
+  {
+    title: "Cyryl i Metody",
+    cat: "Słowianie",
+    icon: "✝️",
+    body: `Bracia z Salonik, <strong>apostołowie Słowian</strong>. Ok. <span class='date'>863</span> r. przybyli na Morawy z misją chrystianizacyjną. Cyryl (<em>właściwie Konstantyn</em>) stworzył <strong>głagolicę</strong> – pierwsze pismo słowiańskie – by Słowianie mogli słuchać Mszy w ojczystym języku (<em>język staro-cerkiewno-słowiański</em>). Od imienia Cyryla pochodzi późniejsza cyrylica. Papież zatwierdził liturgię słowiańską.`
+  },
+  {
+    title: "Państwo Wielkomorawskie",
+    cat: "Słowianie",
+    icon: "🏰",
+    body: `Pierwsze znaczące państwo Słowian zachodnich (IX w., ok. <span class='date'>830</span>–<span class='date'>907</span>). Ośrodek: dzisiejsze Morawy i Słowacja. Władcy: Mojmir I, Rościsław, Świętopełk I. Przyjęło chrześcijaństwo od Cyryla i Metodego. Rywalizowało z <em>Frankami</em>. Zniszczone przez najazdy <strong>Madziarów (Węgrów)</strong> na początku X w. Dla Polski ważne jako wzorzec organizacji państwowej i kościelnej.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How do the Torrential Shuriken projectiles fire — are they simultaneous or sequential?')">
-    <div><div class="ab-name">Torrential Shuriken</div><div class="ab-desc">Fires 4 water shurikens sequentially (one every ~0.65s). Each travels 30 blocks and deals ~9 HP on hit. In the Nether, also applies Slowness.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">25s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+  // === FEUDALIZM ===
+  {
+    title: "Feudalizm",
+    cat: "Feudalizm",
+    icon: "🏯",
+    body: `System społeczno-gospodarczy i polityczny dominujący w <strong>średniowiecznej Europie</strong>. Oparty na <em>ziemi</em> jako głównym bogactwie. Senior (pan) nadawał wasalowi <strong>lenno (feud)</strong> – ziemię w zamian za służbę wojskową i wierność. Chłopi (serfs/poddani) uprawiali ziemię w zamian za ochronę. Trzy stany: duchowieństwo, szlachta, lud. Motto struktury: <em>„ci, co modlą się – ci, co walczą – ci, co pracują"</em>.`
+  },
+  {
+    title: "Suzeren",
+    cat: "Feudalizm",
+    icon: "👑",
+    body: `<strong>Zwierzchni pan feudalny</strong> (senior), któremu wasale składają hołd lenny. Suzeren stoi wyżej w hierarchii: może być nim król wobec książąt, lub papież wobec monarchów. Relacja suzeren–wasal opiera się na <em>przysięgach wierności i obowiązku pomocy zbrojnej</em>. Suzeren był zobowiązany do ochrony wasala; wasal do służby wojskowej i doradztwa.`
+  },
+  {
+    title: "Drabina Feudalna",
+    cat: "Feudalizm",
+    icon: "🪜",
+    body: `Hierarchiczna struktura społeczeństwa feudalnego od góry: <strong>Papież / Cesarz → Królowie → Książęta → Hrabiowie i baronowie → Rycerze → Chłopi</strong>. Każdy szczebel nadaje lenno szczeblowi niższemu. Zasada: <em>„wasal mojego wasala nie jest moim wasalem"</em> – co powodowało chaos polityczny. Im niżej, tym więcej obowiązków, a mniej przywilejów.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How does Vampiric Touch work — active use vs passive lifesteal?')">
-    <div><div class="ab-name">Vampiric Touch</div><div class="ab-desc">Active: deals 4 hearts to targeted enemy, heals you 5 hearts. Passive: every hit you land steals 15% of dealt damage as health.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+  // === SCHIZMA / REFORMA KOŚCIOŁA ===
+  {
+    title: "Rok 1054",
+    cat: "Schizma i Reforma",
+    icon: "✂️",
+    body: `Data <strong>Wielkiej Schizmy Wschodniej</strong> – podziału chrześcijaństwa na <em>Kościół Zachodni (katolicki)</em> z centrum w Rzymie i <em>Kościół Wschodni (prawosławny)</em> z centrum w Konstantynopolu. Wzajemna ekskomunika papieża Leona IX (przez legata Humberta) i patriarchy Michała Cerulariusza. Przyczyny: spory o <em>filioque</em>, prymat papieża, celibat i język liturgii.`
+  },
+  {
+    title: "Rok 1075",
+    cat: "Schizma i Reforma",
+    icon: "📄",
+    body: `Papież <strong>Grzegorz VII</strong> ogłasza <em>Dictatus Papae</em> – 27 tez głoszących supremację papieża nad całym Kościołem i monarchami. Papież ma prawo m.in. <strong>mianować i odwoływać biskupów, zwalniać poddanych z przysięgi wierności wobec niegodnych królów</strong>. Dokument zapoczątkował otwarty konflikt ze świeckimi władcami o inwestyturę.`
+  },
+  {
+    title: "Spór o inwestyturę",
+    cat: "Schizma i Reforma",
+    icon: "⚖️",
+    body: `Konflikt między papiestwem a cesarstwem (XI–XII w.) o prawo do <strong>mianowania biskupów i opatów</strong>. <em>Inwestytura</em> = uroczyste przekazanie urzędu kościelnego (pierścień i pastorał). Cesarze chcieli kontrolować Kościół na swoich ziemiach; papieże sprzeciwiali się. Zakończony <strong>Konkordatem Wormackim (1122)</strong>: inwestytura duchowna dla Kościoła, świecka dla cesarza.`
+  },
+  {
+    title: "Symonia",
+    cat: "Schizma i Reforma",
+    icon: "💰",
+    body: `<strong>Kupowanie i sprzedawanie urzędów i godności kościelnych</strong> za pieniądze lub inne dobra. Nazwa od Szymona Maga z Dziejów Apostolskich, który chciał kupić dar Ducha Świętego. Była nagminną praktyką, którą zwalczała <em>reforma gregoriańska</em>. Traktowana jako grzech ciężki i naruszenie sacrum Kościoła.`
+  },
+  {
+    title: "Nepotyzm",
+    cat: "Schizma i Reforma",
+    icon: "👨‍👦",
+    body: `Obsadzanie stanowisk kościelnych lub państwowych przez <strong>krewnych i bliskich</strong> – bez względu na kwalifikacje. Słowo pochodzi od łac. <em>nepos</em> (wnuk/bratanek). Papieże i biskupi mianowali swoich siostrzeńców kardynałami lub opatami. Zjawisko zwalczane przez reformatorów jako wynaturzenie Kościoła.`
+  },
+  {
+    title: "Nikolaizm",
+    cat: "Schizma i Reforma",
+    icon: "💍",
+    body: `Praktyka <strong>zawierania małżeństw przez duchownych</strong> lub utrzymywania konkubin. Reforma gregoriańska (XI w.) zaostrzyła nakaz <em>celibatu</em> (bezżeństwa) dla kleru. Nikolaizm uważano za demoralizację Kościoła. Nazwa pochodzi od gnostyckiej sekty Nikolaitów wspomnianych w Apokalipsie.`
+  },
+  {
+    title: "Wielka Schizma Wschodnia",
+    cat: "Schizma i Reforma",
+    icon: "🌍",
+    body: `Podział chrześcijaństwa w <span class='date'>1054</span> r. na <strong>katolicyzm</strong> (Rzym, język łaciński, papież) i <strong>prawosławie</strong> (Konstantynopol, język grecki, patriarcha). Przyczyny: spór o <em>filioque</em> w Credo (czy Duch Święty pochodzi też od Syna), prymat papieża, różnice liturgiczne i kulturowe. Schizma trwa do dziś – dopiero w 1964 r. papież Paweł VI i patriarcha Athenagoras odwołali wzajemne ekskomuniki.`
+  },
+  {
+    title: "Grzegorz VII",
+    cat: "Schizma i Reforma",
+    icon: "⛪",
+    body: `Papież w latach <span class='date'>1073–1085</span>, twórca <strong>reformy gregoriańskiej</strong>. Wydał <em>Dictatus Papae (1075)</em> proklamując prymat papieża. Ekskomunikował cesarza Henryka IV. Henryk upokorzył się w <strong>Canossie (1077)</strong> – papież zdjął ekskomunikę. Grzegorz VII walczył z symonią, nikolaizmem i inwestyturą świecką. Canonizowany w 1606 r.`
+  },
+  {
+    title: "Ekskomunika",
+    cat: "Schizma i Reforma",
+    icon: "🚫",
+    body: `Najwyższa kara kościelna – <strong>wykluczenie z Kościoła i społeczności wiernych</strong>. Ekskomunikowany nie mógł przystępować do sakramentów, a po śmierci mógł zostać pozbawiony chrześcijańskiego pochówku. Monarcha objęty ekskomuniką <em>zwalniał poddanych z przysięgi wierności</em> – co miało ogromne skutki polityczne. Mogła zostać zdjęta po pokucie.`
+  },
+  {
+    title: "Antypapież",
+    cat: "Schizma i Reforma",
+    icon: "⚡",
+    body: `Osoba <strong>nieuprawniona, a mimo to pretendująca do tronu papieskiego</strong>, zwykle popierana przez cesarza lub frakcję polityczną przeciw legalnie wybranemu papieżowi. W sporze o inwestyturę Henryk IV popierał antypapieży (np. Klemens III). Było ich w historii kilkudziesięciu. Antypapieże bywali obierani przez skorumpowane synody lub cesarskie intrygi.`
+  },
+  {
+    title: "Spór Henryka IV z Grzegorzem VII",
+    cat: "Schizma i Reforma",
+    icon: "🗡️",
+    body: `Kulminacja sporu o inwestyturę. <span class='date'>1076</span>: Henryk IV zwołuje synod i żąda rezygnacji Grzegorza VII. Grzegorz ekskomunikuje Henryka i zwalnia poddanych z przysięgi. <span class='date'>1077</span>: <strong>Pokuta w Canossie</strong> – cesarz stoi boso w śniegu 3 dni, papież zdejmuje ekskomunikę. Był to największy triumf papiestwa nad cesarstwem. Spór trwał dalej aż do Konkordatu Wormackiego (1122).`
+  },
+  {
+    title: "Henryk IV",
+    cat: "Schizma i Reforma",
+    icon: "🪖",
+    body: `Cesarz Świętego Cesarstwa Rzymskiego (<span class='date'>1056–1105</span>). Główny antagonista Grzegorza VII. Chciał zachować prawo do inwestytury kościelnej w Niemczech. Dwukrotnie ekskomunikowany. <strong>Canossa (1077)</strong> – symbol upokorzenia władzy świeckiej przed kościelną. W końcu zdetronizowany przez własnego syna Henryka V, który zawarł Konkordat Wormacki.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How does Sniper work — range, damage, and can it hit multiple players?')">
-    <div><div class="ab-name">Sniper</div><div class="ab-desc">Fires a hitscan beam up to 150 blocks. Deals 15 hearts to every player in its path (can hit multiple).</div><div class="stat-chips"><span class="chip">150 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-beam">beam</span>
-  </div>
+  // === ZAKONY ===
+  {
+    title: "Zakony – Benedyktyni",
+    cat: "Zakony",
+    icon: "🕊️",
+    body: `Założeni przez <strong>Benedykta z Nursji</strong> (ok. <span class='date'>529</span> r., Monte Cassino). Motto: <em>„Ora et Labora"</em> (Módl się i pracuj). Regułą benedyktyńską: modlitwa, praca fizyczna, lectio divina (czytanie Pisma). Klasztory były <strong>centrami kultury, oświaty i rolnictwa</strong>. Skryptoria benedyktyńskie zachowały античный dorobek piśmiennictwa. Pierwsi misjonarze w Polsce.`
+  },
+  {
+    title: "Zakony – Cystersi",
+    cat: "Zakony",
+    icon: "⛰️",
+    body: `Reformatorska gałąź benedyktynów, założona w <span class='date'>1098</span> w Cîteaux (Francja). Ideolog: <strong>Bernard z Clairvaux</strong>. Zasada surowości i prostoty – sprzeciwiali się bogaceniu klasztorów. Osiedlali się w <em>odludnych miejscach</em>, karczując lasy i zakładając wzorowe gospodarstwa. W Polsce od XII w. Odegrali wielką rolę w <strong>kolonizacji i gospodarce</strong>.`
+  },
+  {
+    title: "Zakony – Franciszkanie",
+    cat: "Zakony",
+    icon: "☮️",
+    body: `Zakon Braci Mniejszych, założony przez <strong>Franciszka z Asyżu</strong> ok. <span class='date'>1209</span> r. Ideał ubóstwa ewangelicznego – franciszkanie żebrzą (stąd: <em>żebracy</em> / mendykanci), nie posiadają własności. Działają w miastach wśród ludu. Znani z głoszenia kazań, pomocy ubogim. Do Polski przybyli w <span class='date'>1237</span> r. Papież Grzegorz IX zatwierdził zakon.`
+  },
+  {
+    title: "Zakony – Dominikanie",
+    cat: "Zakony",
+    icon: "📖",
+    body: `Zakon Kaznodziejski, założony przez <strong>Dominika de Guzmán</strong> ok. <span class='date'>1216</span> r. Cel: walka z herezjami (katarami) przez <em>głoszenie Słowa</em> i studia teologiczne. Mendykanci (żebracy), jak franciszkanie. Dominikanie kierowali <strong>inkwizycją</strong>. Wielcy teolodzy: Tomasz z Akwinu (dominikanin). Do Polski przybyli z Jackiem Odrowążem w <span class='date'>1222</span> r.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How does Shadow Strike work — does the teleport place you exactly behind the target?')">
-    <div><div class="ab-name">Shadow Strike</div><div class="ab-desc">Teleports you directly behind your targeted enemy (up to 20 blocks) and immediately deals 6 hearts from behind.</div><div class="stat-chips"><span class="chip">110 mana</span><span class="chip">20s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+  // === WYPRAWY KRZYŻOWE ===
+  {
+    title: "Papież Urban II",
+    cat: "Wyprawy Krzyżowe",
+    icon: "✝️",
+    body: `Papież w latach <span class='date'>1088–1099</span>. Na synodzie w <strong>Clermont (1095)</strong> wezwał chrześcijan do <em>krucjaty</em> w obronie Ziemi Świętej i uwolnienia Jerozolimy z rąk Turków Seldżuckich. Hasło: <em>„Dieu le veut!"</em> (Bóg tak chce!). Zainicjował w ten sposób <strong>I wyprawę krzyżową</strong>. Nie doczekał zdobycia Jerozolimy (1099) – zmarł 2 tygodnie później.`
+  },
+  {
+    title: "Wyprawy Krzyżowe",
+    cat: "Wyprawy Krzyżowe",
+    icon: "⚔️",
+    body: `Zbrojne pielgrzymki chrześcijan do Ziemi Świętej (<span class='date'>1096–1291</span>). <strong>I wyprawa (1096–1099)</strong>: zdobycie Jerozolimy, założenie Królestwa Jerozolimskiego. Łącznie 8–9 wypraw. Skutki: <em>przejęcie wiedzy arabskiej</em> (astronomia, matematyka, medycyna), ożywienie handlu, poznanie nowych produktów (jedwab, przyprawy), ale też masowe mordy (Żydzi, muzułmanie). Ostatecznie zakończyły się klęską – Saladyn odbił Jerozolimę (1187).`
+  },
+  {
+    title: "Zakony Rycerskie",
+    cat: "Wyprawy Krzyżowe",
+    icon: "🛡️",
+    body: `Zakony łączące reguły zakonne z obowiązkiem walki zbrojnej. Główne: <strong>Templariusze</strong> (1119, obrona pielgrzymów, banking), <strong>Joannici / Szpitalnicy</strong> (1099, opieka nad chorymi), <strong>Krzyżacy</strong> (Zakon Szpitala Najświętszej Marii Panny, 1190 – dla Polski najważniejszy, ściągnięci przez Konrada Mazowieckiego w 1226). Zakony rycerskie miały ogromną potęgę militarną i ekonomiczną.`
+  },
 
-  <div class="ab-row" onclick="sendPrompt('How does Silence work and what exactly does it prevent?')">
-    <div><div class="ab-name">Silence</div><div class="ab-desc">Silences the targeted enemy for 15s. While silenced, they cannot use any abilities via /activate.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">90s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+  // === POLSKA PIASTÓW ===
+  {
+    title: "Mieszko I",
+    cat: "Polska Piastów",
+    icon: "👑",
+    body: `Pierwszy historyczny władca Polski (<span class='date'>ok. 960–992</span>). Zjednoczył plemiona Polan. <span class='date'>966</span> r. – <strong>Chrzest Polski</strong>: przyjął chrzest z Czech (za pośrednictwem żony Dobrawy), co włączyło Polskę w krąg cywilizacji zachodniej i chroniło przed przymusową chrystianizacją przez Niemców. Dokument <em>Dagome iudex</em> (ok. 991) – oddał Polskę pod opiekę papieża.`
+  },
+  {
+    title: "Dobrawa (Dąbrówka)",
+    cat: "Polska Piastów",
+    icon: "👸",
+    body: `Czeska księżniczka, córka Bolesława I Srogiego. Poślubiona Mieszkowi I ok. <span class='date'>965</span> r. z warunkiem <strong>przyjęcia chrześcijaństwa</strong>. Jej małżeństwo z Mieszkiem było czynnikiem decydującym o chrystianizacji Polski. Kronikarz Thietmar z Merseburga wspomina ją jako kobietę pobożną i wpływową. Matka Bolesława Chrobrego. Zmarła ok. 977 r.`
+  },
+  {
+    title: "Biskup Jordan",
+    cat: "Polska Piastów",
+    icon: "⛪",
+    body: `Pierwszy <strong>biskup Polski</strong>, przybyły do kraju ok. <span class='date'>968</span> r. Misjonarz z misją w Polsce. Podlegał bezpośrednio Rzymowi (nie arcybiskupstwu w Magdeburgu), co miało znaczenie polityczne – zapewniało kościelną niezależność od Niemiec. Organizował struktury kościelne w państwie Mieszka I. Rezydował prawdopodobnie w Poznaniu.`
+  },
+  {
+    title: "Bolesław I Chrobry",
+    cat: "Polska Piastów",
+    icon: "⚔️",
+    body: `Pierwszy król Polski (<span class='date'>992–1025</span>, korona w 1025). Syn Mieszka I i Dobrawy. Rozbudował terytorium Polski (Łużyce, Milsko, Morawy, Grody Czerwieńskie). Zjazd Gnieźnieński <span class='date'>1000</span> – wizyta Ottona III, erygowanie arcybiskupstwa gnieźnieńskiego. Kanonizacja Wojciecha. Koronacja królewska na rok przed śmiercią – pierwsza w historii Polski.`
+  },
+  {
+    title: "Święty Wojciech",
+    cat: "Polska Piastów",
+    icon: "✝️",
+    body: `Czeski biskup Pragi (<em>Vojtěch</em>), przyjął imię Adalbert. Misjonarz, dwukrotnie musiał opuszczać Pragę z powodu konfliktów. Przybył do Bolesława Chrobrego i wyruszył z misją do <strong>Prusów</strong>. Zamordowany w <span class='date'>997</span> r. Chrobry wykupił ciało za złoto. W <span class='date'>999</span> r. kanonizowany. Zjazd Gnieźnieński 1000 r. – cesarz Otto III złożył hołd przy grobie Wojciecha, co legitymizowało Polskę.`
+  },
+  {
+    title: "Przyczyny i skutki koronacji Bolesława Chrobrego",
+    cat: "Polska Piastów",
+    icon: "📋",
+    body: `<strong>Przyczyny:</strong> ambicja Bolesława, poparcie papieża Benedykta VIII, sukces militarny, Zjazd Gnieźnieński i polityczne znaczenie grobu Wojciecha.<br><br><strong>Skutki:</strong> Polska stała się <em>królestwem</em>, co podnosiło jej prestiż w Europie; władca był równy innym monarchom (nie wasal cesarza); legitymizacja dynastii Piastów; wzmocnienie Kościoła w Polsce. Jednocześnie koronacja wzbudziła wrogość Niemiec i kolejne konflikty.`
+  },
+  {
+    title: "Kazimierz I Odnowiciel",
+    cat: "Polska Piastów",
+    icon: "🏗️",
+    body: `Panował <span class='date'>1039–1058</span>. „Odnowiciel" – bo dosłownie odbudował Polskę po <strong>reakcji pogańskiej i najeździe Brzetysława Czeskiego (1038)</strong>. Kraj był zniszczony, Gniezno splądrowane. Kazimierz przeniósł stolicę do <strong>Krakowa</strong>. Przeniósł arcybiskupstwo do Gniezna po jego odbudowie. Sprowadził z powrotem benedyktynów. Nie uzyskał korony królewskiej.`
+  },
+  {
+    title: "Bolesław II Śmiały",
+    cat: "Polska Piastów",
+    icon: "🗡️",
+    body: `Panował <span class='date'>1058–1079</span> (król od 1076). Przywrócił koronę królewską. Popierał papieża Grzegorza VII w sporze z cesarstwem. <span class='date'>1079</span>: nakazał <strong>zabić biskupa Krakowa Stanisława ze Szczepanowa</strong> (późniejszego patrona Polski). Skutek: bunt możnych, wygnanie Bolesława z kraju. Zginął na emigracji na Węgrzech. Stanisław został kanonizowany w 1253 r. – co uwydatniło hańbę króla.`
+  },
+  {
+    title: "Bolesław III Krzywousty",
+    cat: "Polska Piastów",
+    icon: "🗺️",
+    body: `Panował <span class='date'>1102–1138</span>. <strong>Przyłączył Pomorze</strong> do Polski. Zwyciężył brata Zbigniewa i oślepił go. Walczył z cesarzem Henrykiem V (obrona pod Nakłem/Głogowem 1109). Wydał <strong>Testament (statut) w 1138 r.</strong> – podzielił Polskę między synów, wprowadzając <em>zasadę senioratu</em> (najstarszy z braci – princeps = senior). Testament zapoczątkował <strong>rozbicie dzielnicowe</strong> (1138–1320).`
+  },
+  {
+    title: "Władysław Herman",
+    cat: "Polska Piastów",
+    icon: "👤",
+    body: `Panował <span class='date'>1079–1102</span>, syn Kazimierza Odnowiciela. Objął władzę po wygnaniu Bolesława Śmiałego. <strong>Słaby władca</strong> – faktycznie rządził palatyn (wielki dostojnik) <em>Sieciech</em>. Płacił trybut cesarzowi, rezygnując z korony królewskiej. Pod koniec panowania buntowali się synowie: Zbigniew i Bolesław (późniejszy Krzywousty), domagając się udziału we władzy.`
+  },
+];
 
-  <div class="ab-row" onclick="sendPrompt('How does Flame Wave work — how are the three wave damage values split?')">
-    <div><div class="ab-name">Flame Wave</div><div class="ab-desc">Fires 3 expanding fire rings (45% / 35% / 20% of 19 HP total). First wave also sets enemies ablaze for 5s.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
+const categories = ['Wszystkie', ...new Set(data.map(d => d.cat))];
+let activeCategory = 'Wszystkie';
 
-  <div class="ab-row" onclick="sendPrompt('How does Gravity Well work — pull duration and final impact damage?')">
-    <div><div class="ab-name">Gravity Well</div><div class="ab-desc">Pulls all enemies in 8-block radius toward you continuously for 2s, then deals 25 HP impact damage to all of them.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
+const grid = document.getElementById('grid');
+const catsEl = document.getElementById('cats');
+const search = document.getElementById('search');
 
-  <div class="ab-row" onclick="sendPrompt('How does Hex Aura work — Strength level and absorption hearts?')">
-    <div><div class="ab-name">Hex Aura</div><div class="ab-desc">Grants Strength II and 2 absorption hearts for 5s. A burst self-buff for high-damage windows.</div><div class="stat-chips"><span class="chip">130 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
+function render() {
+  const q = search.value.toLowerCase();
+  let anyVisible = false;
+  document.querySelectorAll('.card').forEach(card => {
+    const title = card.dataset.title.toLowerCase();
+    const body = card.dataset.body.toLowerCase();
+    const cat = card.dataset.cat;
+    const catMatch = activeCategory === 'Wszystkie' || cat === activeCategory;
+    const textMatch = !q || title.includes(q) || body.includes(q);
+    const show = catMatch && textMatch;
+    card.classList.toggle('hidden', !show);
+    if (show) anyVisible = true;
+  });
+  let noRes = document.getElementById('no-results');
+  if (!anyVisible) {
+    if (!noRes) {
+      noRes = document.createElement('div');
+      noRes.id = 'no-results';
+      noRes.className = 'no-results';
+      noRes.textContent = 'Nie znaleziono pojęcia…';
+      grid.appendChild(noRes);
+    }
+  } else {
+    if (noRes) noRes.remove();
+  }
+}
 
-  <div class="ab-row" onclick="sendPrompt('How does Disaster Flames work — the meteor travel and unextinguishable fire?')">
-    <div><div class="ab-name">Disaster Flames</div><div class="ab-desc">Launches a visual meteor in your aim direction. Enemies in 5-block radius on impact get unextinguishable fire for 10s. Passive: fire resistance + 15% bonus damage vs already-burning targets.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+// Build category buttons
+categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
+  btn.textContent = cat;
+  btn.onclick = () => {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    render();
+  };
+  catsEl.appendChild(btn);
+});
 
-  <div class="ab-row" onclick="sendPrompt('How does Disaster Plants work — the root, mana drain direction, and visual tree?')">
-    <div><div class="ab-name">Disaster Plants</div><div class="ab-desc">Spawns a particle tree at your aim point. Roots nearby enemies (heavy Slowness) for 10s, draining 8 mana/s from them to you.</div><div class="stat-chips"><span class="chip">100 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
+// Build cards
+data.forEach(item => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.dataset.title = item.title;
+  card.dataset.body = item.body.replace(/<[^>]+>/g, '');
+  card.dataset.cat = item.cat;
+  card.innerHTML = `
+    <div class="card-head">
+      <span class="card-icon">${item.icon}</span>
+      <span class="card-title">${item.title}</span>
+      <span class="card-cat">${item.cat}</span>
+    </div>
+    <div class="card-body">${item.body}<div class="divider"></div></div>
+  `;
+  grid.appendChild(card);
+});
 
-  <div class="ab-row" onclick="sendPrompt('How does Blood Manipulation work as a channeled beam ability?')">
-    <div><div class="ab-name">Blood Manipulation</div><div class="ab-desc">Channels a 25-block crimson beam for 8s. Every 15 ticks it deals 15 HP to the first enemy in the beam path. You must keep aiming at them.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-beam">beam</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Black Flash work — the 4-hit combo tracking and proc chance?')">
-    <div><div class="ab-name">Black Flash</div><div class="ab-desc">Active: Resistance I for 10s. Passive: track a 4-hit combo; on 4th hit a 50% roll triggers 1.5× damage + Regen II + Speed II. Taking damage breaks the combo.</div><div class="stat-chips"><span class="chip">80 mana</span><span class="chip">15s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Tide work — radius and knockback power?')">
-    <div><div class="ab-name">Tide</div><div class="ab-desc">Pushes every enemy within 12 blocks away from you with strong knockback. Good for creating distance or pushing enemies off ledges.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">25s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Hunter work — passive glow range vs active extended range?')">
-    <div><div class="ab-name">Hunter</div><div class="ab-desc">Active: marks all enemies in 100-block radius with glowing + Speed II for 20s. Passive: enemies within 15 blocks permanently glow for you.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">45s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Cleave work — what is the exact damage pattern?')">
-    <div><div class="ab-name">Cleave</div><div class="ab-desc">Targets player in your crosshair. Deals ~2 hearts instantly, then 1 heart × 3 additional hits spaced 1 second apart — 5 hearts total.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">60s CD</span></div></div>
-    <span class="ab-tag tag-target">targeted</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Mythical Beast Amber work and does the lightning deal damage?')">
-    <div><div class="ab-name">Mythical Beast Amber</div><div class="ab-desc">Grants Speed V for 5s and instantly strikes all nearby enemies with real (damaging) lightning bolts.</div><div class="stat-chips"><span class="chip">90 mana</span><span class="chip">30s CD</span></div></div>
-    <span class="ab-tag tag-aoe">aoe</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Extinguishment work — damage and silence applied together?')">
-    <div><div class="ab-name">Extinguishment</div><div class="ab-desc">Fires a 60-block beam. Enemies in a small AoE at the endpoint take 2 hearts AND get silenced for 10s simultaneously.</div><div class="stat-chips"><span class="chip">70 mana</span><span class="chip">25s CD</span></div></div>
-    <span class="ab-tag tag-beam">beam</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Idle Transfiguration work — what does enlarged mean mechanically?')">
-    <div><div class="ab-name">Idle Transfiguration</div><div class="ab-desc">Arms for 30s. Your next hit enlarges the target (SCALE +2 attribute), applies Slowness V + Weakness I for 10s.</div><div class="stat-chips"><span class="chip">50 mana</span><span class="chip">40s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-
-  <div class="ab-row" onclick="sendPrompt('How does Soul Stealer work step by step — arm, capture, then summon?')">
-    <div><div class="ab-name">Soul Stealer</div><div class="ab-desc">3-stage: (1) Arm. (2) Kill any mob → captures its type. (3) Activate again → summons it as your ally targeting enemies for 15s. Does not attack you.</div><div class="stat-chips"><span class="chip">120 mana</span><span class="chip">120s CD</span></div></div>
-    <span class="ab-tag tag-self">self</span>
-  </div>
-</div>
-
-</div><!-- /.ab-grid -->
+search.addEventListener('input', render);
+</script>
 </body>
 </html>
