@@ -1705,75 +1705,13 @@ function render() {
 
 searchEl.addEventListener('input', render);
 
-// ─── JSONBIN CONFIG ───────────────────────────────────────────────────────
-const MASTER_KEY   = '$2a$10$/VAQDOgfLwmS4sQUL9wj6enqCYdmRr0O8nqQCqYE0iP334tfSR8hG';
-const ACCESS_KEY   = '$2a$10$XzVAMOGcK2UfJ5QuIB5mhOZ4NVs7wYaenkMBKeJ4bQEU3O1OHLYnu';
-const JSONBIN_BASE = 'https://api.jsonbin.io/v3';
-const LS_KEY = 'school-bin-id';
-let BIN_ID = null;
-let _initPromise = null;
+// ─── LOCAL STORAGE ────────────────────────────────────────────────────────
+const LS_EVENTS_KEY = 'notatki-szkolne-events';
 
-async function initBin() {
-  if (BIN_ID) return;
-  if (_initPromise) return _initPromise;
-
-  _initPromise = (async () => {
-    // 1. URL param ?bin=XXXX
-    const urlBin = new URLSearchParams(window.location.search).get('bin');
-    if (urlBin) {
-      BIN_ID = urlBin;
-      localStorage.setItem(LS_KEY, BIN_ID);
-      return;
-    }
-    // 2. localStorage
-    const saved = localStorage.getItem(LS_KEY);
-    if (saved) {
-      BIN_ID = saved;
-      return;
-    }
-    // 3. Auto-create new bin
-    try {
-      const res = await fetch(`${JSONBIN_BASE}/b`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Master-Key': MASTER_KEY,
-          'X-Bin-Name': 'notatki-szkolne',
-          'X-Bin-Private': 'false'
-        },
-        body: JSON.stringify([])
-      });
-      if (!res.ok) throw new Error('HTTP ' + res.status);
-      const json = await res.json();
-      BIN_ID = json.metadata.id;
-      localStorage.setItem(LS_KEY, BIN_ID);
-      // Show share prompt after creation
-      setTimeout(() => {
-        showToast('Bin utworzony! Kliknij 🔗 aby udostępnić klasie.');
-      }, 600);
-    } catch (e) {
-      console.error('Nie udało się utworzyć bina:', e);
-      showToast('Błąd połączenia z JSONBin!');
-    }
-  })();
-
-  return _initPromise;
-}
-
-// ─── EVENT STORAGE ────────────────────────────────────────────────────────
 async function loadEvents() {
-  await initBin();
-  if (!BIN_ID) return [];
   try {
-    const res = await fetch(`${JSONBIN_BASE}/b/${BIN_ID}/latest`, {
-      headers: {
-        'X-Master-Key': MASTER_KEY,
-        'X-Access-Key': ACCESS_KEY
-      }
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const json = await res.json();
-    return Array.isArray(json.record) ? json.record : [];
+    const raw = localStorage.getItem(LS_EVENTS_KEY);
+    return raw ? JSON.parse(raw) : [];
   } catch (e) {
     console.error('loadEvents error:', e);
     return [];
@@ -1781,42 +1719,76 @@ async function loadEvents() {
 }
 
 async function saveEvents(events) {
-  await initBin();
-  if (!BIN_ID) { showToast('Brak połączenia z JSONBin!'); return; }
   try {
-    const res = await fetch(`${JSONBIN_BASE}/b/${BIN_ID}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': MASTER_KEY
-      },
-      body: JSON.stringify(events)
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
+    localStorage.setItem(LS_EVENTS_KEY, JSON.stringify(events));
   } catch (e) {
     console.error('saveEvents error:', e);
-    showToast('Błąd zapisu do JSONBin!');
+    showToast('Błąd zapisu!');
     throw e;
   }
 }
 
-// ─── SHARE ────────────────────────────────────────────────────────────────
+// ─── EXPORT / IMPORT ──────────────────────────────────────────────────────
 function addShareBtn() {
-  if (!BIN_ID || document.getElementById('share-topbar-btn')) return;
-  const btn = document.createElement('button');
-  btn.id = 'share-topbar-btn';
-  btn.title = 'Skopiuj link dla klasy';
-  btn.style.cssText = `background:transparent;border:1px solid var(--border);border-radius:8px;
+  if (document.getElementById('export-topbar-btn')) return;
+
+  const btnStyle = `background:transparent;border:1px solid var(--border);border-radius:8px;
     padding:5px 12px;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.78rem;
     cursor:pointer;transition:all .18s;`;
-  btn.textContent = '🔗 Udostępnij';
-  btn.onmouseenter = () => { btn.style.borderColor='var(--border2)'; btn.style.color='var(--text)'; };
-  btn.onmouseleave = () => { btn.style.borderColor='var(--border)'; btn.style.color='var(--text2)'; };
-  btn.onclick = () => {
-    const url = `${location.href.split('?')[0]}?bin=${BIN_ID}`;
-    navigator.clipboard.writeText(url).then(() => showToast('Link skopiowany! ✓'));
+  const hover = (btn) => {
+    btn.onmouseenter = () => { btn.style.borderColor='var(--border2)'; btn.style.color='var(--text)'; };
+    btn.onmouseleave = () => { btn.style.borderColor='var(--border)'; btn.style.color='var(--text2)'; };
   };
-  document.querySelector('.topbar-right').prepend(btn);
+
+  // Export button
+  const exportBtn = document.createElement('button');
+  exportBtn.id = 'export-topbar-btn';
+  exportBtn.title = 'Eksportuj dane';
+  exportBtn.style.cssText = btnStyle;
+  exportBtn.textContent = '⬇ Eksport';
+  hover(exportBtn);
+  exportBtn.onclick = async () => {
+    const events = await loadEvents();
+    const blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'notatki-szkolne.json';
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Wyeksportowano! ✓');
+  };
+
+  // Import button
+  const importBtn = document.createElement('button');
+  importBtn.title = 'Importuj dane';
+  importBtn.style.cssText = btnStyle;
+  importBtn.textContent = '⬆ Import';
+  hover(importBtn);
+  importBtn.onclick = () => {
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = '.json,application/json';
+    input.onchange = async (e) => {
+      const file = e.target.files[0];
+      if (!file) return;
+      try {
+        const text = await file.text();
+        const data = JSON.parse(text);
+        if (!Array.isArray(data)) throw new Error('Nieprawidłowy format');
+        await saveEvents(data);
+        renderUpcoming();
+        showToast('Zaimportowano ' + data.length + ' wpisów ✓');
+      } catch (err) {
+        showToast('Błąd importu: nieprawidłowy plik');
+      }
+    };
+    input.click();
+  };
+
+  const right = document.querySelector('.topbar-right');
+  right.prepend(importBtn);
+  right.prepend(exportBtn);
 }
 
 function escHtml(str) {
@@ -1993,10 +1965,8 @@ function showToast(msg) {
 }
 
 // Init upcoming on load
-initBin().then(() => {
-  renderUpcoming();
-  addShareBtn();
-});
+renderUpcoming();
+addShareBtn();
 
 // ─── THEME TOGGLE ─────────────────────────────────────────────────────────
 const toggleBtn = document.getElementById('themeToggle');
