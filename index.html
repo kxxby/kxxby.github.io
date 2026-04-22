@@ -1041,6 +1041,216 @@
   }
   .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+  /* ── QUIZ VIEW ── */
+  .quiz-wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 24px 60px;
+  }
+
+  .quiz-progress-bar-wrap {
+    background: var(--bg3);
+    border-radius: 100px;
+    height: 5px;
+    margin-bottom: 32px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .quiz-progress-bar {
+    height: 100%;
+    background: var(--text);
+    border-radius: 100px;
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  }
+
+  .quiz-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    animation: fadeUp 0.35s ease both;
+  }
+
+  .quiz-card-head {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .quiz-q-num {
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text3);
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    padding: 3px 10px;
+    border-radius: 100px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .quiz-question {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 1.05rem;
+    color: var(--text);
+    line-height: 1.4;
+    letter-spacing: -0.02em;
+    flex: 1;
+  }
+
+  .quiz-options {
+    padding: 16px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .quiz-opt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    border: 1.5px solid var(--border);
+    border-radius: 11px;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.18s, background 0.18s, transform 0.15s;
+    width: 100%;
+    line-height: 1.45;
+  }
+  .quiz-opt:hover:not(:disabled) {
+    border-color: var(--border2);
+    background: var(--bg3);
+    transform: translateX(3px);
+  }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-opt.correct {
+    border-color: #5ac88e;
+    background: #5ac88e18;
+    color: var(--text);
+  }
+  .quiz-opt.wrong {
+    border-color: #e8745a;
+    background: #e8745a14;
+    color: var(--text3);
+  }
+  .quiz-opt.reveal {
+    border-color: #5ac88e88;
+    background: #5ac88e0c;
+  }
+
+  .quiz-opt-letter {
+    width: 26px;
+    height: 26px;
+    border-radius: 7px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    font-family: 'Syne', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    letter-spacing: 0.04em;
+    transition: background 0.18s, border-color 0.18s;
+  }
+  .quiz-opt.correct .quiz-opt-letter { background: #5ac88e; border-color: #5ac88e; color: #fff; }
+  .quiz-opt.wrong   .quiz-opt-letter { background: #e8745a; border-color: #e8745a; color: #fff; }
+  .quiz-opt.reveal  .quiz-opt-letter { background: #5ac88e55; border-color: #5ac88e55; }
+
+  .quiz-feedback {
+    margin: 0 20px 20px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; animation: fadeUp 0.25s ease both; }
+  .quiz-feedback.ok  { background: #5ac88e14; border: 1px solid #5ac88e44; color: #5ac88e; }
+  .quiz-feedback.bad { background: #e8745a14; border: 1px solid #e8745a44; color: #e8745acc; }
+
+  .quiz-next-btn {
+    display: block;
+    width: calc(100% - 40px);
+    margin: 0 20px 20px;
+    padding: 13px;
+    background: var(--accent);
+    color: var(--accent-inv);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.18s;
+    display: none;
+  }
+  .quiz-next-btn.show { display: block; animation: fadeUp 0.2s ease both; }
+  .quiz-next-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+  /* Result screen */
+  .quiz-result {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 48px 32px;
+    text-align: center;
+    animation: fadeUp 0.4s ease both;
+  }
+  .quiz-result-emoji { font-size: 3rem; display: block; margin-bottom: 16px; }
+  .quiz-result-score {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 3rem;
+    letter-spacing: -0.05em;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+  .quiz-result-label {
+    font-size: 0.88rem;
+    color: var(--text2);
+    margin-bottom: 24px;
+  }
+  .quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+  .quiz-retry-btn {
+    padding: 12px 28px;
+    background: var(--accent);
+    color: var(--accent-inv);
+    border: none;
+    border-radius: 10px;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.18s, transform 0.18s;
+  }
+  .quiz-retry-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .quiz-back-btn2 {
+    padding: 12px 24px;
+    background: transparent;
+    color: var(--text2);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.18s;
+  }
+  .quiz-back-btn2:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+
   /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     .hero { padding: 40px 20px 32px; }
@@ -1148,6 +1358,19 @@
 <!-- FAB -->
 <button class="fab" id="fab" onclick="openAddModal()" title="Dodaj wpis">+</button>
 
+<!-- ═══════════════ VIEW: QUIZ ═══════════════ -->
+<div class="view" id="view-quiz">
+  <div class="hero">
+    <div class="hero-label" id="quiz-label">Quiz</div>
+    <h1 id="quiz-title">Quiz Geograficzny</h1>
+    <p class="hero-sub" id="quiz-sub">Sprawdź swoją wiedzę z geografii!</p>
+  </div>
+  <div class="quiz-wrap">
+    <div class="quiz-progress-bar-wrap"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
+    <div id="quiz-container"></div>
+  </div>
+</div>
+
 <!-- ADD EVENT MODAL -->
 <div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
   <div class="modal" id="modal">
@@ -1212,9 +1435,135 @@ const types = [
 // Which combinations have real (hardcoded) content
 const hasHardcodedContent = {
   'historia-sprawdzian': true,
+  'geografia-sprawdzian': true,
 };
 
 // All combinations are now available (dynamic events can be added to any)
+
+// ─── QUIZ QUESTIONS ──────────────────────────────────────────────────────
+const quizQuestions = [
+  {
+    q: "Ile wynosi średnie zasolenie oceanów?",
+    opts: ["25‰", "35‰", "45‰", "7‰"],
+    ans: 1,
+    exp: "Średnie zasolenie oceanów wynosi 35‰ (35 g soli w 1 litrze wody). Bałtyk ma wyjątkowo niskie zasolenie ~7‰."
+  },
+  {
+    q: "Jaki procent wody na Ziemi stanowi woda słodka?",
+    opts: ["~0,5%", "~2,5%", "~10%", "~25%"],
+    ans: 1,
+    exp: "Woda słodka to tylko ~2,5% wszystkich zasobów. Z tego większość tkwi w lodowcach, a dostępna dla człowieka to mniej niż 1%!"
+  },
+  {
+    q: "Które jezioro jest najgłębsze na świecie?",
+    opts: ["Morze Kaspijskie", "Jezioro Wiktorii", "Bajkał", "Śniardwy"],
+    ans: 2,
+    exp: "Bajkał ma głębokość 1642 m i jest zarówno najgłębszym, jak i najstarszym jeziorem słodkim na Ziemi (25–30 mln lat)."
+  },
+  {
+    q: "Co oznacza termin 'ablacja' lodowca?",
+    opts: ["Przyrost masy lodowca", "Ubytek masy lodowca (topnienie)", "Ruch lodowca w dół doliny", "Zamarzanie firnu"],
+    ans: 1,
+    exp: "Ablacja to ubytek masy lodowca przez topnienie, parowanie i odłamywanie kier. Gdy ablacja > akumulacja, lodowiec się cofa."
+  },
+  {
+    q: "Jak nazywa się forma rzeźby glacjalnej – misowate zagłębienie w górach wyżłobione przez lodowiec?",
+    opts: ["Morena czołowa", "Cyrk (kar) lodowcowy", "Sandur", "Rynna polodowcowa"],
+    ans: 1,
+    exp: "Cyrk (kar) lodowcowy to misowate zagłębienie wyżłobione przez lodowiec górski, widoczne np. w Tatrach czy Alpach."
+  },
+  {
+    q: "Golfsztrom to prąd morski, który płynie z:",
+    opts: ["Arktyki do Tropiku", "Zatoki Meksykańskiej ku Europie Zachodniej", "Morza Śródziemnego na Atlantyk", "Pacyfiku do Atlantyku"],
+    ans: 1,
+    exp: "Golfsztrom płynie z Zatoki Meksykańskiej przez Atlantyk Północny ku Europie, podnosząc jej temperaturę o 5–10°C."
+  },
+  {
+    q: "Który ocean jest największy na świecie?",
+    opts: ["Atlantycki", "Indyjski", "Spokojny (Pacyfik)", "Arktyczny"],
+    ans: 2,
+    exp: "Ocean Spokojny (Pacyfik) jest największym oceanem – ok. 165 mln km². Zajmuje więcej powierzchni niż wszystkie lądy razem!"
+  },
+  {
+    q: "Tsunami to fale wywołane przez:",
+    opts: ["Silny wiatr", "Pływy księżycowe", "Trzęsienia ziemi lub wybuchy wulkanów na dnie morza", "Prądy morskie"],
+    ans: 2,
+    exp: "Tsunami to fale sejsmiczne wywołane trzęsieniami ziemi lub wybuchami wulkanów na dnie morza. Na pełnym morzu są niewidoczne, lecz przy brzegu mogą osiągać kilkanaście metrów."
+  },
+  {
+    q: "Wieczna zmarzlina (permafrost) jest charakterystyczna dla strefy:",
+    opts: ["Sawanny", "Tajgi i tundry", "Lasów równikowych", "Pustynnej"],
+    ans: 1,
+    exp: "Permafrost występuje w strefach subpolarnych – w tajdze i tundra. Grunt jest tam stale zamarznięty, co uniemożliwia odpływ wody i tworzenie korzeni."
+  },
+  {
+    q: "Czarnoziemy to gleby najbardziej żyzne, charakterystyczne dla strefy:",
+    opts: ["Tajgi borealnej", "Wilgotnych lasów równikowych", "Stepu", "Arktycznej tundry"],
+    ans: 2,
+    exp: "Czarnoziemy tworzą się w strefie stepowej – bogate w próchnicę, zasobne w składniki odżywcze. Są to najurodzajniejsze gleby świata (Ukraina, Kazachstan)."
+  },
+  {
+    q: "Co to jest 'dorzecze' rzeki?",
+    opts: ["Obszar wzdłuż brzegów rzeki", "Obszar, z którego wody spływają do jednej rzeki", "Ujście rzeki do morza", "Odcinek rzeki górski"],
+    ans: 1,
+    exp: "Dorzecze to obszar, z którego wszystkie wody spływają do jednej rzeki (rzeka główna + wszystkie dopływy). Polska leży głównie w dorzeczu Wisły i Odry."
+  },
+  {
+    q: "W jaki sposób wody Atlantyku wpływają na klimat Europy Zachodniej?",
+    opts: ["Ochładzają ją poprzez zimne prądy", "Ocieplają ją dzięki Golfsztromowi", "Zwiększają susze latem", "Nie mają wpływu"],
+    ans: 1,
+    exp: "Golfsztrom, ciepły prąd morski z Zatoki Meksykańskiej, ogrzewa powietrze nad Europą Zachodnią. Bez niego Londyn i Paryż miałyby klimat jak Syberia."
+  },
+  {
+    q: "Jaka jest budowa wewnętrzna Ziemi od zewnątrz ku centrum?",
+    opts: ["Płaszcz → skorupa → jądro", "Skorupa → płaszcz → jądro zewnętrzne → jądro wewnętrzne", "Jądro → płaszcz → skorupa", "Atmosfera → litosfera → astena"],
+    ans: 1,
+    exp: "Od zewnątrz: skorupa ziemska (5–70 km), płaszcz (~2900 km), jądro zewnętrzne (płynne, ~2200 km), jądro wewnętrzne (stałe, ~1220 km)."
+  },
+  {
+    q: "Przy której granicy płyt tektonicznych tworzą się łańcuchy górskie takie jak Himalaje?",
+    opts: ["Dywergentnej (rozsuwające się)", "Transformnej (przesuwcze)", "Konwergentnej, kolizja dwóch płyt kontynentalnych", "Nad gorącym punktem (hot spot)"],
+    ans: 2,
+    exp: "Himalaje powstały i nadal rosną w wyniku kolizji płyty indyjskiej z euroazjatycką (konwergentna granica). Subdukcja oceaniczna tworzy rowy i wulkany."
+  },
+  {
+    q: "Co to jest 'stalaktyt' w jaskini?",
+    opts: ["Forma lądolodu", "Ozdoby na ścianach", "Naciek skalny zwisający z sufitu jaskini", "Naciek skalny rosnący z podłogi jaskini"],
+    ans: 2,
+    exp: "Stalaktyt to naciek wapniowy zwisający z sufitu (zapamiętaj: StalakTyt – Trzyma się sufitu). Stalagmit rośnie z podłogi w górę (Goni sufit)."
+  },
+  {
+    q: "Jaka jest główna przyczyna zmian klimatycznych i recesji lodowców w XX–XXI w.?",
+    opts: ["Zmiany aktywności Słońca", "Erupcje wulkanów", "Globalne ocieplenie spowodowane emisją CO₂", "Naturalny cykl Milankovicia"],
+    ans: 2,
+    exp: "Główną przyczyną obecnego globalnego ocieplenia jest emisja CO₂ i innych gazów cieplarnianych przez człowieka (spalanie paliw kopalnych), co prowadzi do szybkiej recesji lodowców."
+  },
+  {
+    q: "Klimat śródziemnomorski charakteryzuje się:",
+    opts: ["Mroźnymi zimami i chłodnymi latami", "Gorącymi suchymi latami i wilgotnymi łagodnymi zimami", "Opadami równomiernie rozłożonymi przez cały rok", "Bardzo niskimi temperaturami przez cały rok"],
+    ans: 1,
+    exp: "Klimat śródziemnomorski to gorące suche lata i łagodne wilgotne zimy. Opady głównie zimą. Roślinność: makwis, oliwki, cyprysy."
+  },
+  {
+    q: "Największa pustynia gorąca na świecie to:",
+    opts: ["Gobi", "Atacama", "Sahara", "Pustynia Arabska"],
+    ans: 2,
+    exp: "Sahara (Afryka Północna) to największa pustynia gorąca, ok. 9 mln km². Atacama jest najsuchsza, a Gobi – największa pustynia zimna."
+  },
+  {
+    q: "Co to jest 'termoklina' w oceanie?",
+    opts: ["Granica zasolenia wody", "Warstwa gwałtownego spadku temperatury wraz z głębokością", "Prąd morski przy dnie", "Granica lodu pływającego"],
+    ans: 1,
+    exp: "Termoklina to warstwa wody, w której temperatura gwałtownie spada wraz z głębokością, rozdzielając ciepłą warstwę powierzchniową od zimnych głębin (ok. 2–4°C poniżej ~2000 m)."
+  },
+  {
+    q: "Co to jest 'zlewisko'?",
+    opts: ["Naturalne jezioro zasilane rzeką", "Obszar, z którego wody spływają do jednego oceanu lub morza", "Miejsce ujścia rzeki do morza", "Sztuczny zbiornik wodny"],
+    ans: 1,
+    exp: "Zlewisko to obszar, z którego wody spływają do jednego oceanu lub morza. Polska leży głównie w zlewisku Morza Bałtyckiego."
+  },
+];
+
 
 // ─── CARD DATA ───────────────────────────────────────────────────────────
 const data = [
@@ -1447,6 +1796,350 @@ const data = [
     icon: "👤",
     body: `Panował <span class='date'>1079–1102</span>. <strong>Słaby władca</strong> – faktycznie rządził palatyn <em>Sieciech</em>. Płacił trybut cesarzowi, rezygnując z korony królewskiej.`
   },
+
+  // ═══════════════════════════════════════════════════
+  // === GEOGRAFIA — SPRAWDZIAN: HYDROSFERA ===
+  // ═══════════════════════════════════════════════════
+
+  // === ZASOBY WODNE ZIEMI ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Zasoby wodne Ziemi – podział",
+    cat: "Zasoby wodne Ziemi",
+    icon: "💧",
+    body: `Woda pokrywa <strong>71% powierzchni Ziemi</strong>. Podział: <strong>~97,5%</strong> to woda słona (oceany, morza); <strong>~2,5%</strong> to woda słodka. Z tej słodkiej wody: <em>~69%</em> jest zamrożona w lodowcach, <em>~30%</em> to wody podziemne, a zaledwie <em>~1%</em> to rzeki i jeziora. Praktycznie dostępna dla człowieka to <strong>mniej niż 1%</strong> wszystkich zasobów!`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Obieg wody w przyrodzie (hydrologiczny)",
+    cat: "Zasoby wodne Ziemi",
+    icon: "🔄",
+    body: `Ciągły ruch wody między oceanami, atmosferą i lądem. Etapy: <strong>parowanie</strong> (z powierzchni mórz i lądów) → <strong>kondensacja</strong> (tworzenie chmur) → <strong>opady</strong> (deszcz, śnieg) → <strong>spływ</strong> (rzekami do morza) lub <em>infiltracja</em> (wsiąkanie w glebę). Napędzany przez energię słoneczną i grawitację.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Woda słodka – dostępność",
+    cat: "Zasoby wodne Ziemi",
+    icon: "🚰",
+    body: `Mimo że słodka woda stanowi 2,5% wszystkich zasobów, jej <strong>dostępna część jest bardzo mała</strong>. Większość tkwi w lodowcach (Antarktyda, Grenlandia) lub głęboko pod ziemią. Kryzys wodny dotyczy już wielu regionów Ziemi. <em>Polska</em> należy do krajów ubogich w wodę na tle Europy.`
+  },
+
+  // === LODOWCE GÓRSKIE I LĄDOLODY ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Powstawanie lodowców",
+    cat: "Lodowce górskie i lądolody",
+    icon: "🧊",
+    body: `Lodowce powstają, gdy <strong>opady śniegu przewyższają jego topnienie</strong> przez wiele lat. Śnieg przekształca się w <em>firn</em> (ziarnisty, zbity śnieg), a następnie w <strong>lód lodowcowy</strong>. Wymagają niskich temperatur i obfitych opadów. Lodowce są ważnym rezerwuarem słodkiej wody.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Lodowce górskie (alpejskie)",
+    cat: "Lodowce górskie i lądolody",
+    icon: "⛰️",
+    body: `Występują w wysokich górach: <strong>Alpy, Himalaje, Andy, Kaukaz</strong>. Spływają dolinami tworząc <em>języki lodowcowe</em>. Rzeźbią góry: żłobią <strong>cyrki (kary) lodowcowe</strong> – misowate zagłębienia, oraz <strong>doliny U-kształtne</strong> (w odróżnieniu od V-kształtnych dolin rzecznych). Grzbiety między cyrkami to <em>arêtes</em>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Lądolody (lodowce kontynentalne)",
+    cat: "Lodowce górskie i lądolody",
+    icon: "🌨️",
+    body: `Ogromne masy lodu pokrywające całe lądy. Dziś: <strong>Antarktyda</strong> (największy – ok. 26,5 mln km³ lodu, grubość do 4 km) i <strong>Grenlandia</strong>. W epoce lodowcowej lądolody pokrywały Europę Północną i <em>całą Polskę</em> → pozostawiły pojezierza, moreny, sandry i rynny polodowcowe.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Ruchy lodowca – akumulacja i ablacja",
+    cat: "Lodowce górskie i lądolody",
+    icon: "📊",
+    body: `<strong>Akumulacja</strong> – przyrost masy lodowca (opady śniegu i lodu). <strong>Ablacja</strong> – ubytek masy (topnienie, parowanie, odłamywanie kier). Gdy akumulacja &gt; ablacja → lodowiec rośnie. Gdy ablacja &gt; akumulacja → lodowiec cofa się. Dziś większość lodowców cofa się wskutek <em>globalnego ocieplenia</em>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Rzeźbotwórcza działalność lodowca",
+    cat: "Lodowce górskie i lądolody",
+    icon: "🗻",
+    body: `<strong>Erozja:</strong> cyrki lodowcowe (kary), doliny U-kształtne, rysy na skałach, mutony (wygładzone skały). <strong>Akumulacja (moreny):</strong> <em>morena czołowa</em> – materiał złożony przy czole lodowca; <em>morena denna</em> – pod lodowcem; <em>morena boczna</em> – po bokach. Po zlodowaceniach w Polsce: Pojezierze Mazurskie, Wielkopolskie, Pomorskie.`
+  },
+
+  // === WODY POWIERZCHNIOWE ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Rzeka – podstawowe pojęcia",
+    cat: "Wody powierzchniowe",
+    icon: "🌊",
+    body: `<strong>Dorzecze</strong> – obszar, z którego woda spływa do jednej rzeki (rzeka główna + dopływy). <strong>Zlewisko</strong> – obszar, z którego wody spływają do jednego oceanu lub morza (np. zlewisko Bałtyku). <strong>Dział wodny</strong> – granica między dorzeczami, najczęściej grzbiet górski lub wzniesienie. <em>Polska leży głównie w zlewisku Bałtyku.</em>`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Reżim rzeki",
+    cat: "Wody powierzchniowe",
+    icon: "📈",
+    body: `<strong>Reżim rzeki</strong> – zmiany stanów wody (przepływu) w ciągu roku. Typy reżimu: <em>śnieżny</em> – wezbranie wiosną (topnienie śniegu), np. Wisła; <em>deszczowy</em> – zależy od pór deszczowych; <em>lodowcowy</em> – wezbranie latem (topnienie lodowców), np. rzeki w Alpach; <em>złożony (mieszany)</em> – wpływ kilku czynników.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Jeziora – rodzaje",
+    cat: "Wody powierzchniowe",
+    icon: "🏞️",
+    body: `<strong>Tektoniczne</strong> – w rowach tektonicznych (Bajkał – najgłębsze na świecie, <em>1642 m</em>; Tanganika). <strong>Polodowcowe</strong> – wyżłobione przez lodowce (Śniardwy – największe w Polsce). <strong>Wulkaniczne</strong> – w kraterach wulkanów. <strong>Deltowe/lagunowe</strong> – odcięte od morza mierzejami. <strong>Przybrzeżne</strong> – np. Łebsko, Gardno.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Bagna i mokradła",
+    cat: "Wody powierzchniowe",
+    icon: "🌿",
+    body: `Tereny stale lub okresowo <strong>podmokłe</strong>. Pełnią ważną funkcję <em>retencyjną</em> – zatrzymują wodę, zmniejszają powodzie. Są domem dla unikalnych gatunków. W Polsce: Bagna Biebrzańskie (największe naturalne mokradła w Europie Środkowej). Bagna pochłaniają CO₂ – są ważne klimatycznie.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Wody podziemne",
+    cat: "Wody powierzchniowe",
+    icon: "⬇️",
+    body: `Wody zgromadzone w <strong>skałach przepuszczalnych</strong> pod powierzchnią ziemi. <em>Wody gruntowe</em> – pierwsze zwierciadło wody, nieizolowane. <em>Wody artezyjskie</em> – pod ciśnieniem, wypływają samoistnie po przewierceniu. <strong>Źródło</strong> – naturalne wypływy wody na powierzchnię. Wody podziemne stanowią ~30% zasobów słodkiej wody.`
+  },
+
+  // === WSZECHOCEAN ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Wszechocean – oceany świata",
+    cat: "Wszechocean",
+    icon: "🌍",
+    body: `Wszystkie oceany tworzą jeden połączony <strong>Wszechocean (Ocean Światowy)</strong>. Podział: <strong>Spokojny (Pacyfik)</strong> – największy, ok. 165 mln km²; <strong>Atlantycki</strong> – drugi; <strong>Indyjski</strong> – trzeci; <strong>Arktyczny (Lodowaty Północny)</strong> – najmniejszy; <strong>Południowy</strong> – wydzielony wokół Antarktydy.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Zasolenie wód morskich",
+    cat: "Wszechocean",
+    icon: "🧂",
+    body: `Średnie zasolenie oceanów wynosi <strong>35‰</strong> (35 g soli w 1 litrze wody). Jest wyższe tam, gdzie <em>parowanie &gt; opady</em> (strefy zwrotnikowe). Najwyższe: <strong>Morze Czerwone (~43‰)</strong>. Najniższe w Polsce: <strong>Bałtyk (~7‰)</strong> – z powodu dużego dopływu słodkich rzek i małego parowania. Im słabsze zasolenie, tym niższa temperatura zamarzania.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Temperatura i termoklina",
+    cat: "Wszechocean",
+    icon: "🌡️",
+    body: `Temperatura wód oceanicznych <strong>spada wraz z głębokością</strong>. Najcieplejsze wody w strefie <em>równikowej</em> (do 30°C), zimne przy biegunach. <strong>Termoklina</strong> – warstwa gwałtownego spadku temperatury wraz z głębokością (między warstwą powierzchniową a głębinową). Poniżej ~2000 m temperatura jest stała (ok. 2–4°C).`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Fale morskie",
+    cat: "Wszechocean",
+    icon: "〰️",
+    body: `Fale wywoływane są głównie przez <strong>wiatr</strong>. <em>Masa wody nie przemieszcza się poziomo</em> – drgają cząsteczki wody. Parametry fali: <strong>grzbiet, dolina, długość, wysokość</strong>. <strong>Tsunami</strong> – fale wywołane trzęsieniami ziemi lub wybuchami wulkanów na dnie morza; na pełnym morzu niewidoczne, przy brzegu osiągają kilkanaście metrów.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Prądy morskie",
+    cat: "Wszechocean",
+    icon: "➡️",
+    body: `Poziome przemieszczanie się mas wody morskiej. Przyczyny: <em>wiatry stałe, różnice gęstości i temperatury</em>. <strong>Ciepłe prądy</strong> (płyną od równika ku biegunom): <em>Golfsztrom</em> – ociepla Europę Zachodnią, <em>Kuroshio</em>. <strong>Zimne prądy</strong> (od biegunów): <em>Labradorski, Benguelski</em>. Wpływ na klimat wybrzeży – ocieplenie lub ochłodzenie.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Pływy morskie",
+    cat: "Wszechocean",
+    icon: "🌕",
+    body: `Regularne <strong>wznoszenie i opadanie</strong> poziomu wody morskiej. Wywołane grawitacją <em>Księżyca</em> (głównie) i Słońca. <strong>Pełnia/nów</strong> → <em>syzygijne</em> (największe) pływy. <strong>Kwadra</strong> → <em>kwadraturowe</em> (najmniejsze) pływy. W otwartym oceanie wahania niewielkie; przy wybrzeżach mogą sięgać kilku metrów (rekord: Zatoka Fundy, Kanada – ok. 16 m).`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Golfsztrom – znaczenie dla klimatu",
+    cat: "Wszechocean",
+    icon: "🌊",
+    body: `Ciepły prąd morski płynący z <strong>Zatoki Meksykańskiej przez Atlantyk Północny</strong> ku Europie. Podnosi temperaturę powietrza nad Europą Zachodnią o <em>5–10°C</em> w porównaniu z terenami na tej samej szerokości geograficznej (np. Kanada). Bez Golfsztromu Londyn czy Paryż miałyby klimat jak Syberia. Osłabienie Golfsztromu to jedno z zagrożeń związanych z globalnym ociepleniem.`
+  },
+
+  // === GEOGRAFIA — HYDROSFERA (uzupełnienia) ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Granica wiecznego śniegu",
+    cat: "Lodowce górskie i lądolody",
+    icon: "🏔️",
+    body: `<strong>Granica wiecznego śniegu (firnu)</strong> – wysokość, powyżej której śnieg nie topi się przez cały rok. Poniżej granicy: śnieg taje latem. Powyżej: narastają pokrywy lodowe. Wysokość granicy zależy od szerokości geograficznej i klimatu: <em>w Alpach</em> ok. 2700–3000 m n.p.m., <em>w Himalajach</em> ok. 5000–5500 m n.p.m., <em>w Tatrach</em> ok. 2500 m. Przy równiku granica sięga nawet 6000 m – dlatego na szczycie Kilimandżaro (5895 m) jest lodowiec, choć to Afryka.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Szelf lodowy i icebergi",
+    cat: "Lodowce górskie i lądolody",
+    icon: "🧊",
+    body: `<strong>Szelf lodowy</strong> – część lądolodu, która wysuwa się nad morze i unosi na wodzie. Największe: Szelf Rossa i Szelf Filchnera-Ronne'a na Antarktydzie. <strong>Iceberg (góra lodowa)</strong> – bryła lodu oderwanego od czoła lądolodu lub szelfu. <em>Około 90% objętości iceberga jest ukryte pod wodą</em> (prawo Archimedesa + różnica gęstości lodu i wody morskiej). Icebergi arktyczne są stromie pionowe (stołowe), antarktyczne – gładkie, tabelaryczne, mogą mieć powierzchnię kilku tysięcy km².`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Transpiracja i ewapotranspiracja",
+    cat: "Zasoby wodne Ziemi",
+    icon: "🌱",
+    body: `<strong>Transpiracja</strong> – parowanie wody przez liście i pędy roślin (przez aparaty szparkowe). Las może „pompować" setki litrów wody dziennie do atmosfery. <strong>Ewapotranspiracja</strong> = parowanie z gleby i zbiorników <em>+</em> transpiracja roślin razem. To jeden z kluczowych elementów obiegu wody – znacznie więcej wody wraca do atmosfery przez rośliny niż przez samo parowanie z gleby. Wylesianie zaburza lokalny obieg wody i zmniejsza opady.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Czas wymiany wody (retencja)",
+    cat: "Zasoby wodne Ziemi",
+    icon: "⏱️",
+    body: `Różne zbiorniki wody mają bardzo różny <strong>czas wymiany</strong> (retencji) – jak długo cząsteczka wody przebywa w danym rezerwuarze: <em>atmosfera</em> – ok. <strong>9 dni</strong>; <em>rzeki</em> – ok. <strong>16 dni</strong>; <em>jeziora</em> – od kilku miesięcy do dziesiątek lat; <em>wody gruntowe</em> – od lat do tysięcy lat; <em>lodowce i lądolody</em> – <strong>ok. 1600 lat</strong> (najdłużej!). Dlatego zanieczyszczenia lodowców i wód gruntowych są tak groźne – raz skażone, są niedostępne przez bardzo długi czas.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Największe jeziora świata",
+    cat: "Wody powierzchniowe",
+    icon: "🗺️",
+    body: `<strong>Morze Kaspijskie</strong> – technicznie jezioro, ale słone; <em>największe jezioro słone na świecie</em> (371 tys. km²). <strong>Bajkał</strong> – najgłębsze (<em>1642 m</em>) i najstarsze jezioro słodkie (25–30 mln lat), zawiera ok. 20% światowych zasobów słodkiej wody powierzchniowej. <strong>Jezioro Wiktorii</strong> – największe jezioro słodkie Afryki. <strong>Wielkie Jeziora Ameryki Płn.</strong> (Superior, Michigan, Huron, Erie, Ontario) – polodowcowe. W <strong>Polsce</strong> największe: <em>Śniardwy</em> (110 km²), najgłębsze: <em>Hańcza</em> (108 m).`
+  },
+
+  // === KLIMATY ZIEMI ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Czynniki klimatotwórcze",
+    cat: "Klimaty Ziemi",
+    icon: "🌡️",
+    body: `Czynniki kształtujące klimat danego miejsca: <strong>szerokość geograficzna</strong> (kąt padania promieni słonecznych), <strong>wysokość nad poziomem morza</strong> (co 100 m wzrostu → temp. spada ok. 0,6°C), <strong>odległość od oceanu</strong> (morski vs kontynentalny), <strong>prądy morskie</strong> (ciepłe ocieplają, zimne chłodzą), <strong>rzeźba terenu</strong> (góry jako bariery dla wiatrów i opadów), <strong>szata roślinna</strong>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Strefy klimatyczne Ziemi",
+    cat: "Klimaty Ziemi",
+    icon: "🌍",
+    body: `Od równika ku biegunom: <strong>równikowy</strong> – gorąco, wilgotno, brak pór roku; <strong>podrównikowy (monsunowy)</strong> – pora sucha i deszczowa; <strong>zwrotnikowy</strong> – gorący i suchy (pustynie); <strong>podzwrotnikowy (śródziemnomorski)</strong> – lato suche, zima wilgotna; <strong>umiarkowany morski i kontynentalny</strong> – 4 pory roku; <strong>subpolarny (subarktyczny)</strong> – długie mroźne zimy; <strong>polarny (arktyczny/antarktyczny)</strong> – lód przez cały rok.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Klimat równikowy",
+    cat: "Klimaty Ziemi",
+    icon: "🌴",
+    body: `Strefa równikowa (ok. 5° N–5° S). Cechy: <strong>wysoka temperatura przez cały rok</strong> (ok. 25–28°C), brak pór roku, <em>wysokie opady</em> (ponad 2000 mm/rok) równomiernie rozłożone. Dwa przejścia zenitu Słońca. Wiatry: <em>cisza równikowa (doldrums)</em>. Roślinność: <strong>wilgotny las równikowy (selwa, dżungla)</strong> – największa bioróżnorodność.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Klimat zwrotnikowy (pustynny)",
+    cat: "Klimaty Ziemi",
+    icon: "🏜️",
+    body: `Strefa zwrotnikowa (ok. 20–30° szerokości geograficznej). Cechy: <strong>wysokie temperatury</strong> (latem 40–50°C), <em>bardzo małe opady</em> (poniżej 250 mm/rok), duże dobowe wahania temperatur. Przyczyna: <strong>opadanie suchego powietrza</strong> (wyż zwrotnikowy). Wielkie pustynie: <em>Sahara, Arabska, Gobi, Australijska, Atacama</em>. Atacama to najsucha pustynia świata.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Klimat umiarkowany – morski i kontynentalny",
+    cat: "Klimaty Ziemi",
+    icon: "🌤️",
+    body: `<strong>Morski</strong> (zachodnie wybrzeża): małe roczne amplitudy temperatur, łagodne zimy i lata, opady przez cały rok, wiatry zachodnie. Przykład: Wielka Brytania, Norwegia. <strong>Kontynentalny</strong> (wnętrze kontynentów): <em>duże amplitudy</em> – mroźne zimy, gorące lata; małe opady głównie latem. Przykład: Polska (przejściowy), Syberia (skrajnie kontynentalny). <em>Polska leży w strefie klimatu umiarkowanego przejściowego.</em>`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Klimat śródziemnomorski",
+    cat: "Klimaty Ziemi",
+    icon: "🫒",
+    body: `Strefa podzwrotnikowa (~30–45° szer. geogr.), zachodnie brzegi kontynentów. Cechy: <strong>gorące suche lata</strong> (słoneczne, temp. >25°C), <strong>łagodne wilgotne zimy</strong>. Opady głównie zimą (600–800 mm/rok). Roślinność: <em>makwis/makia</em> (twardolistne krzewiasty), oliwki, cyprysy. Obszary: <strong>basen Morza Śródziemnego, Kalifornia, Chile (środkowe), RPA, pd. Australia</strong>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Zjawisko El Niño i La Niña",
+    cat: "Klimaty Ziemi",
+    icon: "🌊",
+    body: `<strong>El Niño (ENSO)</strong> – anomalia klimatyczna: ocieplenie wód powierzchniowych Pacyfiku u wybrzeży Ameryki Pd. co kilka lat. Skutki: <em>susze w Australii i Azji Pd.-Wsch.</em>, powodzie w Ameryce Pd. <strong>La Niña</strong> – faza odwrotna: ochłodzenie Pacyfiku. Skutki: susze w Ameryce, intensywne monsony w Azji. Obydwa zjawiska wpływają na <strong>globalną cyrkulację atmosferyczną</strong>.`
+  },
+
+  // === TEKTONIKA PŁYT I LITOSFERA ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Budowa wnętrza Ziemi",
+    cat: "Tektonika płyt",
+    icon: "🌐",
+    body: `Ziemia składa się z warstw: <strong>skorupa ziemska</strong> (kontynentalna: 25–70 km, oceaniczna: 5–10 km); <strong>płaszcz</strong> (~2900 km, skały stałe i półplastyczne – tu płyty tektoniczne „pływają"); <strong>jądro zewnętrzne</strong> (płynne żelazo i nikiel, ~2200 km) – generuje pole magnetyczne; <strong>jądro wewnętrzne</strong> (stałe żelazo i nikiel, promień ~1220 km, temp. ok. 5000°C). Warstwy poznajemy przez <em>analizę fal sejsmicznych</em>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Teoria tektoniki płyt",
+    cat: "Tektonika płyt",
+    icon: "🗺️",
+    body: `Litosfera podzielona jest na ok. <strong>15 głównych płyt tektonicznych</strong> (m.in. euroazjatycka, afrykańska, pacyficzna, amerykańska). Płyty „unoszą się" na astenosferze i przemieszczają się z prędkością kilku cm/rok. Napędzane przez <em>prądy konwekcyjne</em> w płaszczu. Teoria sformułowana przez <strong>Alfreda Wegenera</strong> (hipoteza dryftu kontynentów, 1912) i rozwinięta w XX w.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Granice płyt tektonicznych",
+    cat: "Tektonika płyt",
+    icon: "⚡",
+    body: `<strong>Rozsuwające się (dywergentne)</strong>: płyty się oddalają → ryft, grzbiet oceaniczny (np. Grzbiet Śródatlantycki) → nowa skorupa. <strong>Nasuwające się (konwergentne)</strong>: płyty się zderzają → subdukcja (oceanu pod kontynent → rowy oceaniczne, wulkany) lub kolizja kontynentów → góry fałdowe (np. <em>Himalaje</em>). <strong>Transformne (przesuwcze)</strong>: płyty ślizgają się obok siebie → uskoki (np. uskok <em>San Andreas</em>).`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Trzęsienia ziemi (sejsmika)",
+    cat: "Tektonika płyt",
+    icon: "📳",
+    body: `Gwałtowne <strong>wstrząsy litosfery</strong> spowodowane nagłym uwolnieniem energii – zazwyczaj przy granicach płyt. Centrum: <em>hipocentrum</em> (ognisko – pod ziemią), <em>epicentrum</em> – punkt na powierzchni. Siłę mierzy skala <strong>Richtera (magnituda)</strong> lub Mercallego (intensywność odczuć). Obszary sejsmiczne: <em>Ogniwa Ognia</em> (Pacyfik), Alpy–Himalaje. Polska leży na terenie stosunkowo stabilnym – trzęsienia rzadkie i słabe.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Wulkanizm",
+    cat: "Tektonika płyt",
+    icon: "🌋",
+    body: `Wulkany powstają w miejscach, gdzie <strong>magma przedostaje się na powierzchnię</strong>. Głównie przy granicach płyt (subdukcja) i nad gorącymi plamami (hot spots). Budowa: <em>komin wulkaniczny, krater, stożek z lawą i popiołem</em>. Typy: tarczowe (Hawaje – rzadka lawa, łagodne), stratowulkany (Wezuwiusz, Etna – eksplozywne). Produkty: lawa, popioły, gazy, lapille. Erupcja Krakatau (1883) ochłodziła Ziemię o rok.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Góry fałdowe i zrębowe",
+    cat: "Tektonika płyt",
+    icon: "⛰️",
+    body: `<strong>Góry fałdowe</strong> – powstają przez ściskanie skorupy przy kolizji płyt → fałdy skalne (Himalaje, Alpy, Andy, Karpaty). Są to góry <em>młode</em> (ostre szczyty, wysokie). <strong>Góry zrębowe</strong> – bloki skalne uniesione lub opuszczone wzdłuż uskoków (np. Sudety, Masyw Centralny we Francji, Harz). Starsze i bardziej zerodowane. <strong>Wyżyny</strong> – stare, zerodowane góry lub bloki skalne (np. Wyżyna Polska).`
+  },
+
+  // === PROCESY ZEWNĘTRZNE ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Wietrzenie skał",
+    cat: "Procesy zewnętrzne",
+    icon: "🪨",
+    body: `<strong>Wietrzenie fizyczne (mechaniczne)</strong>: rozpad skał bez zmiany składu chemicznego. Przyczyny: <em>wymrażanie</em> (woda zamarza w szczelinach i rozsadza skałę), nagrzewanie/ochładzanie, erozja. <strong>Wietrzenie chemiczne</strong>: zmiana składu chemicznego skał. Przyczyny: <em>utlenianie, rozpuszczanie, hydroliza</em>. Np. wapień rozpuszczany przez wodę → kras. <strong>Wietrzenie biologiczne</strong>: działanie korzeni roślin i organizmów żywych.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Kras i rzeźba krasowa",
+    cat: "Procesy zewnętrzne",
+    icon: "🕳️",
+    body: `Rzeźba krasowa powstaje w skałach rozpuszczalnych przez wodę (<strong>wapień, gips, sól</strong>). Woda + CO₂ tworzy kwas węglowy, który <em>rozpuszcza wapień</em>. Formy: <strong>leje krasowe</strong> (zagłębienia na powierzchni), <strong>jaskinie i groty</strong> (podziemne), <strong>stalaktyty</strong> (zwisają z sufitu), <strong>stalagmity</strong> (rosną z podłogi), <strong>polja</strong> (rozległe kotliny). Przykłady w Polsce: Tatry (Jaskinia Mroźna, Wielka Śnieżna).`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Erozja rzeczna i doliny",
+    cat: "Procesy zewnętrzne",
+    icon: "🌊",
+    body: `Rzeka rzeźbi teren przez: <strong>erozję wgłębną</strong> (wycinanie w głąb – dolina V-kształtna w górach), <strong>erozję boczną</strong> (podmywanie brzegów – meandry, dolina szeroka), <strong>erozję wsteczną</strong> (cofanie się źródła). <em>Bieg górny:</em> duże spadki, żwir, erozja wgłębna. <em>Bieg środkowy:</em> meandry. <em>Bieg dolny:</em> wolny nurt, akumulacja → <strong>delta</strong> u ujścia (np. Wisła).`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Procesy grawitacyjne i eoliczne",
+    cat: "Procesy zewnętrzne",
+    icon: "🌬️",
+    body: `<strong>Grawitacyjne:</strong> osuwiska (zsuwanie się mas skalnych po stoku), spełzywanie (powolne zsuwanie się gleby), odrywy skalne. Niebezpieczne w górach i na klifach. <strong>Eoliczne (wiatru):</strong> <em>deflacja</em> – wywiewanie drobnych cząstek, <em>korazja</em> – szlifowanie skał przez piasek niesiony w powietrzu, <em>akumulacja</em> – tworzenie wydm (parabolicznych, barchanów, gwiazdowych). Wydmy nadmorskie w Polsce: Słowiński Park Narodowy (ruchome wydmy).`
+  },
+
+  // === STREFY ROŚLINNE I GLEBY ===
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Strefowość klimatyczno-roślinno-glebowa",
+    cat: "Strefy roślinne",
+    icon: "🌿",
+    body: `Klimat, roślinność i gleby tworzą powiązane <strong>strefy bioklimatyczne</strong> równoległe do równika. Od równika: <em>wilgotny las równikowy</em> (lateryty) → <em>sawanna</em> (gleby czerwone) → <em>pustynie</em> (gleby słabo wykształcone) → <em>śródziemnomorska</em> (terra rossa) → <em>lasy mieszane i liściaste</em> (brunatne) → <em>lasy borealnej tajgi</em> (bielicowe) → <em>tundra</em> (wieczna zmarzlina) → <em>pustynia lodowa</em>.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Tajga i tundra",
+    cat: "Strefy roślinne",
+    icon: "🌲",
+    body: `<strong>Tajga (borealna)</strong>: strefa klimatu subpolarnego, lasy iglaste (sosna, świerk, modrzew) na glebach bielicowych. Rozmieszczenie: Kanada, Syberia. Krótkie chłodne lata, długie mroźne zimy. <strong>Tundra</strong>: na północ od tajgi, brak drzew, mchy i porosty, <em>wieczna zmarzlina (permafrost)</em> – grunt stale zamarznięty – uniemożliwia odpływ wody. Roślinność karłowata. W Polsce brak tajgi i tundry – klimat umiarkowany.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Sawanna i step",
+    cat: "Strefy roślinne",
+    icon: "🦁",
+    body: `<strong>Sawanna</strong>: tropikalna roślinność trawiasto-krzewiasty z pojedynczymi drzewami (akacje, baobaby). Strefa podrównikowa – wyraźna pora sucha i deszczowa. Afryka, Brazylia (cerrado), Australia. <strong>Step</strong>: trawiaste obszary strefy umiarkowanej, bez drzew, małe opady. Gleby: <em>czarnoziemy</em> – najurodzajniejsze gleby świata. Step eurazjatycki (ukraiński, kazachstański), Wielkie Równiny w USA (preria). Intensywnie użytkowane rolniczo.`
+  },
+  {
+    subject: 'geografia', type: 'sprawdzian',
+    title: "Gleby – rodzaje i żyzność",
+    cat: "Strefy roślinne",
+    icon: "🌱",
+    body: `<strong>Czarnoziemy</strong> – step, najbardziej żyzne, zasobne w próchnicę. <strong>Gleby brunatne</strong> – lasy liściaste i mieszane, strefa umiarkowana, dobra urodzajność (dominują w Polsce). <strong>Bielicowe</strong> – tajga, zakwaszone, ubogie. <strong>Lateryty</strong> – strefa równikowa i podrównikowa, czerwono-brązowe, ubogie (deszcze wypłukują składniki). <strong>Próchnica (humus)</strong> – górna warstwa gleby, decyduje o żyzności. Degradacja gleb: erozja, zasolenie, zakwaszenie, zanieczyszczenia.`
+  },
 ];
 
 // ─── STATE ───────────────────────────────────────────────────────────────
@@ -1503,9 +2196,9 @@ function updateBreadcrumb() {
   bc.appendChild(sep());
 
   const subItem = document.createElement('span');
-  subItem.className = 'breadcrumb-item' + (!state.type ? ' current' : '');
+  subItem.className = 'breadcrumb-item' + (!state.type && state.view !== 'quiz' ? ' current' : '');
   subItem.textContent = state.subject.name;
-  if (state.type) subItem.onclick = () => goSubject(state.subject.id);
+  if (state.type || state.view === 'quiz') subItem.onclick = () => goSubject(state.subject.id);
   bc.appendChild(subItem);
 
   if (state.type) {
@@ -1514,6 +2207,12 @@ function updateBreadcrumb() {
     typeItem.className = 'breadcrumb-item current';
     typeItem.textContent = state.type.name;
     bc.appendChild(typeItem);
+  } else if (state.view === 'quiz') {
+    bc.appendChild(sep());
+    const quizItem = document.createElement('span');
+    quizItem.className = 'breadcrumb-item current';
+    quizItem.textContent = 'Quiz';
+    bc.appendChild(quizItem);
   }
 }
 
@@ -1551,6 +2250,23 @@ function buildTypeGrid(subjectId) {
     card.onclick = () => goType(type.id);
     grid.appendChild(card);
   });
+
+  // Add quiz card only for geography
+  if (subjectId === 'geografia') {
+    const quizCard = document.createElement('div');
+    quizCard.className = 'type-card';
+    quizCard.style.animationDelay = (types.length * 0.06) + 's';
+    quizCard.innerHTML = `
+      <div class="type-icon">🎯</div>
+      <div class="type-info">
+        <div class="type-name">Quiz</div>
+        <div class="type-desc">Sprawdź swoją wiedzę – 20 pytań</div>
+      </div>
+      <span class="type-arrow">→</span>
+    `;
+    quizCard.onclick = () => startQuiz();
+    grid.appendChild(quizCard);
+  }
 }
 
 // ─── BUILD CARDS ─────────────────────────────────────────────────────────
@@ -1571,8 +2287,10 @@ function buildCards() {
   const key = state.subject.id + '-' + state.type.id;
   const isHardcoded = hasHardcodedContent[key];
 
-  // Filter hardcoded data only for historia-sprawdzian
-  const staticItems = isHardcoded ? data : [];
+  // Filter hardcoded data by subject + type (cards without fields default to historia/sprawdzian)
+  const staticItems = isHardcoded
+    ? data.filter(d => (d.subject || 'historia') === state.subject.id && (d.type || 'sprawdzian') === state.type.id)
+    : [];
 
   // Build category buttons
   const categories = ['Wszystkie', ...new Set(staticItems.map(d => d.cat))];
@@ -1704,6 +2422,135 @@ function render() {
 }
 
 searchEl.addEventListener('input', render);
+
+// ─── QUIZ LOGIC ───────────────────────────────────────────────────────────
+let quizState = { questions: [], current: 0, score: 0, answered: false };
+
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+function startQuiz() {
+  quizState.questions = shuffleArray(quizQuestions);
+  quizState.current = 0;
+  quizState.score = 0;
+  quizState.answered = false;
+
+  document.getElementById('quiz-label').textContent = 'Geografia — Quiz';
+  document.getElementById('quiz-title').textContent = 'Quiz Geograficzny';
+  document.getElementById('quiz-sub').textContent = quizState.questions.length + ' pytań ze wszystkich działów geografii.';
+
+  state.view = 'quiz';
+  updateBreadcrumb();
+  showView('quiz');
+  renderQuizQuestion();
+}
+
+function renderQuizQuestion() {
+  const q = quizState.questions[quizState.current];
+  const total = quizState.questions.length;
+  const current = quizState.current;
+  quizState.answered = false;
+
+  // Progress bar
+  document.getElementById('quiz-progress-bar').style.width = (current / total * 100) + '%';
+
+  // Count label
+  document.getElementById('count-label').textContent = (current + 1) + ' / ' + total;
+
+  const container = document.getElementById('quiz-container');
+  const letters = ['A', 'B', 'C', 'D'];
+
+  container.innerHTML = `
+    <div class="quiz-card">
+      <div class="quiz-card-head">
+        <span class="quiz-q-num">Pytanie ${current + 1} / ${total}</span>
+        <div class="quiz-question">${q.q}</div>
+      </div>
+      <div class="quiz-options" id="quiz-opts">
+        ${q.opts.map((opt, i) => `
+          <button class="quiz-opt" onclick="answerQuiz(${i})" data-idx="${i}">
+            <span class="quiz-opt-letter">${letters[i]}</span>
+            ${opt}
+          </button>
+        `).join('')}
+      </div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <button class="quiz-next-btn" id="quiz-next-btn" onclick="nextQuizQuestion()">
+        ${current + 1 < total ? 'Następne pytanie →' : 'Zakończ quiz'}
+      </button>
+    </div>
+  `;
+}
+
+function answerQuiz(chosenIdx) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+
+  const q = quizState.questions[quizState.current];
+  const correct = q.ans;
+  const isRight = chosenIdx === correct;
+
+  if (isRight) quizState.score++;
+
+  // Style buttons
+  document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === correct) btn.classList.add('correct');
+    else if (i === chosenIdx && !isRight) btn.classList.add('wrong');
+    else btn.classList.add('reveal');
+  });
+
+  // Feedback
+  const fb = document.getElementById('quiz-feedback');
+  fb.className = 'quiz-feedback show ' + (isRight ? 'ok' : 'bad');
+  fb.innerHTML = (isRight ? '✓ Dobrze! ' : '✗ Niestety. ') + q.exp;
+
+  // Next button
+  const nextBtn = document.getElementById('quiz-next-btn');
+  nextBtn.classList.add('show');
+}
+
+function nextQuizQuestion() {
+  quizState.current++;
+  if (quizState.current >= quizState.questions.length) {
+    showQuizResult();
+  } else {
+    renderQuizQuestion();
+  }
+}
+
+function showQuizResult() {
+  const score = quizState.score;
+  const total = quizState.questions.length;
+  const pct = Math.round(score / total * 100);
+
+  document.getElementById('quiz-progress-bar').style.width = '100%';
+  document.getElementById('count-label').textContent = '';
+
+  let emoji, msg;
+  if (pct >= 90) { emoji = '🏆'; msg = 'Wybitny wynik! Jesteś mistrzem geografii!'; }
+  else if (pct >= 70) { emoji = '🎉'; msg = 'Świetna robota! Znasz geografię bardzo dobrze.'; }
+  else if (pct >= 50) { emoji = '👍'; msg = 'Niezły wynik! Warto powtórzyć słabsze tematy.'; }
+  else { emoji = '📚'; msg = 'Jeszcze trochę nauki i będzie lepiej. Nie poddawaj się!'; }
+
+  document.getElementById('quiz-container').innerHTML = `
+    <div class="quiz-result">
+      <span class="quiz-result-emoji">${emoji}</span>
+      <div class="quiz-result-score">${score} / ${total}</div>
+      <div class="quiz-result-label">${pct}% poprawnych odpowiedzi<br><em style="font-size:0.82rem;opacity:0.7;font-style:normal">${msg}</em></div>
+      <div class="quiz-result-actions">
+        <button class="quiz-retry-btn" onclick="startQuiz()">Spróbuj ponownie</button>
+        <button class="quiz-back-btn2" onclick="goSubject('geografia')">← Wróć do geografii</button>
+      </div>
+    </div>
+  `;
+}
 
 // ─── LOCAL STORAGE ────────────────────────────────────────────────────────
 const LS_EVENTS_KEY = 'notatki-szkolne-events';
