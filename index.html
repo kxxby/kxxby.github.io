@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html lang="pl" data-theme="dark">
 <head>
 <meta charset="UTF-8">
@@ -7,661 +6,1173 @@
 <title>Notatki Szkolne</title>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300;1,9..40,400&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --bg2: #111111;
-    --bg3: #1a1a1a;
-    --surface: #161616;
-    --border: #2a2a2a;
-    --border2: #333;
-    --text: #f0f0f0;
-    --text2: #a0a0a0;
-    --text3: #606060;
-    --accent: #ffffff;
-    --accent-inv: #000000;
-    --tag-bg: #222;
-    --tag-text: #888;
-    --highlight: #f0f0f0;
-    --date-bg: #222;
-    --date-text: #ccc;
-    --strong-color: #ffffff;
-    --em-color: #aaa;
-    --input-bg: #111;
-    --cat-active-bg: #fff;
-    --cat-active-text: #000;
-    --shadow: rgba(0,0,0,0.5);
-    --toggle-bg: #222;
-  }
-
-[data-theme="light"] {
-–bg: #f5f5f5;
-–bg2: #ececec;
-–bg3: #e2e2e2;
-–surface: #ffffff;
-–border: #d8d8d8;
-–border2: #c0c0c0;
-–text: #0a0a0a;
-–text2: #555;
-–text3: #999;
-–accent: #000000;
-–accent-inv: #ffffff;
-–tag-bg: #e8e8e8;
-–tag-text: #666;
-–highlight: #000;
-–date-bg: #e8e8e8;
-–date-text: #333;
-–strong-color: #000000;
-–em-color: #444;
-–input-bg: #fff;
-–cat-active-bg: #000;
-–cat-active-text: #fff;
-–shadow: rgba(0,0,0,0.1);
-–toggle-bg: #e0e0e0;
+:root {
+  --bg: #000000;
+  --bg2: #080808;
+  --bg3: #101010;
+  --surface: #0d0d0d;
+  --surface2: #141414;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.14);
+  --text: #f0f0f0;
+  --text2: rgba(240,240,240,0.5);
+  --text3: rgba(240,240,240,0.25);
+  --accent: #ffffff;
+  --accent-inv: #000000;
+  --tag-bg: rgba(255,255,255,0.06);
+  --tag-text: rgba(240,240,240,0.4);
+  --date-bg: rgba(255,255,255,0.06);
+  --date-text: rgba(240,240,240,0.6);
+  --strong-color: #f0f0f0;
+  --em-color: rgba(240,240,240,0.55);
+  --cat-active-bg: #fff;
+  --cat-active-text: #000;
+  --shadow: rgba(0,0,0,0.7);
+  --toggle-bg: rgba(255,255,255,0.08);
+  --glow: rgba(255,255,255,0.04);
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+[data-theme="light"] {
+  --bg: #fafafa;
+  --bg2: #f3f3f3;
+  --bg3: #ebebeb;
+  --surface: #ffffff;
+  --surface2: #f7f7f7;
+  --border: rgba(0,0,0,0.07);
+  --border2: rgba(0,0,0,0.13);
+  --text: #0a0a0a;
+  --text2: rgba(10,10,10,0.52);
+  --text3: rgba(10,10,10,0.28);
+  --accent: #000000;
+  --accent-inv: #ffffff;
+  --tag-bg: rgba(0,0,0,0.05);
+  --tag-text: rgba(10,10,10,0.45);
+  --date-bg: rgba(0,0,0,0.05);
+  --date-text: rgba(10,10,10,0.6);
+  --strong-color: #0a0a0a;
+  --em-color: rgba(10,10,10,0.5);
+  --cat-active-bg: #000;
+  --cat-active-text: #fff;
+  --shadow: rgba(0,0,0,0.1);
+  --toggle-bg: rgba(0,0,0,0.07);
+  --glow: rgba(0,0,0,0.02);
+}
+
+*,*::before,*::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; }
 
 body {
-background: var(–bg);
-font-family: 'DM Sans', sans-serif;
-color: var(–text);
-min-height: 100vh;
-padding: 0 0 80px;
-transition: background 0.25s, color 0.25s;
+  background: var(--bg);
+  font-family: 'DM Sans', sans-serif;
+  color: var(--text);
+  min-height: 100vh;
+  padding: 0 0 80px;
+  transition: background 0.3s, color 0.3s;
 }
 
-/* ── TOP BAR ── */
+/* ── TOPBAR ── */
 .topbar {
-position: sticky;
-top: 0;
-z-index: 100;
-background: var(–bg);
-border-bottom: 1px solid var(–border);
-padding: 0 24px;
-display: flex;
-align-items: center;
-justify-content: space-between;
-height: 60px;
-transition: background 0.25s, border-color 0.25s;
-backdrop-filter: blur(12px);
--webkit-backdrop-filter: blur(12px);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(0,0,0,0.7);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  transition: border-color 0.3s;
 }
 
-.topbar-left {
-display: flex;
-align-items: center;
-gap: 12px;
+[data-theme="light"] .topbar {
+  background: rgba(250,250,250,0.8);
 }
+
+.topbar-left { display: flex; align-items: center; gap: 12px; }
 
 .brand {
-font-family: 'Syne', sans-serif;
-font-weight: 800;
-font-size: 1rem;
-letter-spacing: -0.02em;
-color: var(–text);
-display: flex;
-align-items: center;
-gap: 10px;
-cursor: pointer;
-transition: opacity 0.15s;
-text-decoration: none;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: opacity 0.15s;
+  text-decoration: none;
+  user-select: none;
 }
-.brand:hover { opacity: 0.7; }
+.brand:hover { opacity: 0.6; }
 
-.brand-dot {
-width: 7px;
-height: 7px;
-border-radius: 50%;
-background: var(–text);
-flex-shrink: 0;
+.brand-mark {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  background: var(--text);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.brand-mark::after {
+  content: '';
+  width: 7px;
+  height: 7px;
+  border-radius: 2px;
+  background: var(--accent-inv);
 }
 
 .breadcrumb {
-display: flex;
-align-items: center;
-gap: 8px;
-font-size: 0.82rem;
-color: var(–text3);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: var(--text3);
 }
-
-.breadcrumb-sep { color: var(–border2); }
-
+.breadcrumb-sep { color: var(--border2); }
 .breadcrumb-item {
-color: var(–text3);
-cursor: pointer;
-transition: color 0.15s;
+  color: var(--text3);
+  cursor: pointer;
+  transition: color 0.15s;
 }
-.breadcrumb-item:hover { color: var(–text2); }
-.breadcrumb-item.current { color: var(–text2); cursor: default; }
-.breadcrumb-item.current:hover { color: var(–text2); }
+.breadcrumb-item:hover { color: var(--text2); }
+.breadcrumb-item.current { color: var(--text2); cursor: default; }
 
-.back-btn {
-display: none;
-align-items: center;
-gap: 6px;
-font-size: 0.82rem;
-color: var(–text3);
-cursor: pointer;
-padding: 6px 10px;
-border-radius: 7px;
-border: 1px solid var(–border);
-background: transparent;
-font-family: 'DM Sans', sans-serif;
-transition: all 0.18s;
-}
-.back-btn:hover {
-color: var(–text);
-border-color: var(–border2);
-background: var(–bg3);
-}
-.back-btn.visible { display: flex; }
-
-.topbar-right {
-display: flex;
-align-items: center;
-gap: 16px;
-}
+.topbar-right { display: flex; align-items: center; gap: 14px; }
 
 .count-badge {
-font-size: 0.72rem;
-font-weight: 500;
-color: var(–text3);
-letter-spacing: 0.04em;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text3);
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
 }
 
-/* Toggle */
+/* Theme toggle */
 .theme-toggle {
-background: var(–toggle-bg);
-border: 1px solid var(–border2);
-border-radius: 100px;
-width: 48px;
-height: 26px;
-cursor: pointer;
-position: relative;
-transition: background 0.25s, border-color 0.25s;
-flex-shrink: 0;
+  background: var(--toggle-bg);
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  width: 44px;
+  height: 24px;
+  cursor: pointer;
+  position: relative;
+  transition: background 0.3s, border-color 0.3s;
+  flex-shrink: 0;
 }
 .theme-toggle::after {
-content: '';
-position: absolute;
-width: 18px;
-height: 18px;
-border-radius: 50%;
-background: var(–text);
-top: 3px;
-left: 4px;
-transition: transform 0.25s cubic-bezier(.4,0,.2,1), background 0.25s;
+  content: '';
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--text);
+  top: 3px;
+  left: 3px;
+  transition: transform 0.25s cubic-bezier(.4,0,.2,1), background 0.3s;
 }
-[data-theme="light"] .theme-toggle::after { transform: translateX(22px); }
-
-.toggle-icon {
-position: absolute;
-font-size: 11px;
-top: 50%;
-transform: translateY(-50%);
-pointer-events: none;
-user-select: none;
-}
-.icon-moon { left: 5px; }
-.icon-sun  { right: 4px; }
+[data-theme="light"] .theme-toggle::after { transform: translateX(20px); }
 
 /* ── VIEWS ── */
-.view {
-display: none;
-animation: fadeUp 0.4s ease both;
-}
+.view { display: none; animation: fadeUp 0.35s ease both; }
 .view.active { display: block; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: none; }
+}
 
 /* ── HERO ── */
 .hero {
-padding: 64px 24px 48px;
-max-width: 900px;
-margin: 0 auto;
+  padding: 72px 24px 40px;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
+.announcement-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 12px 5px 8px;
+  border: 1px solid var(--border2);
+  border-radius: 100px;
+  background: var(--glow);
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: var(--text2);
+  margin-bottom: 28px;
+  cursor: pointer;
+  transition: border-color 0.2s, color 0.2s;
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.announcement-pill:hover { border-color: var(--border2); color: var(--text); }
+.announcement-pill .pill-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #22c55e;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+}
+.announcement-pill .pill-arrow { opacity: 0.5; font-size: 0.7rem; }
+
 .hero-label {
-display: inline-flex;
-align-items: center;
-gap: 8px;
-font-size: 0.72rem;
-font-weight: 500;
-letter-spacing: 0.12em;
-text-transform: uppercase;
-color: var(–text3);
-margin-bottom: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 18px;
 }
 .hero-label::before {
-content: '';
-display: block;
-width: 24px;
-height: 1px;
-background: var(–text3);
+  content: '';
+  display: block;
+  width: 20px;
+  height: 1px;
+  background: var(--text3);
 }
 
 h1 {
-font-family: 'Syne', sans-serif;
-font-weight: 800;
-font-size: clamp(2rem, 6vw, 3.8rem);
-line-height: 1.05;
-letter-spacing: -0.04em;
-color: var(–text);
-margin-bottom: 14px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: clamp(2.4rem, 7vw, 4.2rem);
+  line-height: 1.0;
+  letter-spacing: -0.05em;
+  color: var(--text);
+  margin-bottom: 16px;
 }
 
 .hero-sub {
-font-size: 1rem;
-color: var(–text2);
-font-weight: 300;
-max-width: 480px;
-line-height: 1.6;
+  font-size: 1rem;
+  color: var(--text2);
+  font-weight: 300;
+  max-width: 420px;
+  line-height: 1.65;
 }
 
-/* ── SUBJECT GRID (Home) ── */
+/* ── SUBJECT GRID ── */
 .subject-grid-wrap {
-max-width: 900px;
-margin: 0 auto;
-padding: 0 24px;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .subject-grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+  gap: 10px;
 }
 
 .subject-card {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 24px 20px;
-cursor: pointer;
-transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.25s;
-animation: fadeUp 0.5s ease both;
-position: relative;
-overflow: hidden;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px 20px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.3s;
+  animation: fadeUp 0.4s ease both;
+  position: relative;
+  overflow: hidden;
 }
-
-.subject-card::after {
-content: '→';
-position: absolute;
-right: 20px;
-top: 50%;
-transform: translateY(-50%) translateX(4px);
-color: var(–text3);
-font-size: 1.1rem;
-opacity: 0;
-transition: opacity 0.2s, transform 0.2s;
+.subject-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--glow);
+  opacity: 0;
+  transition: opacity 0.2s;
 }
+.subject-card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 16px 48px var(--shadow); }
+.subject-card:hover::before { opacity: 1; }
 
-.subject-card:hover {
-border-color: var(–border2);
-transform: translateY(-3px);
-box-shadow: 0 12px 40px var(–shadow);
-}
-
-.subject-card:hover::after {
-opacity: 1;
-transform: translateY(-50%) translateX(0);
+.subject-num {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 24px;
 }
 
 .subject-icon {
-font-size: 1.8rem;
-margin-bottom: 14px;
-display: block;
-width: 48px;
-height: 48px;
-background: var(–bg3);
-border: 1px solid var(–border);
-border-radius: 12px;
-display: flex;
-align-items: center;
-justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  display: block;
+  width: 44px;
+  height: 44px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .subject-name {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 1.05rem;
-color: var(–text);
-letter-spacing: -0.02em;
-margin-bottom: 6px;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  letter-spacing: -0.02em;
+  margin-bottom: 5px;
 }
 
 .subject-meta {
-font-size: 0.78rem;
-color: var(–text3);
-font-weight: 400;
+  font-size: 0.77rem;
+  color: var(--text3);
+  font-weight: 400;
+  line-height: 1.5;
 }
 
-/* ── TYPE GRID (Subject view) ── */
+.subject-arrow {
+  position: absolute;
+  right: 18px;
+  bottom: 18px;
+  font-size: 0.9rem;
+  color: var(--text3);
+  transition: transform 0.2s, color 0.2s;
+}
+.subject-card:hover .subject-arrow { transform: translate(2px,-2px); color: var(--text2); }
+
+/* ── TYPE GRID ── */
 .type-grid-wrap {
-max-width: 700px;
-margin: 0 auto;
-padding: 0 24px;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px;
 }
 
 .type-grid {
-display: grid;
-grid-template-columns: 1fr;
-gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .type-card {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 20px 24px;
-cursor: pointer;
-transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-display: flex;
-align-items: center;
-gap: 16px;
-animation: fadeUp 0.5s ease both;
-position: relative;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  animation: fadeUp 0.4s ease both;
+  position: relative;
 }
-
 .type-card:hover {
-border-color: var(–border2);
-transform: translateX(4px);
-box-shadow: 0 8px 32px var(–shadow);
+  border-color: var(--border2);
+  transform: translateX(3px);
+  box-shadow: 0 8px 28px var(--shadow);
 }
-
-.type-card.placeholder {
-opacity: 0.5;
-cursor: not-allowed;
+.type-card.featured {
+  border-color: rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.03);
 }
-.type-card.placeholder:hover {
-transform: none;
-box-shadow: none;
-border-color: var(–border);
+[data-theme="light"] .type-card.featured {
+  border-color: rgba(0,0,0,0.12);
+  background: rgba(0,0,0,0.02);
 }
+.type-card.placeholder { opacity: 0.38; cursor: not-allowed; }
+.type-card.placeholder:hover { transform: none; box-shadow: none; border-color: var(--border); }
 
 .type-icon {
-width: 44px;
-height: 44px;
-border-radius: 10px;
-background: var(–bg3);
-border: 1px solid var(–border);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1.2rem;
-flex-shrink: 0;
+  width: 40px; height: 40px;
+  border-radius: 10px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
 }
 
 .type-info { flex: 1; }
 
 .type-name {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 0.95rem;
-color: var(–text);
-margin-bottom: 4px;
-letter-spacing: -0.01em;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.92rem;
+  color: var(--text);
+  margin-bottom: 3px;
+  letter-spacing: -0.01em;
 }
 
-.type-desc {
-font-size: 0.78rem;
-color: var(–text3);
-}
+.type-desc { font-size: 0.77rem; color: var(--text3); }
 
 .type-arrow {
-font-size: 1rem;
-color: var(–text3);
-flex-shrink: 0;
-transition: transform 0.2s, color 0.2s;
+  font-size: 0.9rem;
+  color: var(--text3);
+  flex-shrink: 0;
+  transition: transform 0.2s, color 0.2s;
 }
-.type-card:not(.placeholder):hover .type-arrow {
-transform: translateX(3px);
-color: var(–text2);
+.type-card:not(.placeholder):hover .type-arrow { transform: translateX(3px); color: var(--text2); }
+
+.type-badge {
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.25);
+  color: #22c55e;
 }
 
 .coming-soon-tag {
-font-size: 0.65rem;
-font-weight: 600;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-padding: 2px 8px;
-border-radius: 100px;
-background: var(–bg3);
-border: 1px solid var(–border);
-color: var(–text3);
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 2px 8px;
+  border-radius: 100px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  color: var(--text3);
 }
 
 /* ── CONTROLS (Cards view) ── */
 .controls {
-max-width: 900px;
-margin: 0 auto;
-padding: 0 24px 28px;
-display: flex;
-flex-direction: column;
-gap: 16px;
-animation: fadeUp 0.6s 0.1s ease both;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  animation: fadeUp 0.4s 0.05s ease both;
 }
 
 .search-wrap { position: relative; }
 
 .search-icon {
-position: absolute;
-left: 16px;
-top: 50%;
-transform: translateY(-50%);
-color: var(–text3);
-font-size: 1rem;
-pointer-events: none;
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text3);
+  font-size: 1rem;
+  pointer-events: none;
 }
 
 #search {
-width: 100%;
-padding: 14px 16px 14px 44px;
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 10px;
-color: var(–text);
-font-family: 'DM Sans', sans-serif;
-font-size: 0.95rem;
-outline: none;
-transition: border-color 0.2s, box-shadow 0.2s, background 0.25s;
+  width: 100%;
+  padding: 12px 14px 12px 42px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
 }
-#search::placeholder { color: var(–text3); }
+#search::placeholder { color: var(--text3); }
 #search:focus {
-border-color: var(–border2);
-box-shadow: 0 0 0 3px color-mix(in srgb, var(–text) 8%, transparent);
+  border-color: var(--border2);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.04);
 }
+[data-theme="light"] #search:focus { box-shadow: 0 0 0 3px rgba(0,0,0,0.04); }
 
-.categories {
-display: flex;
-flex-wrap: wrap;
-gap: 8px;
-}
+.categories { display: flex; flex-wrap: wrap; gap: 7px; }
 
 .cat-btn {
-font-family: 'DM Sans', sans-serif;
-font-size: 0.78rem;
-font-weight: 500;
-padding: 6px 14px;
-border: 1px solid var(–border);
-border-radius: 100px;
-background: transparent;
-color: var(–text2);
-cursor: pointer;
-transition: all 0.18s;
-letter-spacing: 0.02em;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.77rem;
+  font-weight: 500;
+  padding: 5px 13px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: transparent;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.18s;
+  letter-spacing: 0.02em;
 }
-.cat-btn:hover {
-border-color: var(–border2);
-color: var(–text);
-background: var(–bg3);
-}
+.cat-btn:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
 .cat-btn.active {
-background: var(–cat-active-bg);
-color: var(–cat-active-text);
-border-color: var(–cat-active-bg);
+  background: var(--cat-active-bg);
+  color: var(--cat-active-text);
+  border-color: var(--cat-active-bg);
 }
 
 /* ── CARDS GRID ── */
-.grid-wrap {
-max-width: 900px;
-margin: 0 auto;
-padding: 0 24px;
-}
+.grid-wrap { max-width: 900px; margin: 0 auto; padding: 0 24px; }
 
 .grid {
-display: grid;
-grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-gap: 12px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 10px;
 }
 
 .card {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 12px;
-overflow: hidden;
-transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.25s;
-animation: fadeUp 0.5s ease both;
-cursor: default;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s, background 0.3s;
+  animation: fadeUp 0.4s ease both;
+  cursor: default;
 }
-.card:hover {
-border-color: var(–border2);
-transform: translateY(-2px);
-box-shadow: 0 8px 32px var(–shadow);
-}
+.card:hover { border-color: var(--border2); transform: translateY(-2px); box-shadow: 0 10px 36px var(--shadow); }
 .card.hidden { display: none; }
 
 .card-head {
-padding: 14px 16px 12px;
-display: flex;
-align-items: flex-start;
-gap: 12px;
-border-bottom: 1px solid var(–border);
+  padding: 14px 16px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border-bottom: 1px solid var(--border);
 }
 
 .card-icon-wrap {
-width: 36px;
-height: 36px;
-border-radius: 8px;
-background: var(–bg3);
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 1rem;
-flex-shrink: 0;
-border: 1px solid var(–border);
+  width: 34px; height: 34px;
+  border-radius: 8px;
+  background: var(--bg3);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+  border: 1px solid var(--border);
 }
 
 .card-title-area { flex: 1; min-width: 0; }
 
 .card-title {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 0.88rem;
-color: var(–text);
-line-height: 1.3;
-letter-spacing: -0.01em;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--text);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
 }
 
 .card-cat-tag {
-display: inline-block;
-margin-top: 5px;
-font-size: 0.68rem;
-font-weight: 500;
-letter-spacing: 0.06em;
-text-transform: uppercase;
-color: var(–tag-text);
-background: var(–tag-bg);
-padding: 2px 8px;
-border-radius: 100px;
-border: 1px solid var(–border);
+  display: inline-block;
+  margin-top: 5px;
+  font-size: 0.67rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--tag-text);
+  background: var(--tag-bg);
+  padding: 2px 7px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
 }
 
 .card-body {
-padding: 14px 16px;
-font-size: 0.9rem;
-line-height: 1.7;
-color: var(–text2);
-font-weight: 300;
+  padding: 14px 16px;
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: var(--text2);
+  font-weight: 300;
 }
-.card-body strong { color: var(–strong-color); font-weight: 600; }
-.card-body em { color: var(–em-color); font-style: italic; }
+.card-body strong { color: var(--strong-color); font-weight: 600; }
+.card-body em { color: var(--em-color); font-style: italic; }
 .card-body .date {
-display: inline-flex;
-align-items: center;
-background: var(–date-bg);
-color: var(–date-text);
-font-family: 'Syne', sans-serif;
-font-size: 0.78rem;
-font-weight: 600;
-padding: 1px 7px;
-border-radius: 5px;
-border: 1px solid var(–border2);
-margin: 0 1px;
-letter-spacing: -0.01em;
+  display: inline-flex; align-items: center;
+  background: var(--date-bg); color: var(--date-text);
+  font-family: 'Syne', sans-serif; font-size: 0.76rem; font-weight: 600;
+  padding: 1px 6px; border-radius: 4px; border: 1px solid var(--border2);
+  margin: 0 1px; letter-spacing: -0.01em;
 }
 
 /* ── NO RESULTS ── */
 .no-results {
-grid-column: 1/-1;
-text-align: center;
-padding: 64px 24px;
-color: var(–text3);
-font-size: 0.95rem;
+  grid-column: 1/-1;
+  text-align: center;
+  padding: 64px 24px;
+  color: var(--text3);
+  font-size: 0.92rem;
 }
 .no-results span { display: block; font-size: 2rem; margin-bottom: 12px; }
 
 /* ── PLACEHOLDER VIEW ── */
-.placeholder-wrap {
-max-width: 700px;
-margin: 0 auto;
-padding: 0 24px;
-}
+.placeholder-wrap { max-width: 640px; margin: 0 auto; padding: 0 24px; }
 
 .placeholder-box {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 14px;
-padding: 48px 32px;
-text-align: center;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 32px;
+  text-align: center;
 }
 
-.placeholder-emoji {
-font-size: 2.5rem;
-display: block;
-margin-bottom: 16px;
-}
+.placeholder-emoji { font-size: 2.5rem; display: block; margin-bottom: 16px; }
 
 .placeholder-title {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 1.2rem;
-color: var(–text);
-margin-bottom: 8px;
-letter-spacing: -0.02em;
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: var(--text);
+  margin-bottom: 8px;
+  letter-spacing: -0.02em;
 }
 
-.placeholder-desc {
-font-size: 0.88rem;
-color: var(–text3);
-line-height: 1.6;
+.placeholder-desc { font-size: 0.86rem; color: var(--text3); line-height: 1.6; }
+
+/* ── UPCOMING EVENTS ── */
+.upcoming-wrap {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
 }
 
-/* ── ANIMATIONS ── */
-@keyframes fadeUp {
-from { opacity: 0; transform: translateY(12px); }
-to   { opacity: 1; transform: none; }
+.upcoming-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
 }
 
+.upcoming-heading {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+}
+
+.upcoming-count { font-size: 0.72rem; color: var(--text3); font-weight: 500; }
+
+.upcoming-list { display: flex; flex-direction: column; gap: 7px; }
+
+.event-row {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 13px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  animation: fadeUp 0.4s ease both;
+  transition: border-color 0.2s, background 0.3s;
+  cursor: pointer;
+}
+.event-row:hover { border-color: var(--border2); }
+
+.event-type-badge {
+  font-size: 0.63rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 100px;
+  border: 1px solid var(--border);
+  background: var(--bg3);
+  color: var(--text3);
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+.event-type-badge.sprawdzian { border-color: rgba(232,116,90,0.3); background: rgba(232,116,90,0.1); color: #e8745a; }
+.event-type-badge.kartkowka  { border-color: rgba(122,140,232,0.3); background: rgba(122,140,232,0.1); color: #7a9ae8; }
+.event-type-badge.zd         { border-color: rgba(90,200,142,0.3); background: rgba(90,200,142,0.1); color: #5ac88e; }
+
+.event-info { flex: 1; min-width: 0; }
+.event-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 0.86rem;
+  color: var(--text);
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.event-meta { font-size: 0.74rem; color: var(--text3); margin-top: 2px; }
+
+.event-date-chip {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--date-text);
+  background: var(--date-bg);
+  padding: 3px 9px;
+  border-radius: 6px;
+  border: 1px solid var(--border2);
+  flex-shrink: 0;
+  letter-spacing: -0.01em;
+}
+.event-date-chip.past { opacity: 0.4; }
+
+.event-delete-btn {
+  background: none;
+  border: none;
+  color: var(--text3);
+  cursor: pointer;
+  font-size: 0.85rem;
+  padding: 4px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  line-height: 1;
+  transition: color 0.15s, background 0.15s;
+}
+.event-delete-btn:hover { color: #e87070; background: rgba(232,112,112,0.1); }
+
+.upcoming-empty {
+  text-align: center;
+  padding: 28px 24px;
+  color: var(--text3);
+  font-size: 0.86rem;
+  background: var(--surface);
+  border: 1px dashed var(--border);
+  border-radius: 12px;
+}
+.upcoming-empty span { display: block; font-size: 1.5rem; margin-bottom: 8px; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%) translateY(12px);
+  background: var(--text);
+  color: var(--accent-inv);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.84rem;
+  font-weight: 500;
+  padding: 9px 20px;
+  border-radius: 100px;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 500;
+  transition: opacity 0.2s, transform 0.2s;
+  white-space: nowrap;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+/* ── QUIZ VIEW ── */
+.quiz-wrap { max-width: 640px; margin: 0 auto; padding: 0 24px 60px; }
+
+.quiz-progress-bar-wrap {
+  background: var(--bg3);
+  border-radius: 100px;
+  height: 3px;
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.quiz-progress-bar {
+  height: 100%;
+  background: var(--text);
+  border-radius: 100px;
+  transition: width 0.4s cubic-bezier(.4,0,.2,1);
+}
+
+.quiz-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+}
+
+.quiz-card-head {
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.quiz-q-num {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  padding: 3px 9px;
+  border-radius: 100px;
+  flex-shrink: 0;
+  margin-top: 3px;
+}
+
+.quiz-question {
+  font-family: 'Syne', sans-serif;
+  font-weight: 700;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
+  flex: 1;
+}
+
+.quiz-options {
+  padding: 14px 18px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.quiz-opt {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.18s, background 0.18s, transform 0.15s;
+  width: 100%;
+  line-height: 1.45;
+}
+.quiz-opt:hover:not(:disabled) {
+  border-color: var(--border2);
+  background: var(--bg3);
+  transform: translateX(2px);
+}
+.quiz-opt:disabled { cursor: default; }
+.quiz-opt.correct { border-color: rgba(90,200,142,0.6); background: rgba(90,200,142,0.08); color: var(--text); }
+.quiz-opt.wrong   { border-color: rgba(232,116,90,0.5); background: rgba(232,116,90,0.06); color: var(--text3); }
+.quiz-opt.reveal  { border-color: rgba(90,200,142,0.3); background: rgba(90,200,142,0.04); }
+
+.quiz-opt-letter {
+  width: 24px; height: 24px;
+  border-radius: 6px;
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  font-family: 'Syne', sans-serif;
+  font-size: 0.7rem;
+  font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+  letter-spacing: 0.04em;
+  transition: background 0.18s, border-color 0.18s;
+}
+.quiz-opt.correct .quiz-opt-letter { background: #5ac88e; border-color: #5ac88e; color: #fff; }
+.quiz-opt.wrong   .quiz-opt-letter { background: #e8745a; border-color: #e8745a; color: #fff; }
+.quiz-opt.reveal  .quiz-opt-letter { background: rgba(90,200,142,0.3); border-color: rgba(90,200,142,0.3); }
+
+.quiz-feedback {
+  margin: 0 18px 18px;
+  padding: 11px 14px;
+  border-radius: 10px;
+  font-size: 0.84rem;
+  line-height: 1.55;
+  display: none;
+}
+.quiz-feedback.show { display: block; animation: fadeUp 0.2s ease both; }
+.quiz-feedback.ok  { background: rgba(90,200,142,0.08); border: 1px solid rgba(90,200,142,0.3); color: #5ac88e; }
+.quiz-feedback.bad { background: rgba(232,116,90,0.08); border: 1px solid rgba(232,116,90,0.3); color: #e8745acc; }
+
+.quiz-next-btn {
+  display: none;
+  width: calc(100% - 36px);
+  margin: 0 18px 18px;
+  padding: 12px;
+  background: var(--accent);
+  color: var(--accent-inv);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.quiz-next-btn.show { display: block; animation: fadeUp 0.2s ease both; }
+.quiz-next-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.quiz-result {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 48px 32px;
+  text-align: center;
+  animation: fadeUp 0.4s ease both;
+}
+.quiz-result-emoji { font-size: 2.8rem; display: block; margin-bottom: 16px; }
+.quiz-result-score {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 3rem;
+  letter-spacing: -0.06em;
+  color: var(--text);
+  margin-bottom: 6px;
+}
+.quiz-result-label { font-size: 0.86rem; color: var(--text2); margin-bottom: 28px; line-height: 1.6; }
+.quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.quiz-retry-btn {
+  padding: 11px 26px;
+  background: var(--accent);
+  color: var(--accent-inv);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.quiz-retry-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.quiz-back-btn2 {
+  padding: 11px 22px;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.quiz-back-btn2:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+
+/* ── FLASHCARD VIEW ── */
+.flashcard-wrap {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+.flashcard-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.flashcard-progress-bar-bg {
+  flex: 1;
+  height: 3px;
+  background: var(--bg3);
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.flashcard-progress-bar {
+  height: 100%;
+  background: #22c55e;
+  border-radius: 100px;
+  transition: width 0.5s cubic-bezier(.4,0,.2,1);
+}
+
+.flashcard-progress-label {
+  font-family: 'Syne', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--text3);
+  white-space: nowrap;
+  letter-spacing: 0.04em;
+}
+
+.flashcard-main {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  animation: fadeUp 0.3s ease both;
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+}
+
+.flashcard-face {
+  flex: 1;
+  padding: 32px 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.flashcard-cat {
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text3);
+  margin-bottom: 20px;
+  padding: 3px 10px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  background: var(--bg3);
+}
+
+.flashcard-icon {
+  font-size: 2.4rem;
+  margin-bottom: 20px;
+}
+
+.flashcard-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--text);
+  letter-spacing: -0.03em;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+.flashcard-hint {
+  font-size: 0.8rem;
+  color: var(--text3);
+  margin-top: auto;
+  padding-top: 20px;
+}
+
+.flashcard-body-content {
+  padding: 0 28px 24px;
+  font-size: 0.9rem;
+  line-height: 1.72;
+  color: var(--text2);
+  font-weight: 300;
+  text-align: left;
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+  animation: fadeUp 0.25s ease both;
+  display: none;
+}
+.flashcard-body-content.visible { display: block; }
+.flashcard-body-content strong { color: var(--strong-color); font-weight: 600; }
+.flashcard-body-content em { color: var(--em-color); font-style: italic; }
+
+.flashcard-reveal-btn {
+  display: block;
+  width: calc(100% - 56px);
+  margin: 0 28px 28px;
+  padding: 13px;
+  background: var(--bg3);
+  color: var(--text);
+  border: 1px solid var(--border2);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.18s;
+  text-align: center;
+}
+.flashcard-reveal-btn:hover { background: var(--surface2); border-color: var(--border2); transform: translateY(-1px); }
+.flashcard-reveal-btn.hidden { display: none; }
+
+.flashcard-actions {
+  display: flex;
+  gap: 10px;
+  padding: 0 28px 28px;
+  display: none;
+}
+.flashcard-actions.visible { display: flex; }
+
+.flashcard-btn-know {
+  flex: 1;
+  padding: 13px;
+  background: rgba(34,197,94,0.1);
+  color: #22c55e;
+  border: 1px solid rgba(34,197,94,0.3);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: center;
+}
+.flashcard-btn-know:hover { background: rgba(34,197,94,0.18); transform: translateY(-1px); }
+
+.flashcard-btn-unknown {
+  flex: 1;
+  padding: 13px;
+  background: rgba(232,116,90,0.08);
+  color: #e8745a;
+  border: 1px solid rgba(232,116,90,0.25);
+  border-radius: 12px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.18s;
+  text-align: center;
+}
+.flashcard-btn-unknown:hover { background: rgba(232,116,90,0.14); transform: translateY(-1px); }
+
+.flashcard-queue-info {
+  margin-top: 16px;
+  text-align: center;
+  font-size: 0.77rem;
+  color: var(--text3);
+  letter-spacing: 0.02em;
+}
+
+.flashcard-done {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  padding: 60px 32px;
+  text-align: center;
+  animation: fadeUp 0.4s ease both;
+}
+.flashcard-done-emoji { font-size: 3rem; display: block; margin-bottom: 20px; }
+.flashcard-done-title {
+  font-family: 'Syne', sans-serif;
+  font-weight: 800;
+  font-size: 1.6rem;
+  color: var(--text);
+  letter-spacing: -0.04em;
+  margin-bottom: 10px;
+}
+.flashcard-done-sub { font-size: 0.9rem; color: var(--text2); margin-bottom: 32px; line-height: 1.6; }
+.flashcard-done-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+
+.fc-restart-btn {
+  padding: 12px 28px;
+  background: var(--accent);
+  color: var(--accent-inv);
+  border: none;
+  border-radius: 10px;
+  font-family: 'Syne', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.18s, transform 0.18s;
+}
+.fc-restart-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+
+.fc-back-btn {
+  padding: 12px 22px;
+  background: transparent;
+  color: var(--text2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+.fc-back-btn:hover { border-color: var(--border2); color: var(--text); background: var(--bg3); }
+
+/* ── STAGGERED ANIMATIONS ── */
 .subject-card:nth-child(1) { animation-delay: .03s }
 .subject-card:nth-child(2) { animation-delay: .06s }
 .subject-card:nth-child(3) { animation-delay: .09s }
 .subject-card:nth-child(4) { animation-delay: .12s }
-.subject-card:nth-child(5) { animation-delay: .15s }
-.subject-card:nth-child(6) { animation-delay: .18s }
-.subject-card:nth-child(7) { animation-delay: .21s }
 
-.type-card:nth-child(1) { animation-delay: .04s }
-.type-card:nth-child(2) { animation-delay: .09s }
-.type-card:nth-child(3) { animation-delay: .14s }
+.type-card:nth-child(1) { animation-delay: .03s }
+.type-card:nth-child(2) { animation-delay: .07s }
+.type-card:nth-child(3) { animation-delay: .11s }
+.type-card:nth-child(4) { animation-delay: .15s }
+.type-card:nth-child(5) { animation-delay: .19s }
 
 .card:nth-child(1)  { animation-delay: .03s }
 .card:nth-child(2)  { animation-delay: .06s }
@@ -673,664 +1184,83 @@ to   { opacity: 1; transform: none; }
 .card:nth-child(8)  { animation-delay: .24s }
 .card:nth-child(n+9){ animation-delay: .27s }
 
-/* ── FAB ── */
-.fab {
-position: fixed;
-bottom: 28px;
-right: 28px;
-z-index: 200;
-width: 52px;
-height: 52px;
-border-radius: 50%;
-background: var(–accent);
-color: var(–accent-inv);
-border: none;
-cursor: pointer;
-font-size: 1.5rem;
-display: flex;
-align-items: center;
-justify-content: center;
-box-shadow: 0 4px 24px var(–shadow);
-transition: transform 0.2s cubic-bezier(.4,0,.2,1), box-shadow 0.2s, background 0.25s;
-font-family: 'DM Sans', sans-serif;
-line-height: 1;
-}
-.fab:hover {
-transform: scale(1.08) translateY(-2px);
-box-shadow: 0 8px 36px var(–shadow);
-}
-.fab.open { transform: rotate(45deg) scale(1.05); }
-
-/* ── MODAL OVERLAY ── */
-.modal-overlay {
-position: fixed;
-inset: 0;
-z-index: 300;
-background: rgba(0,0,0,0.7);
-backdrop-filter: blur(6px);
--webkit-backdrop-filter: blur(6px);
-display: flex;
-align-items: flex-end;
-justify-content: center;
-opacity: 0;
-pointer-events: none;
-transition: opacity 0.25s;
-}
-.modal-overlay.visible {
-opacity: 1;
-pointer-events: auto;
-}
-[data-theme="light"] .modal-overlay { background: rgba(0,0,0,0.4); }
-
-.modal {
-width: 100%;
-max-width: 520px;
-background: var(–bg2);
-border: 1px solid var(–border2);
-border-radius: 20px 20px 0 0;
-padding: 28px 28px 40px;
-transform: translateY(40px);
-transition: transform 0.3s cubic-bezier(.4,0,.2,1);
-max-height: 92vh;
-overflow-y: auto;
-}
-.modal-overlay.visible .modal { transform: translateY(0); }
-
-.modal-handle {
-width: 36px; height: 4px;
-background: var(–border2);
-border-radius: 2px;
-margin: 0 auto 24px;
-}
-
-.modal-title {
-font-family: 'Syne', sans-serif;
-font-weight: 800;
-font-size: 1.2rem;
-letter-spacing: -0.03em;
-color: var(–text);
-margin-bottom: 24px;
-}
-
-.form-field {
-margin-bottom: 18px;
-}
-
-.form-label {
-display: block;
-font-size: 0.73rem;
-font-weight: 600;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(–text3);
-margin-bottom: 8px;
-}
-
-.form-input, .form-select {
-width: 100%;
-padding: 12px 14px;
-background: var(–input-bg);
-border: 1px solid var(–border);
-border-radius: 10px;
-color: var(–text);
-font-family: 'DM Sans', sans-serif;
-font-size: 0.95rem;
-outline: none;
-transition: border-color 0.2s, box-shadow 0.2s;
-appearance: none;
--webkit-appearance: none;
-}
-.form-input:focus, .form-select:focus {
-border-color: var(–border2);
-box-shadow: 0 0 0 3px color-mix(in srgb, var(–text) 8%, transparent);
-}
-.form-input::placeholder { color: var(–text3); }
-
-.type-pills {
-display: flex;
-gap: 8px;
-flex-wrap: wrap;
-}
-
-.type-pill {
-font-family: 'DM Sans', sans-serif;
-font-size: 0.82rem;
-font-weight: 500;
-padding: 8px 16px;
-border: 1px solid var(–border);
-border-radius: 100px;
-background: transparent;
-color: var(–text2);
-cursor: pointer;
-transition: all 0.18s;
-}
-.type-pill:hover { border-color: var(–border2); color: var(–text); background: var(–bg3); }
-.type-pill.selected {
-background: var(–cat-active-bg);
-color: var(–cat-active-text);
-border-color: var(–cat-active-bg);
-}
-
-.modal-actions {
-display: flex;
-gap: 10px;
-margin-top: 24px;
-}
-
-.btn-primary {
-flex: 1;
-padding: 13px;
-background: var(–accent);
-color: var(–accent-inv);
-border: none;
-border-radius: 10px;
-font-family: 'Syne', sans-serif;
-font-size: 0.9rem;
-font-weight: 700;
-letter-spacing: -0.01em;
-cursor: pointer;
-transition: opacity 0.18s, transform 0.18s;
-}
-.btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
-.btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-.btn-secondary {
-padding: 13px 20px;
-background: transparent;
-color: var(–text2);
-border: 1px solid var(–border);
-border-radius: 10px;
-font-family: 'DM Sans', sans-serif;
-font-size: 0.9rem;
-cursor: pointer;
-transition: all 0.18s;
-}
-.btn-secondary:hover { border-color: var(–border2); color: var(–text); background: var(–bg3); }
-
-/* ── UPCOMING EVENTS (Home) ── */
-.upcoming-wrap {
-max-width: 900px;
-margin: 0 auto;
-padding: 0 24px 48px;
-}
-
-.upcoming-header {
-display: flex;
-align-items: center;
-justify-content: space-between;
-margin-bottom: 14px;
-}
-
-.upcoming-heading {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 0.82rem;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-color: var(–text3);
-}
-
-.upcoming-count {
-font-size: 0.72rem;
-color: var(–text3);
-font-weight: 500;
-}
-
-.upcoming-list {
-display: flex;
-flex-direction: column;
-gap: 8px;
-}
-
-.event-row {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 12px;
-padding: 14px 16px;
-display: flex;
-align-items: center;
-gap: 14px;
-animation: fadeUp 0.4s ease both;
-transition: border-color 0.2s, background 0.25s;
-cursor: pointer;
-}
-.event-row:hover { border-color: var(–border2); }
-
-.event-type-badge {
-font-size: 0.65rem;
-font-weight: 700;
-letter-spacing: 0.08em;
-text-transform: uppercase;
-padding: 3px 9px;
-border-radius: 100px;
-border: 1px solid var(–border);
-background: var(–bg3);
-color: var(–text3);
-flex-shrink: 0;
-white-space: nowrap;
-}
-.event-type-badge.sprawdzian { border-color: #e8745a44; background: #e8745a18; color: #e8745a; }
-.event-type-badge.kartkowka  { border-color: #7a8ce844; background: #7a8ce818; color: #7a9ae8; }
-.event-type-badge.zd         { border-color: #5ac88e44; background: #5ac88e18; color: #5ac88e; }
-
-.event-info { flex: 1; min-width: 0; }
-
-.event-title {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 0.88rem;
-color: var(–text);
-letter-spacing: -0.01em;
-white-space: nowrap;
-overflow: hidden;
-text-overflow: ellipsis;
-}
-
-.event-meta {
-font-size: 0.75rem;
-color: var(–text3);
-margin-top: 3px;
-}
-
-.event-date-chip {
-font-family: 'Syne', sans-serif;
-font-size: 0.78rem;
-font-weight: 700;
-color: var(–date-text);
-background: var(–date-bg);
-padding: 3px 10px;
-border-radius: 7px;
-border: 1px solid var(–border2);
-flex-shrink: 0;
-letter-spacing: -0.01em;
-}
-.event-date-chip.past { opacity: 0.45; }
-
-.event-delete-btn {
-background: none;
-border: none;
-color: var(–text3);
-cursor: pointer;
-font-size: 0.9rem;
-padding: 4px;
-border-radius: 6px;
-flex-shrink: 0;
-line-height: 1;
-transition: color 0.15s, background 0.15s;
-}
-.event-delete-btn:hover { color: #e87070; background: #e8707018; }
-
-.upcoming-empty {
-text-align: center;
-padding: 32px 24px;
-color: var(–text3);
-font-size: 0.88rem;
-background: var(–surface);
-border: 1px dashed var(–border);
-border-radius: 12px;
-}
-.upcoming-empty span { display: block; font-size: 1.6rem; margin-bottom: 8px; }
-
-/* ── DYNAMIC EVENT CARDS ── */
-.event-card {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 12px;
-overflow: hidden;
-transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
-animation: fadeUp 0.5s ease both;
-}
-.event-card:hover {
-border-color: var(–border2);
-transform: translateY(-2px);
-box-shadow: 0 8px 32px var(–shadow);
-}
-.event-card-head {
-padding: 14px 16px 12px;
-display: flex;
-align-items: flex-start;
-gap: 12px;
-border-bottom: 1px solid var(–border);
-}
-.event-card-icon {
-width: 36px; height: 36px;
-border-radius: 8px;
-background: var(–bg3);
-border: 1px solid var(–border);
-display: flex; align-items: center; justify-content: center;
-font-size: 1rem; flex-shrink: 0;
-}
-.event-card-title-area { flex: 1; }
-.event-card-title {
-font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.88rem;
-color: var(–text); letter-spacing: -0.01em; line-height: 1.3;
-}
-.event-card-tag {
-display: inline-block; margin-top: 5px;
-font-size: 0.68rem; font-weight: 500; letter-spacing: 0.06em;
-text-transform: uppercase; color: var(–tag-text); background: var(–tag-bg);
-padding: 2px 8px; border-radius: 100px; border: 1px solid var(–border);
-}
-.event-card-body {
-padding: 14px 16px;
-font-size: 0.88rem; line-height: 1.6; color: var(–text2); font-weight: 300;
-display: flex; align-items: center; justify-content: space-between; gap: 12px;
-}
-.event-card-date-big {
-font-family: 'Syne', sans-serif; font-weight: 700;
-font-size: 0.82rem; color: var(–date-text);
-background: var(–date-bg); padding: 3px 10px;
-border-radius: 6px; border: 1px solid var(–border2);
-white-space: nowrap; flex-shrink: 0;
-}
-.event-card-delete {
-background: none; border: none; color: var(–text3); cursor: pointer;
-font-size: 0.85rem; padding: 4px 6px; border-radius: 6px;
-flex-shrink: 0; transition: color 0.15s, background 0.15s;
-}
-.event-card-delete:hover { color: #e87070; background: #e8707018; }
-
-/* ── TOAST ── */
-.toast {
-position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(12px);
-background: var(–text); color: var(–accent-inv);
-font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
-padding: 10px 20px; border-radius: 100px;
-opacity: 0; pointer-events: none; z-index: 500;
-transition: opacity 0.2s, transform 0.2s;
-white-space: nowrap;
-}
-.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-/* ── QUIZ VIEW ── */
-.quiz-wrap {
-max-width: 680px;
-margin: 0 auto;
-padding: 0 24px 60px;
-}
-
-.quiz-progress-bar-wrap {
-background: var(–bg3);
-border-radius: 100px;
-height: 5px;
-margin-bottom: 32px;
-overflow: hidden;
-border: 1px solid var(–border);
-}
-.quiz-progress-bar {
-height: 100%;
-background: var(–text);
-border-radius: 100px;
-transition: width 0.4s cubic-bezier(.4,0,.2,1);
-}
-
-.quiz-card {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 16px;
-overflow: hidden;
-animation: fadeUp 0.35s ease both;
-}
-
-.quiz-card-head {
-padding: 20px 24px 16px;
-border-bottom: 1px solid var(–border);
-display: flex;
-align-items: flex-start;
-gap: 14px;
-}
-
-.quiz-q-num {
-font-size: 0.68rem;
-font-weight: 700;
-letter-spacing: 0.1em;
-text-transform: uppercase;
-color: var(–text3);
-background: var(–bg3);
-border: 1px solid var(–border);
-padding: 3px 10px;
-border-radius: 100px;
-flex-shrink: 0;
-margin-top: 2px;
-}
-
-.quiz-question {
-font-family: 'Syne', sans-serif;
-font-weight: 700;
-font-size: 1.05rem;
-color: var(–text);
-line-height: 1.4;
-letter-spacing: -0.02em;
-flex: 1;
-}
-
-.quiz-options {
-padding: 16px 20px 20px;
-display: flex;
-flex-direction: column;
-gap: 9px;
-}
-
-.quiz-opt {
-display: flex;
-align-items: center;
-gap: 12px;
-padding: 12px 16px;
-border: 1.5px solid var(–border);
-border-radius: 11px;
-background: transparent;
-color: var(–text);
-font-family: 'DM Sans', sans-serif;
-font-size: 0.9rem;
-font-weight: 400;
-cursor: pointer;
-text-align: left;
-transition: border-color 0.18s, background 0.18s, transform 0.15s;
-width: 100%;
-line-height: 1.45;
-}
-.quiz-opt:hover:not(:disabled) {
-border-color: var(–border2);
-background: var(–bg3);
-transform: translateX(3px);
-}
-.quiz-opt:disabled { cursor: default; }
-.quiz-opt.correct {
-border-color: #5ac88e;
-background: #5ac88e18;
-color: var(–text);
-}
-.quiz-opt.wrong {
-border-color: #e8745a;
-background: #e8745a14;
-color: var(–text3);
-}
-.quiz-opt.reveal {
-border-color: #5ac88e88;
-background: #5ac88e0c;
-}
-
-.quiz-opt-letter {
-width: 26px;
-height: 26px;
-border-radius: 7px;
-background: var(–bg3);
-border: 1px solid var(–border);
-font-family: 'Syne', sans-serif;
-font-size: 0.72rem;
-font-weight: 700;
-display: flex;
-align-items: center;
-justify-content: center;
-flex-shrink: 0;
-letter-spacing: 0.04em;
-transition: background 0.18s, border-color 0.18s;
-}
-.quiz-opt.correct .quiz-opt-letter { background: #5ac88e; border-color: #5ac88e; color: #fff; }
-.quiz-opt.wrong   .quiz-opt-letter { background: #e8745a; border-color: #e8745a; color: #fff; }
-.quiz-opt.reveal  .quiz-opt-letter { background: #5ac88e55; border-color: #5ac88e55; }
-
-.quiz-feedback {
-margin: 0 20px 20px;
-padding: 12px 16px;
-border-radius: 10px;
-font-size: 0.85rem;
-line-height: 1.55;
-display: none;
-}
-.quiz-feedback.show { display: block; animation: fadeUp 0.25s ease both; }
-.quiz-feedback.ok  { background: #5ac88e14; border: 1px solid #5ac88e44; color: #5ac88e; }
-.quiz-feedback.bad { background: #e8745a14; border: 1px solid #e8745a44; color: #e8745acc; }
-
-.quiz-next-btn {
-display: block;
-width: calc(100% - 40px);
-margin: 0 20px 20px;
-padding: 13px;
-background: var(–accent);
-color: var(–accent-inv);
-border: none;
-border-radius: 10px;
-font-family: 'Syne', sans-serif;
-font-size: 0.9rem;
-font-weight: 700;
-letter-spacing: -0.01em;
-cursor: pointer;
-transition: opacity 0.18s, transform 0.18s;
-display: none;
-}
-.quiz-next-btn.show { display: block; animation: fadeUp 0.2s ease both; }
-.quiz-next-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-
-/* Result screen */
-.quiz-result {
-background: var(–surface);
-border: 1px solid var(–border);
-border-radius: 16px;
-padding: 48px 32px;
-text-align: center;
-animation: fadeUp 0.4s ease both;
-}
-.quiz-result-emoji { font-size: 3rem; display: block; margin-bottom: 16px; }
-.quiz-result-score {
-font-family: 'Syne', sans-serif;
-font-weight: 800;
-font-size: 3rem;
-letter-spacing: -0.05em;
-color: var(–text);
-margin-bottom: 6px;
-}
-.quiz-result-label {
-font-size: 0.88rem;
-color: var(–text2);
-margin-bottom: 24px;
-}
-.quiz-result-actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
-.quiz-retry-btn {
-padding: 12px 28px;
-background: var(–accent);
-color: var(–accent-inv);
-border: none;
-border-radius: 10px;
-font-family: 'Syne', sans-serif;
-font-size: 0.9rem;
-font-weight: 700;
-cursor: pointer;
-transition: opacity 0.18s, transform 0.18s;
-}
-.quiz-retry-btn:hover { opacity: 0.85; transform: translateY(-1px); }
-.quiz-back-btn2 {
-padding: 12px 24px;
-background: transparent;
-color: var(–text2);
-border: 1px solid var(–border);
-border-radius: 10px;
-font-family: 'DM Sans', sans-serif;
-font-size: 0.9rem;
-cursor: pointer;
-transition: all 0.18s;
-}
-.quiz-back-btn2:hover { border-color: var(–border2); color: var(–text); background: var(–bg3); }
-
 /* ── RESPONSIVE ── */
 @media (max-width: 600px) {
-.hero { padding: 40px 20px 32px; }
-.controls, .grid-wrap, .subject-grid-wrap, .type-grid-wrap, .placeholder-wrap { padding-left: 16px; padding-right: 16px; }
-.grid, .subject-grid { grid-template-columns: 1fr; }
-h1 { font-size: 2rem; }
-.breadcrumb { display: none; }
+  .hero { padding: 48px 20px 32px; }
+  .controls, .grid-wrap, .subject-grid-wrap, .type-grid-wrap,
+  .placeholder-wrap, .upcoming-wrap, .quiz-wrap, .flashcard-wrap { padding-left: 16px; padding-right: 16px; }
+  .grid, .subject-grid { grid-template-columns: 1fr; }
+  h1 { font-size: 2.2rem; }
+  .breadcrumb { display: none; }
+  .flashcard-face { padding: 24px 20px 18px; }
+  .flashcard-actions, .flashcard-reveal-btn { padding-left: 20px; padding-right: 20px; margin-left: 20px; margin-right: 20px; width: calc(100% - 40px); }
 }
 </style>
-
 </head>
 <body>
 
 <!-- TOP BAR -->
-
 <div class="topbar">
   <div class="topbar-left">
     <div class="brand" onclick="goHome()" title="Strona główna">
-      <div class="brand-dot"></div>
-      <span id="brand-text">Notatki</span>
+      <div class="brand-mark"></div>
+      <span>Notatki</span>
     </div>
     <div class="breadcrumb" id="breadcrumb"></div>
   </div>
   <div class="topbar-right">
     <span class="count-badge" id="count-label"></span>
-    <button class="theme-toggle" id="themeToggle" aria-label="Przełącz motyw" title="Tryb jasny / ciemny">
-      <span class="toggle-icon icon-moon">☽</span>
-      <span class="toggle-icon icon-sun">☀</span>
-    </button>
+    <button class="theme-toggle" id="themeToggle" aria-label="Przełącz motyw" title="Tryb jasny / ciemny"></button>
   </div>
 </div>
 
-<!-- ═══════════════ VIEW: HOME ═══════════════ -->
-
+<!-- ═══ VIEW: HOME ═══ -->
 <div class="view active" id="view-home">
   <div class="hero">
+    <a class="announcement-pill" id="announcement-pill" onclick="goHistoriaSprawdzian(); return false;" href="#">
+      <span class="pill-dot"></span>
+      Sprawdzian z Historii · 20 maja 2026
+      <span class="pill-arrow">→</span>
+    </a>
     <div class="hero-label">Wszystkie przedmioty</div>
     <h1>Notatki<br>Szkolne</h1>
-    <p class="hero-sub">Wybierz przedmiot, aby przeglądać sprawdziany, zadania domowe i kartkówki.</p>
+    <p class="hero-sub">Wybierz przedmiot, aby przeglądać materiały, fiszki i quizy.</p>
   </div>
 
   <div class="subject-grid-wrap">
     <div class="subject-grid" id="subject-grid"></div>
   </div>
 
-  <div class="upcoming-wrap" id="upcoming-section" style="margin-top:40px;">
+  <div class="upcoming-wrap" id="upcoming-section" style="margin-top:48px;">
     <div class="upcoming-header">
       <span class="upcoming-heading">Nadchodzące</span>
       <span class="upcoming-count" id="upcoming-count"></span>
     </div>
     <div class="upcoming-list" id="upcoming-list">
-      <div class="upcoming-empty"><span>📅</span>Brak wpisów. Dodaj pierwszy klikając +</div>
+      <div class="upcoming-empty"><span>📅</span>Brak wpisów.</div>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════ VIEW: SUBJECT ═══════════════ -->
-
+<!-- ═══ VIEW: SUBJECT ═══ -->
 <div class="view" id="view-subject">
   <div class="hero">
     <div class="hero-label" id="subject-label">Przedmiot</div>
     <h1 id="subject-title">Historia</h1>
-    <p class="hero-sub" id="subject-sub">Wybierz rodzaj materiału.</p>
+    <p class="hero-sub" id="subject-sub">Wybierz tryb nauki.</p>
   </div>
-
   <div class="type-grid-wrap">
     <div class="type-grid" id="type-grid"></div>
   </div>
 </div>
 
-<!-- ═══════════════ VIEW: PLACEHOLDER ═══════════════ -->
-
+<!-- ═══ VIEW: PLACEHOLDER ═══ -->
 <div class="view" id="view-placeholder">
   <div class="hero">
     <div class="hero-label" id="ph-label">Materiały</div>
     <h1 id="ph-title">Wkrótce</h1>
     <p class="hero-sub" id="ph-sub">Ten dział jest jeszcze pusty.</p>
   </div>
-
   <div class="placeholder-wrap">
     <div class="placeholder-box">
       <span class="placeholder-emoji">🚧</span>
@@ -1340,15 +1270,13 @@ h1 { font-size: 2rem; }
   </div>
 </div>
 
-<!-- ═══════════════ VIEW: CARDS ═══════════════ -->
-
+<!-- ═══ VIEW: CARDS ═══ -->
 <div class="view" id="view-cards">
   <div class="hero">
     <div class="hero-label" id="cards-label">Pojęcia</div>
-    <h1 id="cards-title">Pojęcia Historyczne</h1>
+    <h1 id="cards-title">Pojęcia</h1>
     <p class="hero-sub" id="cards-sub">Wszystkie kluczowe pojęcia w jednym miejscu.</p>
   </div>
-
   <div class="controls">
     <div class="search-wrap">
       <span class="search-icon">⌕</span>
@@ -1356,23 +1284,29 @@ h1 { font-size: 2rem; }
     </div>
     <div class="categories" id="cats"></div>
   </div>
-
   <div class="grid-wrap">
     <div class="grid" id="grid"></div>
   </div>
 </div>
 
-<!-- FAB -->
+<!-- ═══ VIEW: FLASHCARDS ═══ -->
+<div class="view" id="view-flashcards">
+  <div class="hero">
+    <div class="hero-label" id="fc-label">Fiszki</div>
+    <h1 id="fc-title">Fiszki</h1>
+    <p class="hero-sub" id="fc-sub">Ucz się przez fiszki — opanuj każde pojęcie.</p>
+  </div>
+  <div class="flashcard-wrap">
+    <div id="flashcard-container"></div>
+  </div>
+</div>
 
-<button class="fab" id="fab" onclick="openAddModal()" title="Dodaj wpis">+</button>
-
-<!-- ═══════════════ VIEW: QUIZ ═══════════════ -->
-
+<!-- ═══ VIEW: QUIZ ═══ -->
 <div class="view" id="view-quiz">
   <div class="hero">
     <div class="hero-label" id="quiz-label">Quiz</div>
-    <h1 id="quiz-title">Quiz z Historii</h1>
-    <p class="hero-sub" id="quiz-sub">Sprawdź swoją wiedzę z historii Polski!</p>
+    <h1 id="quiz-title">Quiz</h1>
+    <p class="hero-sub" id="quiz-sub">Sprawdź swoją wiedzę!</p>
   </div>
   <div class="quiz-wrap">
     <div class="quiz-progress-bar-wrap"><div class="quiz-progress-bar" id="quiz-progress-bar"></div></div>
@@ -1380,226 +1314,136 @@ h1 { font-size: 2rem; }
   </div>
 </div>
 
-<!-- ADD EVENT MODAL -->
-
-<div class="modal-overlay" id="modal-overlay" onclick="handleOverlayClick(event)">
-  <div class="modal" id="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-title">Dodaj wpis</div>
-
-<div class="form-field">
-  <label class="form-label">Rodzaj</label>
-  <div class="type-pills" id="type-pills">
-    <button class="type-pill selected" data-type="sprawdzian" onclick="selectType('sprawdzian', this)">📝 Sprawdzian</button>
-    <button class="type-pill" data-type="kartkowka" onclick="selectType('kartkowka', this)">📄 Kartkówka</button>
-    <button class="type-pill" data-type="zd" onclick="selectType('zd', this)">🏠 Zadanie domowe</button>
-  </div>
-</div>
-
-<div class="form-field">
-  <label class="form-label">Przedmiot</label>
-  <select class="form-select" id="modal-subject">
-    <option value="">— Wybierz przedmiot —</option>
-  </select>
-</div>
-
-<div class="form-field">
-  <label class="form-label">Data</label>
-  <input type="date" class="form-input" id="modal-date">
-</div>
-
-<div class="form-field">
-  <label class="form-label">Z czego będzie / Temat</label>
-  <input type="text" class="form-input" id="modal-topic" placeholder="np. Polska Piastów, rozdziały 1–3…" autocomplete="off">
-</div>
-
-<div class="modal-actions">
-  <button class="btn-secondary" onclick="closeAddModal()">Anuluj</button>
-  <button class="btn-primary" id="save-btn" onclick="saveEvent()">Zapisz</button>
-</div>
-
-  </div>
-</div>
-
 <!-- TOAST -->
-
 <div class="toast" id="toast"></div>
 
 <script>
-// ─── SUBJECTS ──────────────────────────────────────────────────────────────
+// ─── DATA: SUBJECTS ────────────────────────────────────────────────────────
 const subjects = [
-  { id: 'historia',   name: 'Historia',    icon: '🏰', desc: 'Sprawdziany, kartkówki i pojęcia' },
-  { id: 'polski',     name: 'Polski',      icon: '📖', desc: 'Lektury, gramatyka, wypracowania' },
-  { id: 'matematyka', name: 'Matematyka',  icon: '📐', desc: 'Zadania, wzory i przykłady' },
-  { id: 'angielski',  name: 'Angielski',   icon: '🇬🇧', desc: 'Słówka, gramatyka, testy' },
+  { id: 'historia',   name: 'Historia',   icon: '🏰', desc: 'Sprawdziany, fiszki i quiz' },
+  { id: 'polski',     name: 'Polski',     icon: '📖', desc: 'Lektury, gramatyka, wypracowania' },
+  { id: 'matematyka', name: 'Matematyka', icon: '📐', desc: 'Zadania, wzory i przykłady' },
+  { id: 'angielski',  name: 'Angielski',  icon: '🇬🇧', desc: 'Słówka, gramatyka, testy' },
 ];
 
-// ─── ASSIGNMENT TYPES ────────────────────────────────────────────────────
 const types = [
-  { id: 'sprawdzian',   name: 'Sprawdzian',       icon: '📝', desc: 'Materiał na duży sprawdzian' },
-  { id: 'zd',          name: 'Zadanie domowe',    icon: '🏠', desc: 'Pojęcia do zadania domowego' },
-  { id: 'kartkowka',   name: 'Kartkówka',         icon: '📄', desc: 'Szybkie powtórzenie' },
+  { id: 'sprawdzian', name: 'Sprawdzian',     icon: '📝', desc: 'Wszystkie pojęcia i materiały' },
+  { id: 'kartkowka',  name: 'Kartkówka',      icon: '📄', desc: 'Szybkie powtórzenie' },
+  { id: 'zd',         name: 'Zadanie domowe', icon: '🏠', desc: 'Pojęcia do zadania domowego' },
 ];
 
-// Which combinations have real (hardcoded) content
-const hasHardcodedContent = {
-  'historia-sprawdzian': true,
-};
+const hasHardcodedContent = { 'historia-sprawdzian': true };
 
-// ─── QUIZ QUESTIONS — HISTORIA ──────────────────────────────────────────
+// ─── DATA: QUIZ QUESTIONS ─────────────────────────────────────────────────
 const quizQuestions = [
   {
     q: "W jakim roku Mieszko I przyjął chrzest dla Polski?",
-    opts: ["966", "1000", "1138", "1320"],
-    ans: 0,
-    exp: "Mieszko I przyjął chrzest w 966 roku, co włączyło Polskę w krąg cywilizacji zachodniej. To był początek chrystianizacji Polski."
+    opts: ["966", "1000", "1138", "1320"], ans: 0,
+    exp: "Mieszko I przyjął chrzest w 966 roku, co włączyło Polskę w krąg cywilizacji zachodniej."
   },
   {
     q: "Kto wydał Testament (Statut) w 1138 roku?",
-    opts: ["Mieszko I", "Bolesław Chrobry", "Bolesław III Krzywousty", "Władysław I Łokietek"],
-    ans: 2,
-    exp: "Bolesław III Krzywousty wydał Testament w 1138 roku, dzieląc Polskę między synów i wprowadzając zasadę senioratu. To było początkiem Rozbicia Dzielnicowego."
+    opts: ["Mieszko I", "Bolesław Chrobry", "Bolesław III Krzywousty", "Władysław I Łokietek"], ans: 2,
+    exp: "Bolesław III Krzywousty wydał Testament w 1138 roku, dzieląc Polskę między synów — to był początek Rozbicia Dzielnicowego."
   },
   {
     q: "Co to jest 'dzielnica senioralna'?",
-    opts: ["Dzielnica dla młodszych książąt", "Terytorium przypadające seniorowi (zwykle Małopolska)", "Dzielnica okupowana przez wroga", "Dzielnica nadmorska"],
-    ans: 1,
-    exp: "Dzielnica senioralna to terytorium - zwykle Małopolska lub Wielkopolska - przypadające seniorowi, czyli najstarszemu księciu z rodu Piastów."
+    opts: ["Dzielnica dla młodszych książąt", "Terytorium przypadające seniorowi (zwykle Małopolska)", "Dzielnica okupowana przez wroga", "Dzielnica nadmorska"], ans: 1,
+    exp: "Dzielnica senioralna to terytorium — zwykle Małopolska z Krakowem — przypadające seniorowi, czyli najstarszemu z rodu Piastów."
   },
   {
     q: "W którym roku Mongołowie zaatakowali Polskę?",
-    opts: ["1138", "1200", "1241", "1300"],
-    ans: 2,
-    exp: "Mongołowie zaatakowali Polskę w 1241 roku pod dowództwem Batu-chana. To było ogromnym ciosem dla kraju - zniszczenia, spustoszenie, osłabienie sił zbrojnych."
+    opts: ["1138", "1200", "1241", "1300"], ans: 2,
+    exp: "Mongołowie zaatakowali Polskę w 1241 roku pod dowództwem Batu-chana, niszcząc Kraków, Wrocław i inne miasta."
   },
   {
     q: "Który arcybiskup popierał procesy zjednoczeniowe Polski?",
-    opts: ["Fryderyk", "Jakub Świnka", "Bernard", "Urban"],
-    ans: 1,
-    exp: "Jakub Świnka, arcybiskup gnieźnieński (1240-1314), działał na rzecz jedności Polski i popierał Łokietka. Miał wpływ na papieża."
+    opts: ["Fryderyk", "Jakub Świnka", "Bernard", "Urban"], ans: 1,
+    exp: "Jakub Świnka, arcybiskup gnieźnieński (1240–1314), działał na rzecz jedności Polski i popierał Łokietka."
   },
   {
     q: "Kto przyłączył Pomorzanię do Polski podczas Rozbicia Dzielnicowego?",
-    opts: ["Mieszko I", "Bolesław Chrobry", "Bolesław III Krzywousty", "Żaden - było to niemożliwe w tym okresie"],
-    ans: 3,
-    exp: "Podczas Rozbicia Dzielnicowego Pomorzanią kontrolowali Niemcy i Zakon Krzyżacki. Przyłączenie Pomorza Gdańskiego nastąpiło dopiero za Władysława II Jagiełły (1466)."
+    opts: ["Mieszko I", "Bolesław Chrobry", "Bolesław III Krzywousty", "Żaden — było to niemożliwe w tym okresie"], ans: 3,
+    exp: "Podczas Rozbicia Dzielnicowego Pomorzanie kontrolowali Niemcy i Zakon Krzyżacki. Ostateczne przyłączenie nastąpiło dopiero w 1466 r."
   },
   {
     q: "W jakim roku Władysław I Łokietek został koronowany na króla Polski?",
-    opts: ["1300", "1310", "1320", "1330"],
-    ans: 2,
-    exp: "Władysław I Łokietek został koronowany na króla Polski w 1320 roku w Krakowie. To był symboliczny koniec Rozbicia Dzielnicowego (1138-1320)."
+    opts: ["1300", "1310", "1320", "1330"], ans: 2,
+    exp: "Władysław I Łokietek został koronowany w 1320 roku w Krakowie — to był koniec Rozbicia Dzielnicowego."
   },
   {
     q: "Co oznacza przydomek 'Łokietek'?",
-    opts: ["Zwycięzca", "Małego wzrostu", "Szybki", "Uczony"],
-    ans: 1,
-    exp: "Łokietek oznacza 'mały' lub 'małego wzrostu'. To był przydomek Władysława I, który był niskiego wzrostu."
+    opts: ["Zwycięzca", "Małego wzrostu", "Szybki", "Uczony"], ans: 1,
+    exp: "Łokietek oznacza 'mały' lub 'małego wzrostu'. To był przydomek Władysława I."
   },
   {
     q: "Ile trwało Rozbicie Dzielnicowe Polski?",
-    opts: ["Ok. 100 lat", "Ok. 150 lat", "Ok. 200 lat", "Ok. 300 lat"],
-    ans: 2,
-    exp: "Rozbicie Dzielnicowe trwało od 1138 roku (Testament Bolesława III) do 1320 roku (koronacja Łokietka) - czyli ok. 182 lata."
+    opts: ["Ok. 100 lat", "Ok. 150 lat", "Ok. 200 lat", "Ok. 300 lat"], ans: 2,
+    exp: "Rozbicie Dzielnicowe trwało od 1138 roku do 1320 roku — czyli ok. 182 lata."
   },
   {
     q: "Konrad I Mazowiecki zaprosił do Polski:",
-    opts: ["Papieża", "Zakon Krzyżacki", "Mongolów", "Niemców"],
-    ans: 1,
-    exp: "W 1226 roku Konrad I Mazowiecki zaprosił Zakon Krzyżacki do udziału w krucjacie przeciw Prusakom. To okazało się błędem strategicznym - Zakon osiedlił się i stał się potęgą zagrażającą Polsce."
+    opts: ["Papieża", "Zakon Krzyżacki", "Mongolów", "Niemców"], ans: 1,
+    exp: "W 1226 roku Konrad I Mazowiecki zaprosił Zakon Krzyżacki — okazało się to błędem strategicznym, bo Zakon stał się potęgą zagrażającą Polsce."
   },
 ];
 
-// ─── CARD DATA ───────────────────────────────────────────────────────────
+// ─── DATA: FLASHCARDS ────────────────────────────────────────────────────
 const data = [
-  // === HISTORIA — SPRAWDZIAN: POLSKA PIASTÓW ===
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Władysław I Łokietek",
-    cat: "Zjednoczenie Polski",
-    icon: "👑",
-    body: `Książę mazowiecki (1260–1333), autor <strong>procesu zjednoczeniowego Polski</strong>. Przydomek "Łokietek" oznacza niski wzrost. Główne osiągnięcia: <strong>przyłączenie Kujaw (1287), Warszawy, Mazowsza, Wielkopolski (1314)</strong>. Zainicjował kampanię na rzecz <em>Pomorza Gdańskiego</em> (walka z Zakonem Krzyżackim i Niemcami). <strong>Koronacja w 1320 r. w Krakowie</strong> – oficjalny koniec rozbicia dzielnicowego. Poparcie Kościoła (Jakub Świnka) i papieża wzmacniało jego pozycję.`
+    title: "Władysław I Łokietek", cat: "Zjednoczenie Polski", icon: "👑",
+    body: `Książę mazowiecki (1260–1333), autor <strong>procesu zjednoczeniowego Polski</strong>. Przydomek "Łokietek" oznacza niski wzrost. Główne osiągnięcia: <strong>przyłączenie Kujaw (1287), Warszawy, Mazowsza, Wielkopolski (1314)</strong>. Zainicjował kampanię na rzecz <em>Pomorza Gdańskiego</em> (walka z Zakonem Krzyżackim). <strong>Koronacja w 1320 r. w Krakowie</strong> — oficjalny koniec rozbicia dzielnicowego.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Testament Bolesława III Krzywoustego (1138)",
-    cat: "Rozbicie dzielnicowe",
-    icon: "📜",
-    body: `Dokument podzielający Polskę między synów Bolesława III. Wprowadził <strong>zasadę senioratu</strong> – najstarszy książę (senior) otrzymywał <em>Małopolskę lub Wielkopolskę</em> jako „dzielnicę senioralną" i rolę księcia seniora (rzeczywistej władzy). Wprowadził także <strong>zasadę pryncypatu</strong> – wyboru księcia na „stanowisko" seniora. Konsekwencja: <em>upadek jedności Polski</em> i rozpoczęcie <strong>Rozbicia Dzielnicowego (1138–1320)</strong>. Brak skutecznych mechanizmów – seniority nie była zawsze respektowana, co prowadziło do wojen domowych.`
+    title: "Testament Bolesława III Krzywoustego (1138)", cat: "Rozbicie dzielnicowe", icon: "📜",
+    body: `Dokument podzielający Polskę między synów Bolesława III. Wprowadził <strong>zasadę senioratu</strong> — najstarszy książę (senior) otrzymywał <em>Małopolskę lub Wielkopolskę</em> jako „dzielnicę senioralną". Wprowadził także <strong>zasadę pryncypatu</strong>. Konsekwencja: <em>upadek jedności Polski</em> i <strong>Rozbicie Dzielnicowe (1138–1320)</strong>.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Zasada senioratu i pryncypatu",
-    cat: "Rozbicie dzielnicowe",
-    icon: "⚖️",
-    body: `<strong>Senior</strong> – najstarszy książę z rodu Piastów, otrzymujący <em>dzielnicę senioralną</em> (zwykle Małopolska lub Wielkopolska) i władzę zwierzchnią nad pozostałymi książętami. <strong>Princeps</strong> – książę obierany/koronowany na „księcia seniora" (najwyższą godność). W praktyce system nie działał – młodsi książęta kwestionowali władzę seniora, co prowadziło do <em>konfliktów i fragmentacji władzy</em>. Brak skutecznych sankcji zmuszał papieża i Kościół do ingerencji w spory.`
+    title: "Zasada senioratu i pryncypatu", cat: "Rozbicie dzielnicowe", icon: "⚖️",
+    body: `<strong>Senior</strong> — najstarszy z rodu Piastów, otrzymujący <em>dzielnicę senioralną</em> i władzę zwierzchnią. <strong>Princeps</strong> — książę obierany na „księcia seniora". W praktyce system nie działał — młodsi książęta kwestionowali władzę seniora, co prowadziło do <em>konfliktów i fragmentacji władzy</em>.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Dzielnica senioralna",
-    cat: "Rozbicie dzielnicowe",
-    icon: "🗺️",
-    body: `Terytorium przypadające seniorowi – zwykle <strong>Małopolska (z Krakowem)</strong> lub <strong>Wielkopolska (z Poznaniem)</strong>. Była ona najcenniejszą dzielnicą – najbogatszą, najpotężniejszą, z największymi miastami. Senior posiadał władzę nad dzielnicą jako właściciel, a jednocześnie pretendował do zwierzchnictwa nad innymi książętami. Po śmierci seniora dzielnica trafiała innemu księciu seniora – prowadziło to do <em>wojen o dzielnicę</em> między książętami.`
+    title: "Dzielnica senioralna", cat: "Rozbicie dzielnicowe", icon: "🗺️",
+    body: `Terytorium przypadające seniorowi — zwykle <strong>Małopolska (z Krakowem)</strong> lub <strong>Wielkopolska (z Poznaniem)</strong>. Była najcenniejszą dzielnicą. Po śmierci seniora dzielnica trafiała do kolejnego seniora — prowadziło to do <em>wojen o dzielnicę</em>.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Konsekwencje najazdu mongolskiego dla Polski",
-    cat: "Rozbicie dzielnicowe",
-    icon: "🏹",
-    body: `Mongołowie zaatakowali Polskę w <strong>1241 r.</strong> pod dowództwem Batu-chana. Konsekwencje: <strong>zniszczenie miast (Kraków, Wrocław, Gdańsk)</strong>, spustoszenie gospodarki, masowe straty ludzi, osłabienie sił zbrojnych. Polska przez dziesiątki lat nie mogła się podnieść. <em>Chaos wewnętrzny i wojny domowe trwały</em>, książęta nie potrafili się zjednoczyć w obliczu zagrożenia zewnętrznego. Najpierw trzeba było przetrwać, potem odbudować siły – <strong>zjednoczenie opóźniło się</strong> aż do XIV w. (Łokietek).`
+    title: "Konsekwencje najazdu mongolskiego dla Polski", cat: "Rozbicie dzielnicowe", icon: "🏹",
+    body: `Mongołowie zaatakowali Polskę w <strong>1241 r.</strong> pod dowództwem Batu-chana. Konsekwencje: <strong>zniszczenie miast (Kraków, Wrocław, Gdańsk)</strong>, spustoszenie gospodarki, masowe straty ludzi. <em>Chaos wewnętrzny trwał</em>, książęta nie potrafili się zjednoczyć — <strong>zjednoczenie opóźniło się</strong> aż do XIV w.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Czyngis Chan i Tatarzy",
-    cat: "Rozbicie dzielnicowe",
-    icon: "⚔️",
-    body: `<strong>Czyngis Chan (1162–1227)</strong> – mongolski władca, założyciel gigantycznego imperium mongolskiego. Jego armia podbijała tereny od Chin do Europy. <strong>Tatarzy (Mongołowie)</strong> – w kontekście Polski = hordy mongolskie, które zaatakowały Polskę w 1241 r. pod dowództwem Batu-chana (wnuka Czyngisa). Nazwa „Tatarzy" była używana przez europejskich kronikarz do określenia tych konkretnych najeźdźców, choć Mongołowie i Tatarzy to nie to samo.`
+    title: "Czyngis Chan i Tatarzy", cat: "Rozbicie dzielnicowe", icon: "⚔️",
+    body: `<strong>Czyngis Chan (1162–1227)</strong> — mongolski władca, założyciel imperium od Chin do Europy. <strong>Tatarzy (Mongołowie)</strong> w kontekście Polski — hordy mongolskie, które zaatakowały w 1241 r. pod dowództwem Batu-chana (wnuka Czyngisa). Nazwa "Tatarzy" była używana przez europejskich kronikarzy.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Jakub Świnka",
-    cat: "Zjednoczenie Polski",
-    icon: "⛪",
-    body: `Arcybiskup gnieźnieński (1240–1314), eminentny polityk i duchowny. Działał na rzecz <strong>jedności Polski</strong> i popierał procesy zjednoczeniowe. Wspierał Łokietka w jego wysiłkach. Głosił ideę <em>zjednoczenia jako moralnego obowiązku</em> chrześcijańskiego. Miał wpływ na papieża – Kościół poparł plany Łokietka. Jego działalność dyplomatyczna wzmacniała pozycję książąt dążących do zjednoczenia. Mediacją między konfliktującymi książętami – starał się łagodzić spory.`
+    title: "Jakub Świnka", cat: "Zjednoczenie Polski", icon: "⛪",
+    body: `Arcybiskup gnieźnieński (1240–1314), eminentny polityk i duchowny. Działał na rzecz <strong>jedności Polski</strong> i wspierał Łokietka. Głosił ideę <em>zjednoczenia jako moralnego obowiązku</em>. Miał wpływ na papieża — Kościół poparł plany Łokietka.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Proces zjednoczeniowy Polski pod władzą Łokietka",
-    cat: "Zjednoczenie Polski",
-    icon: "🏛️",
-    body: `<strong>Etapy:</strong> 1) <em>Przejęcie Kujaw (1287)</em> – Łokietek opanował Kujawy. 2) <em>Zdobycie Warszawy i Mazowsza</em> – wzmocnił pozycję księcia mazowieckiego. 3) <em>Przyłączenie Wielkopolski (1314)</em> – zwycięstwo nad Brandenburgią i Zakonem. 4) <em>Kampania o Pomorze Gdańskie</em> – walka z Zakonem Krzyżackim (bez pełnego sukcesu).<br><br><strong>Metody:</strong> kampanie militarne, małżeństwa polityczne, poparcie Kościoła, papieża, sojusze. <strong>Wynik:</strong> <strong>1320 r. – koronacja Łokietka na króla Polski</strong> – symbolicze koniec rozbicia dzielnicowego i początek zjednoczenia.`
+    title: "Proces zjednoczeniowy Polski pod władzą Łokietka", cat: "Zjednoczenie Polski", icon: "🏛️",
+    body: `<strong>Etapy:</strong> 1) <em>Przejęcie Kujaw (1287)</em> 2) <em>Zdobycie Warszawy i Mazowsza</em> 3) <em>Przyłączenie Wielkopolski (1314)</em> 4) <em>Kampania o Pomorze Gdańskie</em> (bez pełnego sukcesu).<br><br><strong>Metody:</strong> kampanie militarne, małżeństwa polityczne, poparcie Kościoła. <strong>Wynik: koronacja 1320 r.</strong>`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Charakteryzacja starań Łokietka o przyłączenie Pomorza Gdańskiego",
-    cat: "Zjednoczenie Polski",
-    icon: "🌊",
-    body: `<strong>Problem:</strong> Pomorze Gdańskie było pod kontrolą Niemiec – część terenu kontrolowała <em>Zakon Krzyżacki</em>, część znajdowała się pod wpływem książąt brandenburskich.<br><br><strong>Starania Łokietka:</strong> kampanie militarne (walka z Zakonem), negocjacje dyplomatyczne, roszczenia prawne (twierdził, że Pomorze „historycznie" należało do Polski). Popierał go papież i Kościół.<br><br><strong>Rezultat:</strong> <em>częściowy sukces</em> – zajął niektóre tereny (np. okolice dzisiejszego Gdańska), ale nie zdołał całkowicie wymusić rezygnacji Zakonu z Pomorza. Po śmierci Łokietka tereny powróciły w ręce wrogów. <strong>Ostateczne przyłączenie Pomorza Gdańskiego do Polski dopiero za Władysława II Jagiełły (1466).</strong>`
+    title: "Starania Łokietka o Pomorze Gdańskie", cat: "Zjednoczenie Polski", icon: "🌊",
+    body: `<strong>Problem:</strong> Pomorze pod kontrolą Niemców i <em>Zakonu Krzyżackiego</em>.<br><br><strong>Starania:</strong> kampanie militarne, negocjacje, roszczenia prawne, poparcie papieża.<br><br><strong>Rezultat:</strong> <em>częściowy sukces</em> — nie zdołał wymusić rezygnacji Zakonu. <strong>Ostateczne przyłączenie dopiero za Jagiełły (1466).</strong>`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Konrad I Mazowiecki",
-    cat: "Rozbicie dzielnicowe",
-    icon: "🏯",
-    body: `Książę mazowiecki (1187–1247), współczesny <strong>Rozbicia Dzielnicowego</strong>. Znany z: 1) <strong>Zaproszenia Zakonu Krzyżackiego do Polski (1226 r.)</strong> – chciał wzmocnić swoją pozycję wobec sąsiadów, zapraszając Zakon do udziału w krucjacie przeciw Prusakom. <em>Był to strategiczny błąd</em> – Zakon osiedlił się na terytoriach pruskich, a następnie stał się potęgą militarną zagrażającą Polsce (Zakon opanował Pomorze, Prusy, Litwę). 2) <em>Konfliktów z braćmi o władzę</em> – jak inni książęta, rywalizował o wpływy. 3) <em>Słabej pozycji w systemie senioratu</em> – Mazowsze było dzielnicą peryferyjną, Konrad miał mniejszy wpływ niż seniorowie Małopolski czy Wielkopolski.`
+    title: "Konrad I Mazowiecki", cat: "Rozbicie dzielnicowe", icon: "🏯",
+    body: `Książę mazowiecki (1187–1247). Znany z: <strong>Zaproszenia Zakonu Krzyżackiego (1226 r.)</strong> — chciał wzmocnić pozycję wobec Prusaków. <em>Strategiczny błąd</em> — Zakon osiedlił się, stał się potęgą militarną i opanował Pomorze, Prusy, Litwę.`
   },
-
   {
     subject: 'historia', type: 'sprawdzian',
-    title: "Rok 1320 – koronacja Łokietka",
-    cat: "Zjednoczenie Polski",
-    icon: "👑",
-    body: `Data symboliczna – <strong>Władysław I Łokietek koronowany na króla Polski w Krakowie</strong>. Znaczenie: <strong>oficjalny koniec Rozbicia Dzielnicowego (1138–1320)</strong>. Polska znów miała wspólnego władcę i króla, co było potwierdzone przez papieża, Kościół i uznane przez sąsiednie państwa. Łokietek otrzymał koronę nie tylko dzielniczo (jako senior), ale jako monarcha całego kraju. <em>Choć proces zjednoczenia nie był całkowity</em> (niektóre tereny pozostały poza kontrolą) – był to symboliczny początek nowego okresu <strong>zjednoczonej, potęgnej Polski</strong>.`
+    title: "Rok 1320 — koronacja Łokietka", cat: "Zjednoczenie Polski", icon: "👑",
+    body: `Data symboliczna — <strong>Władysław I Łokietek koronowany w Krakowie</strong>. Znaczenie: <strong>oficjalny koniec Rozbicia Dzielnicowego (1138–1320)</strong>. Polska znów miała wspólnego monarchę, potwierdzonego przez papieża. <em>Choć zjednoczenie nie było całkowite</em> — był to symboliczny początek <strong>zjednoczonej Polski</strong>.`
   },
 ];
 
@@ -1640,11 +1484,14 @@ function goType(typeId) {
   showView('cards');
 }
 
+function goHistoriaSprawdzian() {
+  goSubject('historia');
+}
+
 // ─── BREADCRUMB ──────────────────────────────────────────────────────────
 function updateBreadcrumb() {
   const bc = document.getElementById('breadcrumb');
   bc.innerHTML = '';
-
   if (!state.subject) return;
 
   const sep = () => {
@@ -1657,9 +1504,10 @@ function updateBreadcrumb() {
   bc.appendChild(sep());
 
   const subItem = document.createElement('span');
-  subItem.className = 'breadcrumb-item' + (!state.type && state.view !== 'quiz' ? ' current' : '');
+  const isCurrent = !state.type && state.view !== 'quiz' && state.view !== 'flashcards';
+  subItem.className = 'breadcrumb-item' + (isCurrent ? ' current' : '');
   subItem.textContent = state.subject.name;
-  if (state.type || state.view === 'quiz') subItem.onclick = () => goSubject(state.subject.id);
+  if (!isCurrent) subItem.onclick = () => goSubject(state.subject.id);
   bc.appendChild(subItem);
 
   if (state.type) {
@@ -1670,10 +1518,16 @@ function updateBreadcrumb() {
     bc.appendChild(typeItem);
   } else if (state.view === 'quiz') {
     bc.appendChild(sep());
-    const quizItem = document.createElement('span');
-    quizItem.className = 'breadcrumb-item current';
-    quizItem.textContent = 'Quiz';
-    bc.appendChild(quizItem);
+    const qi = document.createElement('span');
+    qi.className = 'breadcrumb-item current';
+    qi.textContent = 'Quiz';
+    bc.appendChild(qi);
+  } else if (state.view === 'flashcards') {
+    bc.appendChild(sep());
+    const fi = document.createElement('span');
+    fi.className = 'breadcrumb-item current';
+    fi.textContent = 'Fiszki';
+    bc.appendChild(fi);
   }
 }
 
@@ -1684,9 +1538,11 @@ subjects.forEach((sub, i) => {
   card.className = 'subject-card';
   card.style.animationDelay = (i * 0.05) + 's';
   card.innerHTML = `
+    <div class="subject-num">0${i+1}</div>
     <div class="subject-icon">${sub.icon}</div>
     <div class="subject-name">${sub.name}</div>
     <div class="subject-meta">${sub.desc}</div>
+    <span class="subject-arrow">↗</span>
   `;
   card.onclick = () => goSubject(sub.id);
   subjectGrid.appendChild(card);
@@ -1696,37 +1552,86 @@ subjects.forEach((sub, i) => {
 function buildTypeGrid(subjectId) {
   const grid = document.getElementById('type-grid');
   grid.innerHTML = '';
-  types.forEach((type, i) => {
-    const card = document.createElement('div');
-    card.className = 'type-card';
-    card.style.animationDelay = (i * 0.06) + 's';
-    card.innerHTML = `
-      <div class="type-icon">${type.icon}</div>
+
+  let delay = 0;
+
+  if (subjectId === 'historia') {
+    // Flashcards — featured option
+    const fcCard = document.createElement('div');
+    fcCard.className = 'type-card featured';
+    fcCard.style.animationDelay = (delay++ * 0.06) + 's';
+    fcCard.innerHTML = `
+      <div class="type-icon">🃏</div>
       <div class="type-info">
-        <div class="type-name">${type.name}</div>
-        <div class="type-desc">${type.desc}</div>
+        <div class="type-name">Fiszki</div>
+        <div class="type-desc">Nauka przez fiszki — opanuj każde pojęcie</div>
+      </div>
+      <span class="type-badge">Nowe</span>
+    `;
+    fcCard.onclick = () => startFlashcards('historia', 'sprawdzian');
+    grid.appendChild(fcCard);
+
+    // Notes/cards
+    const notesCard = document.createElement('div');
+    notesCard.className = 'type-card';
+    notesCard.style.animationDelay = (delay++ * 0.06) + 's';
+    notesCard.innerHTML = `
+      <div class="type-icon">📝</div>
+      <div class="type-info">
+        <div class="type-name">Sprawdzian</div>
+        <div class="type-desc">Wszystkie pojęcia i materiały</div>
       </div>
       <span class="type-arrow">→</span>
     `;
-    card.onclick = () => goType(type.id);
-    grid.appendChild(card);
-  });
+    notesCard.onclick = () => goType('sprawdzian');
+    grid.appendChild(notesCard);
 
-  // Add quiz card for historia
-  if (subjectId === 'historia') {
+    // Quiz
     const quizCard = document.createElement('div');
     quizCard.className = 'type-card';
-    quizCard.style.animationDelay = (types.length * 0.06) + 's';
+    quizCard.style.animationDelay = (delay++ * 0.06) + 's';
     quizCard.innerHTML = `
       <div class="type-icon">🎯</div>
       <div class="type-info">
         <div class="type-name">Quiz</div>
-        <div class="type-desc">Sprawdź swoją wiedzę – 10 pytań</div>
+        <div class="type-desc">10 pytań — sprawdź swoją wiedzę</div>
       </div>
       <span class="type-arrow">→</span>
     `;
     quizCard.onclick = () => startQuiz('historia');
     grid.appendChild(quizCard);
+
+    // Coming soon cards
+    [{ icon: '📄', name: 'Kartkówka' }, { icon: '🏠', name: 'Zadanie domowe' }].forEach(t => {
+      const c = document.createElement('div');
+      c.className = 'type-card placeholder';
+      c.style.animationDelay = (delay++ * 0.06) + 's';
+      c.innerHTML = `
+        <div class="type-icon">${t.icon}</div>
+        <div class="type-info">
+          <div class="type-name">${t.name}</div>
+          <div class="type-desc">Brak materiałów</div>
+        </div>
+        <span class="coming-soon-tag">Wkrótce</span>
+      `;
+      grid.appendChild(c);
+    });
+  } else {
+    // Non-historia subjects: placeholder for all types
+    types.forEach((type, i) => {
+      const card = document.createElement('div');
+      card.className = 'type-card placeholder';
+      card.style.animationDelay = (i * 0.06) + 's';
+      card.innerHTML = `
+        <div class="type-icon">${type.icon}</div>
+        <div class="type-info">
+          <div class="type-name">${type.name}</div>
+          <div class="type-desc">Brak materiałów</div>
+        </div>
+        <span class="coming-soon-tag">Wkrótce</span>
+      `;
+      grid.appendChild(card);
+    });
   }
 }
 
@@ -1738,26 +1643,22 @@ function buildCards() {
   const typeName = state.type.name;
 
   document.getElementById('cards-label').textContent = subName + ' — ' + typeName;
-  document.getElementById('cards-title').textContent = typeName + ' — ' + subName;
-  document.getElementById('cards-sub').textContent = 'Notatki i materiały do nauki.';
+  document.getElementById('cards-title').textContent = typeName;
+  document.getElementById('cards-sub').textContent = 'Wszystkie kluczowe pojęcia w jednym miejscu.';
 
-  // Reset search
   document.getElementById('search').value = '';
   activeCategory = 'Wszystkie';
 
   const key = state.subject.id + '-' + state.type.id;
-  const isHardcoded = hasHardcodedContent[key];
-
-  // Filter hardcoded data by subject + type
-  const staticItems = isHardcoded
-    ? data.filter(d => (d.subject || 'historia') === state.subject.id && (d.type || 'sprawdzian') === state.type.id)
+  const items = hasHardcodedContent[key]
+    ? data.filter(d => d.subject === state.subject.id && d.type === state.type.id)
     : [];
 
-  // Build category buttons
-  const categories = ['Wszystkie', ...new Set(staticItems.map(d => d.cat))];
+  const categories = ['Wszystkie', ...new Set(items.map(d => d.cat))];
   const catsEl = document.getElementById('cats');
   catsEl.innerHTML = '';
-  if (staticItems.length > 0) {
+
+  if (items.length > 0) {
     categories.forEach(cat => {
       const btn = document.createElement('button');
       btn.className = 'cat-btn' + (cat === 'Wszystkie' ? ' active' : '');
@@ -1766,16 +1667,25 @@ function buildCards() {
         activeCategory = cat;
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        render();
+        renderCards();
       };
       catsEl.appendChild(btn);
     });
   }
 
-  // Build static cards
   const gridEl = document.getElementById('grid');
   gridEl.innerHTML = '';
-  staticItems.forEach(item => {
+
+  if (items.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'no-results';
+    empty.innerHTML = `<span>📋</span>Brak wpisów w tym dziale.`;
+    gridEl.appendChild(empty);
+    document.getElementById('count-label').textContent = '';
+    return;
+  }
+
+  items.forEach(item => {
     const card = document.createElement('div');
     card.className = 'card';
     card.dataset.title = item.title;
@@ -1794,79 +1704,21 @@ function buildCards() {
     gridEl.appendChild(card);
   });
 
-  updateCount(staticItems.length, staticItems.length);
-
-  // Load and render dynamic events for this subject+type
-  renderDynamicEvents(state.subject.id, state.type.id, gridEl, staticItems.length);
+  document.getElementById('count-label').textContent = items.length + ' pojęć';
 }
 
-async function renderDynamicEvents(subjectId, typeId, gridEl, staticCount) {
-  const allEvents = await loadEvents();
-  const matching = allEvents.filter(e => e.subject === subjectId && e.type === typeId);
-
-  if (matching.length === 0 && staticCount === 0) {
-    if (!document.getElementById('no-results')) {
-      const empty = document.createElement('div');
-      empty.id = 'no-results';
-      empty.className = 'no-results';
-      empty.innerHTML = `<span>📋</span>Brak wpisów w tym dziale.<br><small style="font-size:0.78rem;opacity:0.7">Dodaj pierwszy klikając przycisk +</small>`;
-      gridEl.appendChild(empty);
-    }
-    return;
-  }
-
-  const typeNames = { sprawdzian: 'Sprawdzian', kartkowka: 'Kartkówka', zd: 'Zadanie domowe' };
-  const typeIcons = { sprawdzian: '📝', kartkowka: '📄', zd: '🏠' };
-
-  // Sort by date
-  matching.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-  matching.forEach(ev => {
-    const card = document.createElement('div');
-    card.className = 'event-card';
-    const dateStr = formatDate(ev.date);
-    card.innerHTML = `
-      <div class="event-card-head">
-        <div class="event-card-icon">${typeIcons[ev.type] || '📋'}</div>
-        <div class="event-card-title-area">
-          <div class="event-card-title">${escHtml(ev.topic)}</div>
-          <span class="event-card-tag">${typeNames[ev.type] || ev.type}</span>
-        </div>
-      </div>
-      <div class="event-card-body">
-        <span>Data: <strong style="color:var(--text)">${dateStr}</strong></span>
-        <span class="event-card-date-big">${dateStr}</span>
-        <button class="event-card-delete" onclick="deleteEventFromCards('${ev.id}')" title="Usuń">✕</button>
-      </div>
-    `;
-    gridEl.appendChild(card);
-  });
-
-  updateCount(staticCount + matching.length, staticCount + matching.length);
-}
-
-// ─── RENDER / FILTER ─────────────────────────────────────────────────────
-const countEl   = document.getElementById('count-label');
-const searchEl  = document.getElementById('search');
-
-function updateCount(visible, total) {
-  countEl.textContent = visible === total ? `${total} pojęć` : `${visible} / ${total}`;
-}
-
-function render() {
-  const q = searchEl.value.toLowerCase().trim();
+function renderCards() {
+  const q = document.getElementById('search').value.toLowerCase().trim();
   let visible = 0;
   document.querySelectorAll('.card').forEach(card => {
-    const title = card.dataset.title.toLowerCase();
-    const body  = card.dataset.body.toLowerCase();
-    const cat   = card.dataset.cat;
-    const catMatch  = activeCategory === 'Wszystkie' || cat === activeCategory;
-    const textMatch = !q || title.includes(q) || body.includes(q);
+    const catMatch  = activeCategory === 'Wszystkie' || card.dataset.cat === activeCategory;
+    const textMatch = !q || card.dataset.title.toLowerCase().includes(q) || card.dataset.body.toLowerCase().includes(q);
     const show = catMatch && textMatch;
     card.classList.toggle('hidden', !show);
     if (show) visible++;
   });
-  updateCount(visible, data.length);
+  const total = document.querySelectorAll('.card').length;
+  document.getElementById('count-label').textContent = visible === total ? `${total} pojęć` : `${visible} / ${total}`;
 
   let noRes = document.getElementById('no-results');
   if (visible === 0) {
@@ -1874,7 +1726,7 @@ function render() {
       noRes = document.createElement('div');
       noRes.id = 'no-results';
       noRes.className = 'no-results';
-      noRes.innerHTML = `<span>∅</span>Nie znaleziono pojęcia dla „${searchEl.value}"`;
+      noRes.innerHTML = `<span>∅</span>Nie znaleziono pojęcia.`;
       document.getElementById('grid').appendChild(noRes);
     }
   } else {
@@ -1882,38 +1734,124 @@ function render() {
   }
 }
 
-searchEl.addEventListener('input', render);
+document.getElementById('search').addEventListener('input', renderCards);
 
-// ─── QUIZ LOGIC ───────────────────────────────────────────────────────────
-let quizState = { questions: [], current: 0, score: 0, answered: false };
+// ─── FLASHCARD LOGIC ──────────────────────────────────────────────────────
+let fcState = { deck: [], mastered: 0, total: 0, revealed: false, backSubject: 'historia' };
 
-function shuffleArray(arr) {
-  const a = [...arr];
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [a[i], a[j]] = [a[j], a[i]];
-  }
-  return a;
+function startFlashcards(subjectId, typeId) {
+  const items = data.filter(d => d.subject === subjectId && d.type === typeId);
+  if (!items.length) return;
+
+  const sub = subjects.find(s => s.id === subjectId);
+  state.subject = sub;
+  state.type = null;
+  state.view = 'flashcards';
+
+  document.getElementById('fc-label').textContent = (sub ? sub.name : '') + ' — Fiszki';
+  document.getElementById('fc-title').textContent = 'Fiszki';
+  document.getElementById('fc-sub').textContent = items.length + ' pojęć do opanowania.';
+
+  fcState.deck = shuffleArray([...items]);
+  fcState.mastered = 0;
+  fcState.total = items.length;
+  fcState.revealed = false;
+  fcState.backSubject = subjectId;
+
+  updateBreadcrumb();
+  showView('flashcards');
+  renderFlashcard();
 }
 
-function startQuiz(subjectId) {
-  const questions = quizQuestions;
-  const label = 'Historia — Quiz';
-  const title = 'Quiz z Historii Polski';
-  const sub   = 'Polska Piastów, Rozbicie Dzielnicowe, Zjednoczenie.';
-  const backSubject = subjectId || 'historia';
+function renderFlashcard() {
+  const container = document.getElementById('flashcard-container');
 
-  quizState.questions = shuffleArray(questions);
+  if (fcState.deck.length === 0) {
+    // All mastered
+    container.innerHTML = `
+      <div class="flashcard-done">
+        <span class="flashcard-done-emoji">🎉</span>
+        <div class="flashcard-done-title">Wszystkie opanowane!</div>
+        <div class="flashcard-done-sub">Świetna robota! Opanowałeś wszystkie ${fcState.total} pojęcia.<br>Kliknij „Od nowa", aby powtórzyć.</div>
+        <div class="flashcard-done-actions">
+          <button class="fc-restart-btn" onclick="startFlashcards(fcState.backSubject, 'sprawdzian')">Od nowa</button>
+          <button class="fc-back-btn" onclick="goSubject(fcState.backSubject)">← Wróć</button>
+        </div>
+      </div>
+    `;
+    document.getElementById('count-label').textContent = '';
+    return;
+  }
+
+  const card = fcState.deck[0];
+  const remaining = fcState.deck.length;
+  const pct = Math.round((fcState.mastered / fcState.total) * 100);
+
+  document.getElementById('count-label').textContent = fcState.mastered + ' / ' + fcState.total;
+
+  container.innerHTML = `
+    <div class="flashcard-progress-wrap">
+      <div class="flashcard-progress-bar-bg">
+        <div class="flashcard-progress-bar" id="fc-bar" style="width:${pct}%"></div>
+      </div>
+      <span class="flashcard-progress-label">${fcState.mastered}/${fcState.total} opanowanych</span>
+    </div>
+    <div class="flashcard-main" id="fc-main">
+      <div class="flashcard-face">
+        <div class="flashcard-cat">${card.cat}</div>
+        <div class="flashcard-icon">${card.icon}</div>
+        <div class="flashcard-title">${card.title}</div>
+        <div class="flashcard-hint">Kliknij „Pokaż", aby zobaczyć odpowiedź</div>
+      </div>
+      <div class="flashcard-body-content" id="fc-body">${card.body}</div>
+      <button class="flashcard-reveal-btn" id="fc-reveal-btn" onclick="revealFlashcard()">Pokaż odpowiedź</button>
+      <div class="flashcard-actions" id="fc-actions">
+        <button class="flashcard-btn-unknown" onclick="flashcardUnknown()">✗ Nie wiem</button>
+        <button class="flashcard-btn-know" onclick="flashcardKnow()">✓ Wiem</button>
+      </div>
+    </div>
+    <div class="flashcard-queue-info">${remaining} ${remaining === 1 ? 'pojęcie' : remaining < 5 ? 'pojęcia' : 'pojęć'} w kolejce</div>
+  `;
+}
+
+function revealFlashcard() {
+  document.getElementById('fc-body').classList.add('visible');
+  document.getElementById('fc-reveal-btn').classList.add('hidden');
+  document.getElementById('fc-actions').classList.add('visible');
+}
+
+function flashcardKnow() {
+  fcState.deck.shift();
+  fcState.mastered++;
+  renderFlashcard();
+}
+
+function flashcardUnknown() {
+  const card = fcState.deck.shift();
+  const insertAt = Math.floor(Math.random() * (fcState.deck.length - 1)) + 1;
+  fcState.deck.splice(Math.max(1, insertAt), 0, card);
+  renderFlashcard();
+}
+
+// ─── QUIZ LOGIC ───────────────────────────────────────────────────────────
+let quizState = { questions: [], current: 0, score: 0, answered: false, backSubject: 'historia' };
+
+function startQuiz(subjectId) {
+  const sub = subjects.find(s => s.id === subjectId);
+  state.subject = sub;
+  state.type = null;
+  state.view = 'quiz';
+  quizState.backSubject = subjectId;
+
+  quizState.questions = shuffleArray(quizQuestions);
   quizState.current = 0;
   quizState.score = 0;
   quizState.answered = false;
-  quizState.backSubject = backSubject;
 
-  document.getElementById('quiz-label').textContent = label;
-  document.getElementById('quiz-title').textContent = title;
-  document.getElementById('quiz-sub').textContent = quizState.questions.length + ' pytań. ' + sub;
+  document.getElementById('quiz-label').textContent = 'Historia — Quiz';
+  document.getElementById('quiz-title').textContent = 'Quiz z Historii';
+  document.getElementById('quiz-sub').textContent = quizState.questions.length + ' pytań · Polska Piastów, Rozbicie Dzielnicowe, Zjednoczenie.';
 
-  state.view = 'quiz';
   updateBreadcrumb();
   showView('quiz');
   renderQuizQuestion();
@@ -1925,16 +1863,11 @@ function renderQuizQuestion() {
   const current = quizState.current;
   quizState.answered = false;
 
-  // Progress bar
   document.getElementById('quiz-progress-bar').style.width = (current / total * 100) + '%';
-
-  // Count label
   document.getElementById('count-label').textContent = (current + 1) + ' / ' + total;
 
-  const container = document.getElementById('quiz-container');
   const letters = ['A', 'B', 'C', 'D'];
-
-  container.innerHTML = `
+  document.getElementById('quiz-container').innerHTML = `
     <div class="quiz-card">
       <div class="quiz-card-head">
         <span class="quiz-q-num">Pytanie ${current + 1} / ${total}</span>
@@ -1959,14 +1892,11 @@ function renderQuizQuestion() {
 function answerQuiz(chosenIdx) {
   if (quizState.answered) return;
   quizState.answered = true;
-
   const q = quizState.questions[quizState.current];
   const correct = q.ans;
   const isRight = chosenIdx === correct;
-
   if (isRight) quizState.score++;
 
-  // Style buttons
   document.querySelectorAll('.quiz-opt').forEach((btn, i) => {
     btn.disabled = true;
     if (i === correct) btn.classList.add('correct');
@@ -1974,38 +1904,30 @@ function answerQuiz(chosenIdx) {
     else btn.classList.add('reveal');
   });
 
-  // Feedback
   const fb = document.getElementById('quiz-feedback');
   fb.className = 'quiz-feedback show ' + (isRight ? 'ok' : 'bad');
   fb.innerHTML = (isRight ? '✓ Dobrze! ' : '✗ Niestety. ') + q.exp;
-
-  // Next button
-  const nextBtn = document.getElementById('quiz-next-btn');
-  nextBtn.classList.add('show');
+  document.getElementById('quiz-next-btn').classList.add('show');
 }
 
 function nextQuizQuestion() {
   quizState.current++;
-  if (quizState.current >= quizState.questions.length) {
-    showQuizResult();
-  } else {
-    renderQuizQuestion();
-  }
+  if (quizState.current >= quizState.questions.length) showQuizResult();
+  else renderQuizQuestion();
 }
 
 function showQuizResult() {
   const score = quizState.score;
   const total = quizState.questions.length;
   const pct = Math.round(score / total * 100);
-
   document.getElementById('quiz-progress-bar').style.width = '100%';
   document.getElementById('count-label').textContent = '';
 
   let emoji, msg;
-  if (pct >= 90) { emoji = '🏆'; msg = 'Wybitny wynik! Jesteś mistrzem historii Polski!'; }
+  if (pct >= 90) { emoji = '🏆'; msg = 'Wybitny wynik! Jesteś mistrzem historii.'; }
   else if (pct >= 70) { emoji = '🎉'; msg = 'Świetna robota! Znasz historię bardzo dobrze.'; }
   else if (pct >= 50) { emoji = '👍'; msg = 'Niezły wynik! Warto powtórzyć słabsze tematy.'; }
-  else { emoji = '📚'; msg = 'Jeszcze trochę nauki i będzie lepiej. Nie poddawaj się!'; }
+  else { emoji = '📚'; msg = 'Jeszcze trochę nauki i będzie lepiej!'; }
 
   document.getElementById('quiz-container').innerHTML = `
     <div class="quiz-result">
@@ -2020,90 +1942,14 @@ function showQuizResult() {
   `;
 }
 
-// ─── LOCAL STORAGE ────────────────────────────────────────────────────────
-const LS_EVENTS_KEY = 'notatki-szkolne-events';
-
-async function loadEvents() {
-  try {
-    const raw = localStorage.getItem(LS_EVENTS_KEY);
-    return raw ? JSON.parse(raw) : [];
-  } catch (e) {
-    console.error('loadEvents error:', e);
-    return [];
+// ─── HELPERS ──────────────────────────────────────────────────────────────
+function shuffleArray(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
   }
-}
-
-async function saveEvents(events) {
-  try {
-    localStorage.setItem(LS_EVENTS_KEY, JSON.stringify(events));
-  } catch (e) {
-    console.error('saveEvents error:', e);
-    showToast('Błąd zapisu!');
-    throw e;
-  }
-}
-
-// ─── EXPORT / IMPORT ──────────────────────────────────────────────────────
-function addShareBtn() {
-  if (document.getElementById('export-topbar-btn')) return;
-
-  const btnStyle = `background:transparent;border:1px solid var(--border);border-radius:8px;
-    padding:5px 12px;color:var(--text2);font-family:'DM Sans',sans-serif;font-size:.78rem;
-    cursor:pointer;transition:all .18s;`;
-  const hover = (btn) => {
-    btn.onmouseenter = () => { btn.style.borderColor='var(--border2)'; btn.style.color='var(--text)'; };
-    btn.onmouseleave = () => { btn.style.borderColor='var(--border)'; btn.style.color='var(--text2)'; };
-  };
-
-  // Export button
-  const exportBtn = document.createElement('button');
-  exportBtn.id = 'export-topbar-btn';
-  exportBtn.title = 'Eksportuj dane';
-  exportBtn.style.cssText = btnStyle;
-  exportBtn.textContent = '⬇ Eksport';
-  hover(exportBtn);
-  exportBtn.onclick = async () => {
-    const events = await loadEvents();
-    const blob = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'notatki-szkolne.json';
-    a.click();
-    URL.revokeObjectURL(url);
-    showToast('Wyeksportowano! ✓');
-  };
-
-  // Import button
-  const importBtn = document.createElement('button');
-  importBtn.title = 'Importuj dane';
-  importBtn.style.cssText = btnStyle;
-  importBtn.textContent = '⬆ Import';
-  hover(importBtn);
-  importBtn.onclick = () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = '.json,application/json';
-    input.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-      try {
-        const text = await file.text();
-        const data = JSON.parse(text);
-        if (!Array.isArray(data)) throw new Error('Nieprawidłowy format');
-        await saveEvents(data);
-        renderUpcoming();
-        showToast('Zaimportowano ' + data.length + ' wpisów ✓');
-      } catch (err) {
-        showToast('Błąd importu: nieprawidłowy plik');
-      }
-    };
-    input.click();
-  };
-
-  const right = document.querySelector('.topbar-right');
-  right.prepend(importBtn);
-  right.prepend(exportBtn);
+  return a;
 }
 
 function escHtml(str) {
@@ -2120,128 +1966,50 @@ function isPast(dateStr) {
   return new Date(dateStr + 'T00:00:00') < new Date(new Date().toDateString());
 }
 
-// ─── MODAL ────────────────────────────────────────────────────────────────
-let selectedType = 'sprawdzian';
-
-function openAddModal() {
-  // Populate subject select
-  const sel = document.getElementById('modal-subject');
-  sel.innerHTML = '<option value="">— Wybierz przedmiot —</option>';
-  subjects.forEach(s => {
-    const opt = document.createElement('option');
-    opt.value = s.id;
-    opt.textContent = s.icon + ' ' + s.name;
-    // Pre-select current subject if in subject/cards view
-    if (state.subject && state.subject.id === s.id) opt.selected = true;
-    sel.appendChild(opt);
-  });
-
-  // Pre-select current type if in cards view
-  if (state.type) {
-    selectedType = state.type.id;
-    document.querySelectorAll('.type-pill').forEach(p => {
-      p.classList.toggle('selected', p.dataset.type === selectedType);
-    });
-  }
-
-  // Set default date to 2026-05-20
-  document.getElementById('modal-date').value = '2026-05-20';
-  document.getElementById('modal-topic').value = '';
-
-  document.getElementById('modal-overlay').classList.add('visible');
-  document.getElementById('fab').classList.add('open');
-  setTimeout(() => document.getElementById('modal-topic').focus(), 350);
+// ─── TOAST ────────────────────────────────────────────────────────────────
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-function closeAddModal() {
-  document.getElementById('modal-overlay').classList.remove('visible');
-  document.getElementById('fab').classList.remove('open');
-}
+// ─── UPCOMING (read-only, seeded event) ───────────────────────────────────
+const LS_EVENTS_KEY = 'notatki-szkolne-events';
 
-function handleOverlayClick(e) {
-  if (e.target === document.getElementById('modal-overlay')) closeAddModal();
-}
-
-function selectType(typeId, btn) {
-  selectedType = typeId;
-  document.querySelectorAll('.type-pill').forEach(p => p.classList.remove('selected'));
-  btn.classList.add('selected');
-}
-
-async function saveEvent() {
-  const subject = document.getElementById('modal-subject').value;
-  const date = document.getElementById('modal-date').value;
-  const topic = document.getElementById('modal-topic').value.trim();
-
-  if (!subject || !date || !topic) {
-    showToast('Uzupełnij wszystkie pola!');
-    return;
-  }
-
-  const btn = document.getElementById('save-btn');
-  btn.disabled = true;
-  btn.textContent = 'Zapisuję…';
-
+function loadEvents() {
   try {
-    const events = await loadEvents();
-    const newEvent = {
-      id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6),
-      type: selectedType,
-      subject,
-      date,
-      topic,
-      createdAt: Date.now()
-    };
-    events.push(newEvent);
-    await saveEvents(events);
-
-    closeAddModal();
-    showToast('Dodano! ✓');
-    renderUpcoming();
-
-    if (state.view === 'cards' && state.subject?.id === subject && state.type?.id === selectedType) {
-      buildCards();
-    }
-  } catch (e) {
-    showToast('Błąd zapisu — spróbuj ponownie');
-  } finally {
-    btn.disabled = false;
-    btn.textContent = 'Zapisz';
-  }
+    const raw = localStorage.getItem(LS_EVENTS_KEY);
+    return raw ? JSON.parse(raw) : [];
+  } catch { return []; }
 }
 
-async function deleteEvent(id) {
-  const events = await loadEvents();
-  await saveEvents(events.filter(e => e.id !== id));
+function saveEvents(events) {
+  try { localStorage.setItem(LS_EVENTS_KEY, JSON.stringify(events)); } catch {}
+}
+
+function deleteEvent(id) {
+  saveEvents(loadEvents().filter(e => e.id !== id));
   renderUpcoming();
-  showToast('Usunięto');
 }
 
-async function deleteEventFromCards(id) {
-  await deleteEvent(id);
-  if (state.view === 'cards') buildCards();
-}
-
-// ─── UPCOMING LIST ────────────────────────────────────────────────────────
 const typeNames = { sprawdzian: 'Sprawdzian', kartkowka: 'Kartkówka', zd: 'Zad. domowe' };
-const typeIcons  = { sprawdzian: '📝', kartkowka: '📄', zd: '🏠' };
 
-async function renderUpcoming() {
-  const events = await loadEvents();
+function renderUpcoming() {
+  const events = loadEvents();
   const listEl = document.getElementById('upcoming-list');
   const countEl = document.getElementById('upcoming-count');
-
   listEl.innerHTML = '';
 
   if (events.length === 0) {
-    listEl.innerHTML = '<div class="upcoming-empty"><span>📅</span>Brak wpisów. Dodaj pierwszy klikając +</div>';
+    listEl.innerHTML = '<div class="upcoming-empty"><span>📅</span>Brak wpisów.</div>';
     countEl.textContent = '';
     return;
   }
 
-  countEl.textContent = events.length + ' wpisów';
-
-  // Sort: upcoming first, then past
+  countEl.textContent = events.length + (events.length === 1 ? ' wpis' : ' wpisów');
   const sorted = [...events].sort((a, b) => new Date(a.date) - new Date(b.date));
 
   sorted.forEach((ev, i) => {
@@ -2259,32 +2027,21 @@ async function renderUpcoming() {
       <span class="event-date-chip${past ? ' past' : ''}">${formatDate(ev.date)}</span>
       <button class="event-delete-btn" onclick="deleteEvent('${ev.id}')" title="Usuń">✕</button>
     `;
-    row.onclick = (e) => {
+    row.onclick = e => {
       if (e.target.classList.contains('event-delete-btn')) return;
-      if (subj) { goSubject(subj.id); }
+      if (subj) goSubject(subj.id);
     };
     listEl.appendChild(row);
   });
 }
 
-// ─── TOAST ────────────────────────────────────────────────────────────────
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
-}
-
-// Init upcoming on load
-(async () => {
-  // Seed historia sprawdzian with 20.05 date
+// ─── INIT ─────────────────────────────────────────────────────────────────
+(function init() {
   const SEED_KEY = 'notatki-seed-historia-sprawdzian-v2';
   if (!localStorage.getItem(SEED_KEY)) {
-    const events = await loadEvents();
-    const alreadyExists = events.some(e => e.subject === 'historia' && e.date === '2026-05-20' && e.type === 'sprawdzian');
-    if (!alreadyExists) {
+    const events = loadEvents();
+    const exists = events.some(e => e.subject === 'historia' && e.date === '2026-05-20' && e.type === 'sprawdzian');
+    if (!exists) {
       events.push({
         id: 'seed-historia-' + Date.now().toString(36),
         type: 'sprawdzian',
@@ -2293,19 +2050,17 @@ function showToast(msg) {
         topic: 'Polska Piastów, Rozbicie Dzielnicowe, Zjednoczenie Polski',
         createdAt: Date.now()
       });
-      await saveEvents(events);
+      saveEvents(events);
     }
     localStorage.setItem(SEED_KEY, '1');
   }
   renderUpcoming();
 })();
-addShareBtn();
 
 // ─── THEME TOGGLE ─────────────────────────────────────────────────────────
 const toggleBtn = document.getElementById('themeToggle');
 const html = document.documentElement;
-const saved = localStorage.getItem('theme') || 'dark';
-html.setAttribute('data-theme', saved);
+html.setAttribute('data-theme', localStorage.getItem('theme') || 'dark');
 
 toggleBtn.addEventListener('click', () => {
   const next = html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
@@ -2313,11 +2068,9 @@ toggleBtn.addEventListener('click', () => {
   localStorage.setItem('theme', next);
 });
 
-// Close modal on Escape
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeAddModal();
+  if (e.key === 'Escape' && state.view === 'flashcards') goSubject(fcState.backSubject || 'historia');
 });
 </script>
-
 </body>
 </html>
